@@ -1,0 +1,32 @@
+[
+	{
+		"title": "Start",
+		"tags": "",
+		"body": "Jorge: Hoa bebé!\nSilvia: Hoa bebito!\nJorge: Qué tal??\n \n[[Answer:Node1|Node1]] \n[[Answer:Node2|Node2]]",
+		"position": {
+			"x": 409,
+			"y": 25
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Node1",
+		"tags": "",
+		"body": "Empty Text",
+		"position": {
+			"x": 220,
+			"y": 320
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Node2",
+		"tags": "",
+		"body": "Empty Text",
+		"position": {
+			"x": 591,
+			"y": 314
+		},
+		"colorID": 0
+	}
+]

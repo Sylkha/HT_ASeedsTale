@@ -1,0 +1,66 @@
+title: Ahora
+tags: 
+colorID: 0
+position: 608,-113
+---
+<<if $Note1 is false>>
+<<canMove Player false>>
+Jorge: Hoa bebé!
+Silvia: Hoa bebito!
+Jorge: Vas a coger la nota??
+ 
+[[Silvia:Si, claro |Node1]] 
+[[Silvia:Hmmm no|Node2]]
+<<else>>
+<<canMove Player false>>
+Jorge: Ya has cogido la carta!
+<<canMove Player true>>
+<<stop>>
+<<endif>>
+===
+
+
+title: Node1
+tags: 
+colorID: 0
+position: 419,182
+---
+<<set $Note1 to true>>
+<<take Cube Note1>>
+Jorge: y eso?? qué ha pasado??
+Silvia: buedooo, el yarn spinner
+Silvia: ya sigo otro dia
+<<canMove Player true>>
+===
+
+title: Node2
+tags: 
+colorID: 0
+position: 790,176
+---
+Jorge: Bueno, descansa un poquito
+Silvia: Vale, pues vamos a jugar un ratito!
+Jorge: lesgooo
+<<canMove Player true>>
+===
+
+title: NodeFinal
+tags: 
+colorID: 0
+position: 790,176
+---
+<<canMove Player false>>
+Jorge: BebEEEEEEEEEE
+Silvia: AAAAAAAAA
+<<canMove Player true>>
+===
+
+title: NodeStart
+tags: 
+colorID: 0
+position: 790,176
+---
+<<canMove Player false>>
+Jorge: Vas a dejar de dar error?????
+<<canMove Player true>>
+===
