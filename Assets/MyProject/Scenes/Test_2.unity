@@ -414,6 +414,16 @@ PrefabInstance:
       propertyPath: notes.Array.data[0].ourObject
       value: 
       objectReference: {fileID: 1132379102}
+    - target: {fileID: 7996093996708580346, guid: 3211ec0db093eda4f9918c63b4db4d94,
+        type: 3}
+      propertyPath: notes.Array.data[0].n_NotTakenMission
+      value: Ahora
+      objectReference: {fileID: 0}
+    - target: {fileID: 7996093996708580346, guid: 3211ec0db093eda4f9918c63b4db4d94,
+        type: 3}
+      propertyPath: notes.Array.data[0].n_TakenMission
+      value: NodeStart
+      objectReference: {fileID: 0}
     - target: {fileID: 7996093996708580348, guid: 3211ec0db093eda4f9918c63b4db4d94,
         type: 3}
       propertyPath: m_Name
@@ -1082,11 +1092,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectibleObject
       objectReference: {fileID: 0}
+    - target: {fileID: 5350752042407316130, guid: ba1dc869ec1a6e446823708d2d66ded0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5350752042407316132, guid: ba1dc869ec1a6e446823708d2d66ded0,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5350752042407316132, guid: ba1dc869ec1a6e446823708d2d66ded0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5350752042407316134, guid: ba1dc869ec1a6e446823708d2d66ded0,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -32,6 +32,8 @@ public class CollectibleObject : MonoBehaviour
         SetNode(n_NotTakenMission);
     }
 
+    // Esto lo llamamos cuando es un objeto de misión desde el MissionNotes, y desde el comando si es un coleccionable
+    [Yarn.Unity.YarnCommand("takeCollectable")]
     public void SetCollected()
     {
         dl.StartDialogue(dialogue.talkToNode);
@@ -44,12 +46,9 @@ public class CollectibleObject : MonoBehaviour
             if (positionDelivered != null)
             {
                 this.gameObject.transform.position = positionDelivered.position;
-                //de alguna manera tenemos que poner en true que este objeto con su nota ya están terminados para que el personaje no vuelva a decir la nota
-                //y que no vuelva a coger esa misma nota.
-                if (!missionObject)
-                {
+
+                if(missionObject)
                     SetDelivered();
-                }
             }
         }
     }
@@ -58,6 +57,7 @@ public class CollectibleObject : MonoBehaviour
     {
         delivered = true;
         this.gameObject.SetActive(true);
+        Debug.Log("HEMOS COGIDO EL OBJETO");
     }
    
     public void SetNoteTaken()

@@ -59,6 +59,7 @@ public class MissionNotes : MonoBehaviour
             if (notes[i].ourObject.GetCollected())
             {
                 notes[i].dialogue.talkToNode = notes[i].n_FinishedMission;
+                notes[i].ourObject.SetCollected();
             }
         }
     }

@@ -38,7 +38,7 @@ public class PlayerCollisions : MonoBehaviour
             if (Input.GetButton("Interaction"))
             {
                 collision.gameObject.GetComponent<CollectibleObject>().SetCollected();
-                Debug.Log("HEMOS COGIDO EL OBJETO");
+
             }
         }
         
