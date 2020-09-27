@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
 
 // This script is contained by MenuManager
 public class Menus : MonoBehaviour
@@ -9,6 +10,9 @@ public class Menus : MonoBehaviour
     [SerializeField] Canvas canvas;
     [SerializeField] string sceneName;
 
+    [SerializeField] bool needSave;
+    [ShowIf("needSave")] [SerializeField] DataManager dm;
+    
     bool show = false;
 
     // Start is called before the first frame update
@@ -16,24 +20,30 @@ public class Menus : MonoBehaviour
     {
         if(canvas != null)
             canvas.enabled = false;
+
+        StartCoroutine(CUpdate());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator CUpdate()
     {
-        if (canvas == null) return;
-        if (Input.GetButton("Cancel")) // Esc
+        while (true)
         {
-            if(show == false)
+            if (canvas == null) yield return null;
+            if (Input.GetButton("Cancel")) // Esc
             {
-                canvas.enabled = true;
-                show = true;
+                if (show == false)
+                {
+                    canvas.enabled = true;
+                    show = true;
+                }
+                else
+                {
+                    ResumeButton();
+                }
+                Debug.Log("Menu");
+                yield return new WaitForSeconds(0.5f);
             }
-            else
-            {
-                ResumeButton();
-            }
-            Debug.Log("Menu");
+            yield return null;
         }
     }
 
@@ -48,6 +58,7 @@ public class Menus : MonoBehaviour
     public void SaveButton()
     {
         // Guardamos
+        dm.Save();
         Debug.Log("Save");
     }
 
@@ -55,6 +66,7 @@ public class Menus : MonoBehaviour
     {
         // Guardamos
         Debug.Log("Save and Exit");
+        dm.Save();
         Application.Quit();
     }
 

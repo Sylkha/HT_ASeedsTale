@@ -21,8 +21,11 @@ public class DataSave: MonoBehaviour
     public void save_Variables(Transform _player, InMemoryVariableStorage _memoryVariable)
     {
         x_position = _player.position.x;
+        y_position = _player.position.y;
+        z_position = _player.position.z;
 
         x_rotation = _player.rotation.eulerAngles.x; // comprobar si con eulerAngles o sin eulerAngles
+        y_rotation = _player.rotation.eulerAngles.y;
 
         ship = _memoryVariable.GetValue("$ship_something").AsBool;
         

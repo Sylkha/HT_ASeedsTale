@@ -28,7 +28,7 @@ public class Movement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform playerCameraParent;  // Pivot of the camera (son)
     [SerializeField] Transform model;               // Reference to the model of the character (son)
-    [SerializeField] Transform waterPlane;          // Reference to the water plane
+    
     [SerializeField] Transform centerWater;         // Reference to the point of the Character 
 
 
@@ -86,7 +86,7 @@ public class Movement : MonoBehaviour
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
             GroundMovement();
 
-        else if (typeMovement == Terrain.swimming)
+        else if (typeMovement == Terrain.swimming) 
             SwimmingMovement();
 
         Animate();
@@ -102,18 +102,15 @@ public class Movement : MonoBehaviour
         float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
 
-        //if (canMove == false)
-        //   return;
-
-        // Rotate model left-right
-        model.Rotate(Vector3.up * curSpeedY);
-
         // Grounded
         if (characterController.isGrounded)
         {
             GlideAttributes(gravityConst, speedConst);
             // We are grounded, so recalculate move direction based on axes
             moveDirection = (forward * curSpeedX); // + (right * curSpeedY);
+
+            // Rotate model left-right
+            model.Rotate(Vector3.up * curSpeedY);
 
             if (curSpeedX == 0 && curSpeedY == 0)
                 charAnimation = CharAnimation.idle;
@@ -136,6 +133,10 @@ public class Movement : MonoBehaviour
             {
                 GlideAttributes(gravityGlide, speedGlide);
                 moveDirection = forward * speed;
+
+                // Rotate model left-right
+                model.Rotate(Vector3.up * curSpeedY);
+               // model.Rotate(new Vector3(0, curSpeedY, ClampAngle(curSpeedY,-10,10)));
             }
             // We're not gliding
             else
@@ -152,7 +153,7 @@ public class Movement : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
 
         // Player and Camera rotation
-        if (canMove)
+       /* if (canMove)
         {
             if (Input.GetButton("RightClick"))
             {
@@ -162,7 +163,7 @@ public class Movement : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)          
                 playerCameraParent.rotation = Quaternion.Lerp(playerCameraParent.rotation, model.rotation, cameraDelay * Time.deltaTime);
 
-        }
+        }*/
     }
 
     #region Fly and Jump
@@ -186,6 +187,8 @@ public class Movement : MonoBehaviour
     #endregion Ground Movement
 
     #region Swimming Movement
+    #region Swimming Bad
+    /*
     bool water_Up;  // Si está en superficie (no parece solucionar mucho)
     private Vector3 cameraRotation;
     private Vector3 modelRotation;
@@ -250,31 +253,48 @@ public class Movement : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) // La camara que siga en el eje X e Y al personaje
             {
 
-                // float toRotateX = Input.GetAxis("Mouse Y") * /*Time.deltaTime * */ rotationSpeed;
+                // float toRotateX = Input.GetAxis("Mouse Y") * /*Time.deltaTime * */
+    //rotationSpeed;
 
-                // cameraRotation.x = rotationCamera.x + toRotateX;
-                // cameraRotation.x = ClampAngle(targetRotation.x, 60, -60);
+    // cameraRotation.x = rotationCamera.x + toRotateX;
+    // cameraRotation.x = ClampAngle(targetRotation.x, 60, -60);
 
-                // cameraRotation.y = rotationCamera.y + (playerCameraParent.localEulerAngles.y - model.localEulerAngles.y); // * Input.GetAxis("Vertical");
-               // Debug.Log(playerCameraParent.localEulerAngles.y - model.localEulerAngles.y);
+    // cameraRotation.y = rotationCamera.y + (playerCameraParent.localEulerAngles.y - model.localEulerAngles.y); // * Input.GetAxis("Vertical");
+    // Debug.Log(playerCameraParent.localEulerAngles.y - model.localEulerAngles.y);
 
-                // Movemos la cámara junto con el personaje.
-                cameraRotation = playerCameraParent.localEulerAngles;
+    // Movemos la cámara junto con el personaje.
+    /*      cameraRotation = playerCameraParent.localEulerAngles;
 
-                cameraRotation.y = (model.localEulerAngles.y > 180) ? model.localEulerAngles.y - 360 : model.localEulerAngles.y;
+          cameraRotation.y = (model.localEulerAngles.y > 180) ? model.localEulerAngles.y - 360 : model.localEulerAngles.y;
 
-                // Pasamos los euler a Quaternion
-                Quaternion rotationCamera = Quaternion.Euler(cameraRotation);
+          // Pasamos los euler a Quaternion
+          Quaternion rotationCamera = Quaternion.Euler(cameraRotation);
 
-                //cameraRotation.y = Mathf.Lerp(playerCameraParent.localEulerAngles.y, cameraRotation.y, 0.8f);
-                // rotationCamera = Vector3.Lerp(playerCameraParent.localEulerAngles, cameraRotation, 0.9f);
+          //cameraRotation.y = Mathf.Lerp(playerCameraParent.localEulerAngles.y, cameraRotation.y, 0.8f);
+          // rotationCamera = Vector3.Lerp(playerCameraParent.localEulerAngles, cameraRotation, 0.9f);
 
-                playerCameraParent.localRotation = Quaternion.Lerp(playerCameraParent.rotation, rotationCamera, cameraDelay * Time.deltaTime);
-            }
-        }
+          playerCameraParent.localRotation = Quaternion.Lerp(playerCameraParent.rotation, rotationCamera, cameraDelay * Time.deltaTime);
+      }
+  }
 
+}
+*/
+    #endregion Swimming Bad
+
+    void SwimmingMovement()
+    {
+        // Recalculate axes 
+        Vector3 forward = model.TransformDirection(Vector3.forward);
+        Vector3 right = model.TransformDirection(Vector3.right);
+
+        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
+
+        moveDirection = (forward * curSpeedX); // + (right * curSpeedY);
+
+        // Rotate model left-right
+        model.Rotate(Vector3.up * curSpeedY);
     }
-
 
     private Vector3 targetRotation;
     void RotateWithLimits(Transform _objectToRotate, float _rotationSpeed, float _minRotation, float _maxRotation)
