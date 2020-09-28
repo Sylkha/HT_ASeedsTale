@@ -18,6 +18,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float speedGlide = 10.0f;
     [SerializeField] float gravityGlide = 150.0f;
 
+    [Header("Swimming")]
+    [SerializeField, Range(0f, 10f)] float waterDrag = 1f;
+
     [Header("Camera")]
     [SerializeField] float cameraDelay = 10f;
 
@@ -28,10 +31,8 @@ public class Movement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform playerCameraParent;  // Pivot of the camera (son)
     [SerializeField] Transform model;               // Reference to the model of the character (son)
-    
+    [SerializeField] Animator anim;
     [SerializeField] Transform centerWater;         // Reference to the point of the Character 
-
-
 
     public enum Terrain
     {
@@ -41,25 +42,6 @@ public class Movement : MonoBehaviour
     }
     [Header("Terrain Movement")]
     public Terrain typeMovement;
-
-    /*
-    [Header("Animations")]
-    [SerializeField] AnimationClip idle;
-    [SerializeField] AnimationClip walk;
-    [SerializeField] AnimationClip run;
-    [SerializeField] AnimationClip jump_pose;
-    */
-
-
-    private enum CharAnimation
-    {
-        idle,
-        walking,
-        running,
-        jumping,
-        swimming
-    }
-    private CharAnimation charAnimation;
 
     float speedConst;
     float gravityConst;
@@ -78,7 +60,6 @@ public class Movement : MonoBehaviour
         gravityConst = gravity;
 
         targetRotation = model.localEulerAngles;
-       // typeMovement = Terrain.grounded;
     }
 
     void FixedUpdate()
@@ -89,7 +70,6 @@ public class Movement : MonoBehaviour
         else if (typeMovement == Terrain.swimming) 
             SwimmingMovement();
 
-        Animate();
     }
 
     #region Ground Movement
@@ -102,6 +82,10 @@ public class Movement : MonoBehaviour
         float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
 
+        if (curSpeedX != 0)
+            anim.SetInteger("Movement", 1);
+        else anim.SetInteger("Movement", 0);
+
         // Grounded
         if (characterController.isGrounded)
         {
@@ -112,18 +96,12 @@ public class Movement : MonoBehaviour
             // Rotate model left-right
             model.Rotate(Vector3.up * curSpeedY);
 
-            if (curSpeedX == 0 && curSpeedY == 0)
-                charAnimation = CharAnimation.idle;
-
             // Jump action
             if (Input.GetButton("Jump") && canMove && platformJump == false)
             {
                 Jump(jumpSpeed);
             }
-            else
-            {
-                charAnimation = CharAnimation.walking;
-            }
+
         }
         // Not Grounded
         else
@@ -172,7 +150,6 @@ public class Movement : MonoBehaviour
     {
         moveDirection = model.forward * 2;
         moveDirection.y = _jumpSpeed;
-        charAnimation = CharAnimation.jumping;
     }
 
     void GlideAttributes(float _gravity, float _speed)
@@ -283,6 +260,10 @@ public class Movement : MonoBehaviour
 
     void SwimmingMovement()
     {
+        WaterAttributes(0, waterDrag);
+
+        Debug.Log(speed);
+
         // Recalculate axes 
         Vector3 forward = model.TransformDirection(Vector3.forward);
         Vector3 right = model.TransformDirection(Vector3.right);
@@ -292,8 +273,37 @@ public class Movement : MonoBehaviour
 
         moveDirection = (forward * curSpeedX); // + (right * curSpeedY);
 
+        // Move the controller
+        characterController.Move(moveDirection * Time.deltaTime);
+
         // Rotate model left-right
         model.Rotate(Vector3.up * curSpeedY);
+
+        if (curSpeedX != 0)
+            anim.SetInteger("Movement", 6);
+        else anim.SetInteger("Movement", 7);
+    }
+
+    void WaterAttributes(float _gravity, float _waterDrag)
+    {
+        gravity = _gravity;
+        speed = speedConst * (1 - _waterDrag);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   // Si está en el agua a X distancia sumergido pues a nadar
+        if(other.tag == "Water")
+        {
+            typeMovement = Terrain.swimming;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Water")
+        {
+            typeMovement = Terrain.grounded;
+        }
     }
 
     private Vector3 targetRotation;
@@ -325,55 +335,6 @@ public class Movement : MonoBehaviour
 
     #endregion Swimming Movement
 
-    #region Animations
-
-    bool reachedApex = false;
-    void ApplyGravity()
-    {
-        if (!characterController.isGrounded)
-        {
-            if (moveDirection.y > 0f)
-            {
-                reachedApex = false;
-
-            }
-            else
-            {
-                reachedApex = true;
-
-            }
-        }
-    }
-
-    void Animate()
-    {
-        if (charAnimation == CharAnimation.jumping)
-        {
-            if (!reachedApex)
-            {
-                //play forward jumping animations
-               // animation["jump_pose"].speed = .3f;
-               // animation.CrossFade("jump_pose");
-            }
-            else
-            {
-                //play reverse jumping animations//aka falling
-                //animation["jump_pose"].speed = -.195f;
-                //animation.CrossFade("jump_pose");
-
-            }
-        }
-        else if (charAnimation == CharAnimation.walking)
-        {
-            //animation.CrossFade("walk");
-        }
-        else if (charAnimation == CharAnimation.idle)
-        {
-            //animation.CrossFade("idle");
-        }
-    }
-
-    #endregion Animations
 
     #region Dialogue Commands
 
