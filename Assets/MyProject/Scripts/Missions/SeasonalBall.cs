@@ -49,17 +49,24 @@ public class SeasonalBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.layer);
-        Debug.Log(season_hide.value);
-        if(other.gameObject.layer == season_hide)
-        {
-            other.gameObject.SetActive(false);
-            Debug.Log("ocultao");
-        }
-        else if (other.gameObject.layer == season_show.value)
+        if (IsInLayerMask(other.gameObject.layer, season_show))
         {
             other.gameObject.SetActive(true);
             Debug.Log("aparece");
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (IsInLayerMask(other.gameObject.layer, season_hide))
+        {
+            other.gameObject.SetActive(false);
+            Debug.Log("ocultao");
+        }
+    }
+
+    // Esto luego lo llevamos a un script con más statics.
+    public static bool IsInLayerMask(int layer, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << layer));
     }
 }

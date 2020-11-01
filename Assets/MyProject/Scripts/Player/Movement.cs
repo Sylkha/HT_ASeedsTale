@@ -2,37 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Cámara arriba y abajo? Script sujeto a cambios.
 
 //This script is contained by the player, father of the model.
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float speed = 7.5f;
-    [SerializeField] float jumpSpeed = 10.0f;
-    [SerializeField] float gravity = 20.0f;
-    [SerializeField] float rotationSpeed = 1;
-    
+    [SerializeField] float speed_Ground = 7.5f;
+    [SerializeField] float jumpSpeed_Ground = 10.0f;
+    [SerializeField] float gravity_Ground = 20.0f;
+    [SerializeField] float turnSmoothTime_Ground = 0.1f;
+    float fallVelocity = 0;
+    float turnSmoothVelocity;
+    Vector3 direction;                                  // Movement
+
     [Header("Glide")]
-    [SerializeField] float speedGlide = 10.0f;
-    [SerializeField] float gravityGlide = 150.0f;
+    [SerializeField] float speed_Glide = 10.0f;
+    [SerializeField] float gravity_Glide = 150.0f;
+    [SerializeField] float turnSmoothTime_Glide = 0.1f;
 
     [Header("Swimming")]
+    [SerializeField] float speed_Swim = 10.0f;
     [SerializeField, Range(0f, 10f)] float waterDrag = 1f;
-
-    [Header("Camera")]
-    [SerializeField] float cameraDelay = 10f;
+    [SerializeField, Min(0.1f)] float submergenceOffset = 0.5f;
+    [SerializeField] float turnSmoothTime_Swim = 0.1f;
+    float diving = 0.5f;
 
     [Header("Rotation")]    // Min and Max Rotation while swimming
     [SerializeField] float minRotX = -60;   
     [SerializeField] float maxRotX = 60;
     
     [Header("References")]
-    [SerializeField] Transform playerCameraParent;  // Pivot of the camera (son)
     [SerializeField] Transform model;               // Reference to the model of the character (son)
     [SerializeField] Animator anim;
     [SerializeField] Transform centerWater;         // Reference to the point of the Character 
+
+
+    float speed;
+    float jumpSpeed;
+    float gravity;
+    float turnSmoothTime;
 
     public enum Terrain
     {
@@ -43,21 +52,18 @@ public class Movement : MonoBehaviour
     [Header("Terrain Movement")]
     public Terrain typeMovement;
 
-    float speedConst;
-    float gravityConst;
-    CharacterController characterController;
-    Vector3 moveDirection = Vector3.zero;
 
+    bool glide = false;
     [HideInInspector]
     public bool canMove = true;
     [HideInInspector]
     public bool platformJump = false;
+    
+    CharacterController characterController;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        speedConst = speed;
-        gravityConst = gravity;
 
         targetRotation = model.localEulerAngles;
     }
@@ -71,230 +77,153 @@ public class Movement : MonoBehaviour
             SwimmingMovement();
 
     }
+    
+    void BasicMovement()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
+        if (direction.magnitude >= 0.1f && (characterController.isGrounded || typeMovement == Terrain.swimming || glide == true))
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        }      
+    }
 
     #region Ground Movement
     void GroundMovement()
     {
-        // Recalculate axes 
-        Vector3 forward = model.TransformDirection(Vector3.forward);
-        Vector3 right = model.TransformDirection(Vector3.right);
-
-        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
-
-        if (curSpeedX != 0)
-            anim.SetInteger("Movement", 1);
-        else anim.SetInteger("Movement", 0);
+        BasicMovement();
 
         // Grounded
         if (characterController.isGrounded)
         {
-            GlideAttributes(gravityConst, speedConst);
-            // We are grounded, so recalculate move direction based on axes
-            moveDirection = (forward * curSpeedX); // + (right * curSpeedY);
+            typeMovement = Terrain.grounded;
+            GroundAttributes();
+            if (characterController.velocity.magnitude != 0)
+                anim.SetInteger("Movement", 1);
+            else anim.SetInteger("Movement", 0);
 
-            // Rotate model left-right
-            model.Rotate(Vector3.up * curSpeedY);
-
-            // Jump action
-            if (Input.GetButton("Jump") && canMove && platformJump == false)
-            {
-                Jump(jumpSpeed);
-            }
-
+            platformJump = false;
+            glide = false;           
         }
         // Not Grounded
         else
         {
+            typeMovement = Terrain.flying;
             // Glide action 
-            if (Input.GetButton("Glide"))
+            if (glide == true)
             {
-                GlideAttributes(gravityGlide, speedGlide);
-                moveDirection = forward * speed;
-
-                // Rotate model left-right
-                model.Rotate(Vector3.up * curSpeedY);
-               // model.Rotate(new Vector3(0, curSpeedY, ClampAngle(curSpeedY,-10,10)));
+              //  Debug.Log("glide");
+                GlideAttributes();
             }
             // We're not gliding
             else
             {
-                GlideAttributes(gravityConst, speedConst);
-            }
+              //  Debug.Log("no glide");
+                GroundAttributes();
+            }          
         }
-        // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
-        // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
-        // as an acceleration (ms^-2)
-        moveDirection.y -= gravity * Time.deltaTime;
 
-        // Move the controller
-        characterController.Move(moveDirection * Time.deltaTime);
+        Gravity();
+        // Here we have jump so we need it to be called after gravity
+        PlayerSkills();
 
-        // Player and Camera rotation
-       /* if (canMove)
-        {
-            if (Input.GetButton("RightClick"))
-            {
-                playerCameraParent.Rotate(Vector3.up * Input.GetAxis("Mouse X") * 5);
-                return;
-            }
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)          
-                playerCameraParent.rotation = Quaternion.Lerp(playerCameraParent.rotation, model.rotation, cameraDelay * Time.deltaTime);
-
-        }*/
+        characterController.Move(direction * Time.deltaTime);
     }
 
-    #region Fly and Jump
+    // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
+    // when the direction is multiplied by deltaTime). This is because gravity should be applied
+    // as an acceleration (ms^-2)
+    void Gravity()
+    {
+        if (characterController.isGrounded)
+        {           
+            fallVelocity = -gravity * Time.deltaTime;
+        }
+        else
+        {
+            fallVelocity -= gravity * Time.deltaTime;
+        }
+        direction.y = fallVelocity;
+    }
+
+    void PlayerSkills()
+    {
+        if (typeMovement == Terrain.grounded && Input.GetButton("JumpGlide") && canMove && platformJump == false)
+        {        
+            Jump(jumpSpeed);           
+        }
+        if (typeMovement == Terrain.flying && Input.GetButton("JumpGlide"))
+        {
+            glide = !glide;
+        }
+        if(typeMovement == Terrain.swimming)
+        {
+            direction.y = 0;
+            if (Input.GetMouseButton(0))
+            {
+                direction.y = diving;
+            }
+            if (Input.GetMouseButton(1))
+            {
+                direction.y = -diving;
+            }
+        }
+    }
 
     public void Jump(float _jumpSpeed)
     {
-        moveDirection = model.forward * 2;
-        moveDirection.y = _jumpSpeed;
+        if (characterController.isGrounded)
+        {
+            fallVelocity = _jumpSpeed;
+            direction.y = fallVelocity;
+            // We turn it true so at the moment we press for Jump, it turns false.
+            glide = true;
+        }
     }
-
-    void GlideAttributes(float _gravity, float _speed)
-    {
-        gravity = _gravity;
-        speed = _speed;
-        //Aquí la animación se le pasa por parametro también.
-    }
-
-    #endregion Fly and Jump
 
     #endregion Ground Movement
 
     #region Swimming Movement
-    #region Swimming Bad
-    /*
-    bool water_Up;  // Si está en superficie (no parece solucionar mucho)
-    private Vector3 cameraRotation;
-    private Vector3 modelRotation;
-    void SwimmingMovement()
-    {
-        // Si estamos en la parte de arriba del agua: si tenemos el eje X mirando hacia arriba, 
-        // colocamos al personaje para que no se pase de altura de agua y el eje lo dejamos para que ya solo vaya de frente
-        if((centerWater.position.y - waterPlane.position.y) <= 0 && Mathf.Abs(centerWater.position.y - waterPlane.position.y) < 0.7f) {
-            if((model.localRotation.eulerAngles.x) > 180)  // Entre 0 y 90 está mirando hacia abajo, no podemos permitirle más. Desde 0 hasta 360 - 90 está mirando hacia arriba (también habría que limitarlo).
-            {
-                if(water_Up == false)
-                {
-                    modelRotation = model.localEulerAngles;
-                    modelRotation.x = 0;
-                    Quaternion rotationModel = Quaternion.Euler(modelRotation);
-
-                    model.localRotation = Quaternion.Lerp(model.rotation, rotationModel, 0.7f);
-
-                    water_Up = true;
-                }
-
-                if (water_Up == true)
-                {
-                    modelRotation = model.localEulerAngles;
-                    modelRotation.x = 0;
-
-                    model.localEulerAngles = modelRotation;
-
-                    Debug.Log("Hey!");
-                }
-            }
-            //Debug.Log(Mathf.Abs(centerWater.position.y - waterPlane.position.y) );
-        }
-
-        else
-        {
-            water_Up = false;
-        }
-
-        // Recalculate axes 
-        Vector3 forward = model.TransformDirection(Vector3.forward);
-        Vector3 right = model.TransformDirection(Vector3.right);
-
-        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
-
-        // Rotate model left-right
-        model.Rotate(Vector3.up * curSpeedY);
-
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-
-        // Move the controller
-        characterController.Move(moveDirection * Time.deltaTime);
-
-        // Player and Camera rotation
-        if (canMove)
-        {
-            if (Input.GetButton("RightClick"))
-            {
-                RotateWithLimits(model, rotationSpeed, minRotX, maxRotX);
-            }
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) // La camara que siga en el eje X e Y al personaje
-            {
-
-                // float toRotateX = Input.GetAxis("Mouse Y") * /*Time.deltaTime * */
-    //rotationSpeed;
-
-    // cameraRotation.x = rotationCamera.x + toRotateX;
-    // cameraRotation.x = ClampAngle(targetRotation.x, 60, -60);
-
-    // cameraRotation.y = rotationCamera.y + (playerCameraParent.localEulerAngles.y - model.localEulerAngles.y); // * Input.GetAxis("Vertical");
-    // Debug.Log(playerCameraParent.localEulerAngles.y - model.localEulerAngles.y);
-
-    // Movemos la cámara junto con el personaje.
-    /*      cameraRotation = playerCameraParent.localEulerAngles;
-
-          cameraRotation.y = (model.localEulerAngles.y > 180) ? model.localEulerAngles.y - 360 : model.localEulerAngles.y;
-
-          // Pasamos los euler a Quaternion
-          Quaternion rotationCamera = Quaternion.Euler(cameraRotation);
-
-          //cameraRotation.y = Mathf.Lerp(playerCameraParent.localEulerAngles.y, cameraRotation.y, 0.8f);
-          // rotationCamera = Vector3.Lerp(playerCameraParent.localEulerAngles, cameraRotation, 0.9f);
-
-          playerCameraParent.localRotation = Quaternion.Lerp(playerCameraParent.rotation, rotationCamera, cameraDelay * Time.deltaTime);
-      }
-  }
-
-}
-*/
-    #endregion Swimming Bad
 
     void SwimmingMovement()
     {
-        WaterAttributes(0, waterDrag);
+        WaterAttributes();
+        BasicMovement();
+        PlayerSkills();
 
-        Debug.Log(speed);
-
-        // Recalculate axes 
-        Vector3 forward = model.TransformDirection(Vector3.forward);
-        Vector3 right = model.TransformDirection(Vector3.right);
-
-        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? rotationSpeed * Input.GetAxis("Horizontal") : 0;
-
-        moveDirection = (forward * curSpeedX); // + (right * curSpeedY);
-
-        // Move the controller
-        characterController.Move(moveDirection * Time.deltaTime);
-
-        // Rotate model left-right
-        model.Rotate(Vector3.up * curSpeedY);
-
-        if (curSpeedX != 0)
+        if (characterController.velocity.magnitude != 0)
             anim.SetInteger("Movement", 6);
         else anim.SetInteger("Movement", 7);
+
+        characterController.Move(direction * Time.deltaTime);
     }
 
-    void WaterAttributes(float _gravity, float _waterDrag)
-    {
-        gravity = _gravity;
-        speed = speedConst * (1 - _waterDrag);
-    }
+    void EvaluateSubmergence()
+    {/*
+        if (Physics.Raycast(
+            model.position + Vector3.up * submergenceOffset,
+            -Vector3.up, out RaycastHit hit, submergenceRange,
+            waterMask, QueryTriggerInteraction.Collide
 
-    private void OnTriggerEnter(Collider other)
-    {   // Si está en el agua a X distancia sumergido pues a nadar
-        if(other.tag == "Water")
+        ))
+        {
+            submergence = 1f - hit.distance / submergenceRange;
+        }*/
+    }
+    private void OnTriggerStay(Collider other)
+    {   // Si está en el agua a X distancia sumergido pues a nadar        
+        RaycastHit hit;
+        if (other.tag == "Water" && Physics.Raycast(centerWater.position, Vector3.down, out hit, submergenceOffset))
         {
             typeMovement = Terrain.swimming;
+        }
+        else if(other.tag == "Water" && !Physics.Raycast(centerWater.position, Vector3.down, out hit, submergenceOffset))
+        {
+            typeMovement = Terrain.grounded;
         }
     }
 
@@ -335,6 +264,29 @@ public class Movement : MonoBehaviour
 
     #endregion Swimming Movement
 
+    #region Attributes
+    void GroundAttributes()
+    {
+        speed = speed_Ground;
+        jumpSpeed = jumpSpeed_Ground;
+        gravity = gravity_Ground;
+        turnSmoothTime = turnSmoothTime_Ground;
+    }
+    void GlideAttributes()
+    {
+        speed = speed_Glide;
+        jumpSpeed = 0;
+        gravity = gravity_Glide;
+        turnSmoothTime = turnSmoothTime_Glide;
+    }
+    void WaterAttributes()
+    {
+        speed = speed_Swim * (1 - waterDrag);
+        jumpSpeed = 0;
+        gravity = 0;
+        turnSmoothTime = turnSmoothTime_Swim;
+    }
+    #endregion Attributes
 
     #region Dialogue Commands
 

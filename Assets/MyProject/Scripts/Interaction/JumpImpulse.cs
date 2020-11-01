@@ -24,6 +24,7 @@ public class JumpImpulse : MonoBehaviour
         if (other.GetComponent<Movement>())
         {
             other.GetComponent<Movement>().Jump(impulse);
+            other.GetComponent<Movement>().platformJump = true;
             Debug.Log("oye");
         }
     }

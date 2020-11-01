@@ -118,7 +118,5 @@ public class SeasonsManager : MonoBehaviour
             SwitchSeasons();
             // Debug.Log("distinta season, vamos a cambiar de estación.");
         }
-        else;
-            //Debug.Log("estas accediendo a la misma estación a la que estabas");
     }
 }
