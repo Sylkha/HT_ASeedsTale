@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
+    #region Variables
+
     [Header("Movement")]
     [SerializeField] float speed_Ground = 7.5f;
     [SerializeField] float jumpSpeed_Ground = 10.0f;
@@ -26,7 +28,9 @@ public class Movement : MonoBehaviour
     [SerializeField, Range(0f, 10f)] float waterDrag = 1f;
     [SerializeField, Min(0.1f)] float submergenceOffset = 0.5f;
     [SerializeField] float turnSmoothTime_Swim = 0.1f;
-    float diving = 0.5f;
+    [SerializeField] float diving = 5f;
+    [SerializeField] float radioWaterDetect = 0.6f;
+    float WaterLevel;
 
     [Header("Rotation")]    // Min and Max Rotation while swimming
     [SerializeField] float minRotX = -60;   
@@ -47,6 +51,7 @@ public class Movement : MonoBehaviour
     {
         grounded,
         swimming,
+        diving,
         flying
     }
     [Header("Terrain Movement")]
@@ -61,6 +66,8 @@ public class Movement : MonoBehaviour
     
     CharacterController characterController;
 
+    #endregion Variables
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -73,7 +80,7 @@ public class Movement : MonoBehaviour
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
             GroundMovement();
 
-        else if (typeMovement == Terrain.swimming) 
+        else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving) 
             SwimmingMovement();
 
     }
@@ -160,10 +167,10 @@ public class Movement : MonoBehaviour
         {
             glide = !glide;
         }
-        if(typeMovement == Terrain.swimming)
+        if(typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
             direction.y = 0;
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && typeMovement == Terrain.diving)
             {
                 direction.y = diving;
             }
@@ -214,16 +221,18 @@ public class Movement : MonoBehaviour
             submergence = 1f - hit.distance / submergenceRange;
         }*/
     }
+
     private void OnTriggerStay(Collider other)
     {   // Si está en el agua a X distancia sumergido pues a nadar        
-        RaycastHit hit;
-        if (other.tag == "Water" && Physics.Raycast(centerWater.position, Vector3.down, out hit, submergenceOffset))
+        WaterLevel = other.bounds.max.y;
+        if (other.tag == "Water")
         {
-            typeMovement = Terrain.swimming;
-        }
-        else if(other.tag == "Water" && !Physics.Raycast(centerWater.position, Vector3.down, out hit, submergenceOffset))
-        {
-            typeMovement = Terrain.grounded;
+            if (centerWater.position.y + radioWaterDetect / 2 <= WaterLevel && WaterLevel > centerWater.position.y - radioWaterDetect / 2)
+                typeMovement = Terrain.swimming;
+            if (centerWater.position.y + radioWaterDetect / 2 + 0.1 < WaterLevel)
+                typeMovement = Terrain.diving;
+            if (centerWater.position.y + radioWaterDetect / 2 > WaterLevel)
+                typeMovement = Terrain.grounded;
         }
     }
 
