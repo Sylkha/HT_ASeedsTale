@@ -25,16 +25,19 @@ public class Movement : MonoBehaviour
 
     [Header("Swimming")]
     [SerializeField] float speed_Swim = 10.0f;
+    [SerializeField] float min_speed_Swim = 5.0f;
+    [SerializeField] float force = 20;
     [SerializeField, Range(0f, 10f)] float waterDrag = 1f;
     [SerializeField, Min(0.1f)] float submergenceOffset = 0.5f;
     [SerializeField] float turnSmoothTime_Swim = 0.1f;
     [SerializeField] float diving = 5f;
     [SerializeField] float radioWaterDetect = 0.6f;
+    Vector3 impulse;
     float WaterLevel;
 
     [Header("Rotation")]    // Min and Max Rotation while swimming
-    [SerializeField] float minRotX = -60;   
-    [SerializeField] float maxRotX = 60;
+    [SerializeField] float minRotX = -20;   
+    [SerializeField] float maxRotX = 20;
     
     [Header("References")]
     [SerializeField] Transform model;               // Reference to the model of the character (son)
@@ -84,14 +87,15 @@ public class Movement : MonoBehaviour
             SwimmingMovement();
 
     }
-    
+    float horizontal;
+    float vertical;
     void BasicMovement()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+         horizontal = Input.GetAxisRaw("Horizontal");
+         vertical = Input.GetAxisRaw("Vertical");
 
         direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
-        if (direction.magnitude >= 0.1f && (characterController.isGrounded || typeMovement == Terrain.swimming || glide == true))
+        if (direction.magnitude >= 0.1f && (characterController.isGrounded || typeMovement == Terrain.swimming || typeMovement == Terrain.diving || glide == true))
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -157,6 +161,7 @@ public class Movement : MonoBehaviour
         direction.y = fallVelocity;
     }
 
+    bool is_diving = false;
     void PlayerSkills()
     {
         if (typeMovement == Terrain.grounded && Input.GetButton("JumpGlide") && canMove && platformJump == false)
@@ -173,10 +178,22 @@ public class Movement : MonoBehaviour
             if (Input.GetMouseButton(0) && typeMovement == Terrain.diving)
             {
                 direction.y = diving;
+                if (horizontal != 0 || vertical != 0)
+                    RotateWithLimits(model, 20, 360, 360 + minRotX);
             }
             if (Input.GetMouseButton(1))
             {
                 direction.y = -diving;
+                if (horizontal != 0 || vertical != 0)
+                    RotateWithLimits(model, 20, 0, maxRotX);
+            }
+
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+                is_diving = true;
+            else
+            {
+                is_diving = false;
+                RotateWithLimits(model, 1, 0, 0);
             }
         }
     }
@@ -195,7 +212,8 @@ public class Movement : MonoBehaviour
     #endregion Ground Movement
 
     #region Swimming Movement
-
+    float speed_aux = 5;
+    bool imp = true;
     void SwimmingMovement()
     {
         WaterAttributes();
@@ -206,20 +224,24 @@ public class Movement : MonoBehaviour
             anim.SetInteger("Movement", 6);
         else anim.SetInteger("Movement", 7);
 
-        characterController.Move(direction * Time.deltaTime);
+        
+        Impulse_swim();
+        characterController.Move(impulse * Time.deltaTime);        
     }
 
-    void EvaluateSubmergence()
-    {/*
-        if (Physics.Raycast(
-            model.position + Vector3.up * submergenceOffset,
-            -Vector3.up, out RaycastHit hit, submergenceRange,
-            waterMask, QueryTriggerInteraction.Collide
+    void Impulse_swim()
+    {
+        if (speed_aux >= speed)
+            imp = false;
+        else if (speed_aux <= min_speed_Swim)
+            imp = true;
 
-        ))
-        {
-            submergence = 1f - hit.distance / submergenceRange;
-        }*/
+        if (imp == false)
+            speed_aux -= Time.deltaTime * force * (1 - waterDrag); // si queremos el efecto de drag
+        else
+            speed_aux += Time.deltaTime * (force * (1 - waterDrag)) / 2;    // impulse
+
+        impulse = direction.normalized * speed_aux;
     }
 
     private void OnTriggerStay(Collider other)
@@ -248,17 +270,16 @@ public class Movement : MonoBehaviour
     void RotateWithLimits(Transform _objectToRotate, float _rotationSpeed, float _minRotation, float _maxRotation)
     {
         Vector3 actualRotation = _objectToRotate.localEulerAngles;
-        //Debug.Log(actualRotation.x);
 
        // if (Input.GetAxis("Mouse Y") != 0.0f)
         {
             // x rotation
-            float toRotateX = Input.GetAxis("Mouse Y") * /*Time.deltaTime * */ - _rotationSpeed;
+            float toRotateX = Time.deltaTime * _rotationSpeed;
 
             targetRotation.x = actualRotation.x + toRotateX;
             targetRotation.x = ClampAngle(targetRotation.x, _minRotation, _maxRotation);
 
-            model.localEulerAngles = targetRotation;
+            _objectToRotate.localEulerAngles = targetRotation;
         }
     }
 
@@ -290,7 +311,7 @@ public class Movement : MonoBehaviour
     }
     void WaterAttributes()
     {
-        speed = speed_Swim * (1 - waterDrag);
+        speed = speed_Swim; //* (1 - waterDrag);
         jumpSpeed = 0;
         gravity = 0;
         turnSmoothTime = turnSmoothTime_Swim;

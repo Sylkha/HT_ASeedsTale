@@ -1146,7 +1146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913654830}
-  m_LocalRotation: {x: -0.13667852, y: -0.38558015, z: -0.057870824, w: 0.91065794}
+  m_LocalRotation: {x: -0.1366785, y: -0.38558015, z: -0.057870828, w: 0.91065794}
   m_LocalPosition: {x: 18.684673, y: -7.111883, z: -15.044703}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1340,8 +1340,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028239828}
-  m_LocalRotation: {x: 0.10787834, y: 0.8650452, z: -0.21104713, w: 0.44217443}
-  m_LocalPosition: {x: -8.7432, y: 5.8544445, z: 8.419618}
+  m_LocalRotation: {x: 0.11791548, y: 0.58587724, z: -0.08667167, w: 0.79707706}
+  m_LocalPosition: {x: -14.919605, y: 3.725175, z: -6.6046495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 351679162}
@@ -1864,8 +1864,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442527709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.725, y: -5.789, z: 5.19}
-  m_LocalScale: {x: 14.1645355, y: 23.617672, z: 8}
+  m_LocalPosition: {x: -9.725, y: -5.789, z: -49}
+  m_LocalScale: {x: 14.1645355, y: 23.617672, z: 117.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
@@ -3421,8 +3421,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4591646318673082655}
-  m_LocalRotation: {x: 0.10787834, y: 0.8650452, z: -0.21104713, w: 0.44217443}
-  m_LocalPosition: {x: -17.926092, y: 10.124797, z: 16.847979}
+  m_LocalRotation: {x: 0.11791548, y: 0.58587724, z: -0.08667167, w: 0.79707706}
+  m_LocalPosition: {x: -24.102497, y: 7.9955273, z: 1.8237114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3599,14 +3599,16 @@ MonoBehaviour:
   speed_Glide: 10
   gravity_Glide: 150
   turnSmoothTime_Glide: 0.5
-  speed_Swim: 10
+  speed_Swim: 15
   waterDrag: 0.25
   submergenceOffset: 0.3
   turnSmoothTime_Swim: 0.3
   diving: 5
+  radioWaterDetect: 0.6
+  force: 25
   minRotX: -40
   maxRotX: 40
-  model: {fileID: 4591646318797048520}
+  model: {fileID: 401771076925388536}
   anim: {fileID: 4677503218096478987}
   centerWater: {fileID: 4677503216956056103}
   typeMovement: 0
