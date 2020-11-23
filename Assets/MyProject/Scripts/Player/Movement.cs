@@ -96,10 +96,10 @@ public class Movement : MonoBehaviour
     {
          horizontal = Input.GetAxisRaw("Horizontal");
          vertical = Input.GetAxisRaw("Vertical");
-
-        direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
-        if (direction.magnitude >= 0.1f && (characterController.isGrounded || typeMovement == Terrain.swimming || typeMovement == Terrain.diving || glide == true))
+        
+        if (direction.magnitude >= 0.1f && !is_Jumping)//(characterController.isGrounded || typeMovement == Terrain.swimming || typeMovement == Terrain.diving || glide == true))
         {
+            direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -131,27 +131,26 @@ public class Movement : MonoBehaviour
             if (glide == true)
             {
                 typeMovement = Terrain.flying;
-                //  Debug.Log("glide");
+                  Debug.Log("glide");
                 GlideAttributes();
             }
             // We're not gliding
             else
             {
-                typeMovement = Terrain.grounded;
+                typeMovement = Terrain.flying;
                 //  Debug.Log("no glide");
                 GroundAttributes();
             }          
             
         }
-
+        
         Gravity();
         // Here we have jump so we need it to be called after gravity
         PlayerSkills();
         //Debug.DrawRay(transform.position , transform.TransformDirection(Vector3.down)* heightToFly);
         if (OnSlope())
         {
-            fallVelocity = slopeForce;
-            direction.y = fallVelocity;
+            characterController.Move(new Vector3(0, slopeForce, 0));
         }
 
         characterController.Move(direction * Time.deltaTime);
@@ -162,7 +161,7 @@ public class Movement : MonoBehaviour
     // as an acceleration (ms^-2)
     void Gravity()
     {
-        if (characterController.isGrounded)
+        if (characterController.isGrounded || glide == true)
         {           
             fallVelocity = -gravity * Time.deltaTime;
         }
