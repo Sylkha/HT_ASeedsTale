@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpSpeed_Ground = 10.0f;
     [SerializeField] float gravity_Ground = 20.0f;
     [SerializeField] float turnSmoothTime_Ground = 0.1f;
+    float slopeForce = 0.1f;
+    float slopeForceRayLength = 0.2f;
     float fallVelocity = 0;
     float turnSmoothVelocity;
     Vector3 direction;                                  // Movement
@@ -22,6 +24,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed_Glide = 10.0f;
     [SerializeField] float gravity_Glide = 150.0f;
     [SerializeField] float turnSmoothTime_Glide = 0.1f;
+    [SerializeField] float heightToFly = 3;
 
     [Header("Swimming")]
     [SerializeField] float speed_Swim = 10.0f;
@@ -117,30 +120,39 @@ public class Movement : MonoBehaviour
                 anim.SetInteger("Movement", 1);
             else anim.SetInteger("Movement", 0);
 
+            is_Jumping = false;
             platformJump = false;
             glide = false;           
         }
         // Not Grounded
         else
         {
-            typeMovement = Terrain.flying;
-            // Glide action 
+            // Glide action             
             if (glide == true)
             {
-              //  Debug.Log("glide");
+                typeMovement = Terrain.flying;
+                //  Debug.Log("glide");
                 GlideAttributes();
             }
             // We're not gliding
             else
             {
-              //  Debug.Log("no glide");
+                typeMovement = Terrain.grounded;
+                //  Debug.Log("no glide");
                 GroundAttributes();
             }          
+            
         }
 
         Gravity();
         // Here we have jump so we need it to be called after gravity
         PlayerSkills();
+        //Debug.DrawRay(transform.position , transform.TransformDirection(Vector3.down)* heightToFly);
+        if (OnSlope())
+        {
+            fallVelocity = slopeForce;
+            direction.y = fallVelocity;
+        }
 
         characterController.Move(direction * Time.deltaTime);
     }
@@ -161,14 +173,36 @@ public class Movement : MonoBehaviour
         direction.y = fallVelocity;
     }
 
+    bool is_Jumping = false;
+    bool OnSlope()
+    {
+        if(is_Jumping)
+            return false;
+
+        if (MyRaycast(slopeForceRayLength))
+        {
+            slopeForce = -hit.distance;
+            return true;
+        }
+
+        return false;
+    }
+
+    RaycastHit hit;
+    bool MyRaycast(float distance)
+    {
+        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, distance);
+    }
+
     bool is_diving = false;
     void PlayerSkills()
     {
-        if (typeMovement == Terrain.grounded && Input.GetButton("JumpGlide") && canMove && platformJump == false)
+        if (characterController.isGrounded && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
         {        
             Jump(jumpSpeed);           
         }
-        if (typeMovement == Terrain.flying && Input.GetButton("JumpGlide"))
+
+        if (Input.GetButton("JumpGlide") && (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) && (!MyRaycast(heightToFly)))
         {
             glide = !glide;
         }
@@ -204,8 +238,7 @@ public class Movement : MonoBehaviour
         {
             fallVelocity = _jumpSpeed;
             direction.y = fallVelocity;
-            // We turn it true so at the moment we press for Jump, it turns false.
-            glide = true;
+            is_Jumping = true;
         }
     }
 
