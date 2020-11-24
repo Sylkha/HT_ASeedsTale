@@ -14,11 +14,11 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpSpeed_Ground = 10.0f;
     [SerializeField] float gravity_Ground = 20.0f;
     [SerializeField] float turnSmoothTime_Ground = 0.1f;
-    float slopeForce = 0.1f;
-    float slopeForceRayLength = 0.2f;
+    float slopeForce;
+    [SerializeField] float slopeForceRayLength = 0.5f;
     float fallVelocity = 0;
     float turnSmoothVelocity;
-    Vector3 direction;                                  // Movement
+    Vector3 direction;                                  // Movement direction
 
     [Header("Glide")]
     [SerializeField] float speed_Glide = 10.0f;
@@ -97,9 +97,12 @@ public class Movement : MonoBehaviour
          horizontal = Input.GetAxisRaw("Horizontal");
          vertical = Input.GetAxisRaw("Vertical");
         
-        if (direction.magnitude >= 0.1f && !is_Jumping)//(characterController.isGrounded || typeMovement == Terrain.swimming || typeMovement == Terrain.diving || glide == true))
-        {
+        // We can rotate if we're not flying (jump or glide), or if we're gliding
+        //if((glide == true && is_Jumping == false) || (glide == true && is_Jumping == true) || typeMovement != Terrain.flying)
+        if(glide == true || typeMovement != Terrain.flying)
             direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
+        if (direction.magnitude >= 0.1f )
+        {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -112,7 +115,7 @@ public class Movement : MonoBehaviour
         BasicMovement();
 
         // Grounded
-        if (characterController.isGrounded)
+        if (IsGrounded())
         {
             typeMovement = Terrain.grounded;
             GroundAttributes();
@@ -138,7 +141,6 @@ public class Movement : MonoBehaviour
             else
             {
                 typeMovement = Terrain.flying;
-                //  Debug.Log("no glide");
                 GroundAttributes();
             }          
             
@@ -148,10 +150,6 @@ public class Movement : MonoBehaviour
         // Here we have jump so we need it to be called after gravity
         PlayerSkills();
         //Debug.DrawRay(transform.position , transform.TransformDirection(Vector3.down)* heightToFly);
-        if (OnSlope())
-        {
-            characterController.Move(new Vector3(0, slopeForce, 0));
-        }
 
         characterController.Move(direction * Time.deltaTime);
     }
@@ -173,14 +171,19 @@ public class Movement : MonoBehaviour
     }
 
     bool is_Jumping = false;
-    bool OnSlope()
+    bool IsGrounded()
     {
+        if (characterController.isGrounded)
+            return true;
+
         if(is_Jumping)
             return false;
 
         if (MyRaycast(slopeForceRayLength))
         {
+            Debug.Log("Slope");
             slopeForce = -hit.distance;
+            characterController.Move(new Vector3(0, slopeForce, 0));
             return true;
         }
 
@@ -196,7 +199,7 @@ public class Movement : MonoBehaviour
     bool is_diving = false;
     void PlayerSkills()
     {
-        if (characterController.isGrounded && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
+        if (IsGrounded() && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
         {        
             Jump(jumpSpeed);           
         }
@@ -233,11 +236,12 @@ public class Movement : MonoBehaviour
 
     public void Jump(float _jumpSpeed)
     {
-        if (characterController.isGrounded)
+        if (IsGrounded())
         {
             fallVelocity = _jumpSpeed;
             direction.y = fallVelocity;
             is_Jumping = true;
+            glide = false;
         }
     }
 
