@@ -1145,10 +1145,12 @@ MonoBehaviour:
   jumpSpeed_Ground: 10
   gravity_Ground: 20
   turnSmoothTime_Ground: 0.1
+  slopeForceRayLength: 0.5
   speed_Glide: 10
-  gravity_Glide: 5
+  gravity_Glide: 20
   turnSmoothTime_Glide: 0.5
   heightToFly: 2
+  glideChangeCD: 0.5
   speed_Swim: 10
   min_speed_Swim: 2
   force: 20

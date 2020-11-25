@@ -25,6 +25,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float gravity_Glide = 150.0f;
     [SerializeField] float turnSmoothTime_Glide = 0.1f;
     [SerializeField] float heightToFly = 3;
+    [SerializeField] float glideChangeCD = 0.5f;
+    bool canChangeGlide = false;
 
     [Header("Swimming")]
     [SerializeField] float speed_Swim = 10.0f;
@@ -125,22 +127,22 @@ public class Movement : MonoBehaviour
 
             is_Jumping = false;
             platformJump = false;
-            glide = false;           
+            glide = false;
+            canChangeGlide = true;
         }
         // Not Grounded
         else
         {
+            typeMovement = Terrain.flying;
             // Glide action             
             if (glide == true)
             {
-                typeMovement = Terrain.flying;
                   Debug.Log("glide");
                 GlideAttributes();
             }
             // We're not gliding
             else
             {
-                typeMovement = Terrain.flying;
                 GroundAttributes();
             }          
             
@@ -196,17 +198,25 @@ public class Movement : MonoBehaviour
         return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, distance);
     }
 
+    IEnumerator Cooldown(float time_cd, bool can)
+    {
+        can = false;
+        yield return new WaitForSeconds(time_cd);
+        can = true;
+    }
+
     bool is_diving = false;
     void PlayerSkills()
     {
         if (IsGrounded() && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
         {        
-            Jump(jumpSpeed);           
+            Jump(jumpSpeed);            
         }
 
-        if (Input.GetButton("JumpGlide") && (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) && (!MyRaycast(heightToFly)))
+        if (canChangeGlide == true && Input.GetButton("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             glide = !glide;
+            StartCoroutine(Cooldown(glideChangeCD, canChangeGlide));
         }
         if(typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
@@ -242,6 +252,7 @@ public class Movement : MonoBehaviour
             direction.y = fallVelocity;
             is_Jumping = true;
             glide = false;
+            StartCoroutine(Cooldown(glideChangeCD, canChangeGlide));
         }
     }
 
