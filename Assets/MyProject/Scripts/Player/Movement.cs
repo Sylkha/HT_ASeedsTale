@@ -23,10 +23,17 @@ public class Movement : MonoBehaviour
     [Header("Glide")]
     [SerializeField] float speed_Glide = 10.0f;
     [SerializeField] float gravity_Glide = 150.0f;
-    [SerializeField] float turnSmoothTime_Glide = 0.1f;
-    [SerializeField] float heightToFly = 3;
-    [SerializeField] float glideChangeCD = 0.5f;
-    bool canChangeGlide = false;
+    [SerializeField] float turnSmoothTime_Glide = 0.1f; // Rotate smooth while gliding
+    [SerializeField] float heightToFly = 3;             // Height we need for the player from the floor to can glide
+    // [SerializeField] float glideChangeCD = 0.5f;     // Some Cooldown
+    [SerializeField] float _minimumHeldDuration = 0.5f; // How much time we need to held buttom in order to get the player gliding
+    // bool canChangeGlide = false;
+       
+    private float _spacePressedTime = 0;
+    private bool _spaceHeld = false;
+    private bool _getbuttondown_glide = false;
+    private bool _getbutton_glide = false;
+    private bool _getbuttonup_glide = false;
 
     [Header("Swimming")]
     [SerializeField] float speed_Swim = 10.0f;
@@ -39,6 +46,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float radioWaterDetect = 0.6f;
     Vector3 impulse;
     float WaterLevel;
+    bool is_diving = false;
 
     [Header("Rotation")]    // Min and Max Rotation while swimming
     [SerializeField] float minRotX = -20;   
@@ -124,11 +132,13 @@ public class Movement : MonoBehaviour
             if (characterController.velocity.magnitude != 0)
                 anim.SetInteger("Movement", 1);
             else anim.SetInteger("Movement", 0);
+         //   if(is_Jumping)
+         //       StartCoroutine(Cooldown(jumpCD, canJump));  // CD para que no parezca una saltarina xd
 
             is_Jumping = false;
             platformJump = false;
             glide = false;
-            canChangeGlide = true;
+            // canChangeGlide = true;
         }
         // Not Grounded
         else
@@ -204,8 +214,22 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(time_cd);
         can = true;
     }
-
-    bool is_diving = false;
+    
+    void Update() // We need inputs to be in Update instead of FixedUpdate
+    {
+        if (Input.GetButtonDown("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
+        {
+            _getbuttondown_glide = true;
+        }
+        if (Input.GetButton("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
+        {
+            _getbutton_glide = true;
+        }
+        if (Input.GetButtonUp("JumpGlide"))
+        {
+            _getbuttonup_glide = true;
+        }
+    }
     void PlayerSkills()
     {
         if (IsGrounded() && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
@@ -213,12 +237,34 @@ public class Movement : MonoBehaviour
             Jump(jumpSpeed);            
         }
 
-        if (canChangeGlide == true && Input.GetButton("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
+        if (_getbuttondown_glide)
         {
-            glide = !glide;
-            StartCoroutine(Cooldown(glideChangeCD, canChangeGlide));
+            // Use has pressed the Space key. We don't know if they'll release or hold it, so keep track of when they started holding it.
+            _spacePressedTime = 0;
+            _spaceHeld = false;
+            _getbuttondown_glide = false;
         }
-        if(typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
+        if (_getbutton_glide)
+        {
+            _spacePressedTime += Time.deltaTime;
+            if (_spacePressedTime > _minimumHeldDuration)
+            {
+                // Player has held the Space key for .25 seconds. Consider it "held"
+                glide = true;
+                _spaceHeld = true;
+                Debug.Log("lesgo");
+            }
+            _getbutton_glide = false;
+        }
+        if (_getbuttonup_glide)
+        {
+            _spacePressedTime = 0;
+            glide = false;
+            _spaceHeld = false;
+            Debug.Log("nah");
+            _getbuttonup_glide = false;
+        }
+        if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
             direction.y = 0;
             if (Input.GetMouseButton(0) && typeMovement == Terrain.diving)
@@ -252,7 +298,7 @@ public class Movement : MonoBehaviour
             direction.y = fallVelocity;
             is_Jumping = true;
             glide = false;
-            StartCoroutine(Cooldown(glideChangeCD, canChangeGlide));
+           // StartCoroutine(Cooldown(glideChangeCD, canChangeGlide));
         }
     }
 
