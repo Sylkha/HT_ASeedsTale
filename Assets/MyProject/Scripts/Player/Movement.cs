@@ -56,12 +56,16 @@ public class Movement : MonoBehaviour
     [SerializeField] Transform model;               // Reference to the model of the character (son)
     [SerializeField] Animator anim;
     [SerializeField] Transform centerWater;         // Reference to the point of the Character 
+    [SerializeField] Transform camera_transf;
 
 
     float speed;
     float jumpSpeed;
     float gravity;
     float turnSmoothTime;
+
+    // Axis container vector (for the movement)
+    Vector3 dir;
 
     public enum Terrain
     {
@@ -100,17 +104,17 @@ public class Movement : MonoBehaviour
             SwimmingMovement();
 
     }
-    float horizontal;
-    float vertical;
+    
     void BasicMovement()
     {
-         horizontal = Input.GetAxisRaw("Horizontal");
-         vertical = Input.GetAxisRaw("Vertical");
-        
+        dir.x = Input.GetAxisRaw("Horizontal");
+        dir.z = Input.GetAxisRaw("Vertical");
+
+        Vector3 camDirection = camera_transf.rotation * dir;
         // We can rotate if we're not flying (jump or glide), or if we're gliding
         //if((glide == true && is_Jumping == false) || (glide == true && is_Jumping == true) || typeMovement != Terrain.flying)
         if(glide == true || typeMovement != Terrain.flying)
-            direction = new Vector3(-horizontal, 0f, -vertical).normalized * speed;
+            direction = new Vector3(camDirection.x, 0f, camDirection.z).normalized * speed;
         if (direction.magnitude >= 0.1f )
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -270,13 +274,13 @@ public class Movement : MonoBehaviour
             if (Input.GetMouseButton(0) && typeMovement == Terrain.diving)
             {
                 direction.y = diving;
-                if (horizontal != 0 || vertical != 0)
+                if (dir.x != 0 || dir.z != 0)
                     RotateWithLimits(model, 20, 360, 360 + minRotX);
             }
             if (Input.GetMouseButton(1))
             {
                 direction.y = -diving;
-                if (horizontal != 0 || vertical != 0)
+                if (dir.x != 0 || dir.z != 0)
                     RotateWithLimits(model, 20, 0, maxRotX);
             }
 
