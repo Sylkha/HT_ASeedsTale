@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bindings;
 
 //This script is contained by the player, father of the model.
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
     #region Variables
+    MyPlayerActions actions;
+    string saveActionsData;
 
     [Header("Movement")]
     [SerializeField] float speed_Ground = 7.5f;
@@ -88,6 +91,36 @@ public class Movement : MonoBehaviour
 
     #endregion Variables
 
+    #region InControl
+    void OnEnable()
+    {
+        // See PlayerActions.cs for this setup.
+        actions = MyPlayerActions.CreateWithDefaultBindings();
+        //playerActions.Move.OnLastInputTypeChanged += ( lastInputType ) => Debug.Log( lastInputType );
+
+        LoadBindings();
+    }
+    void OnDisable()
+    {
+        // This properly disposes of the action set and unsubscribes it from
+        // update events so that it doesn't do additional processing unnecessarily.
+        actions.Destroy();
+    }
+    void LoadBindings()
+    {
+        if (PlayerPrefs.HasKey("Bindings"))
+        {
+            saveActionsData = PlayerPrefs.GetString("Bindings");
+            actions.Load(saveActionsData);
+        }
+    }
+    void SaveBindings()
+    {
+        saveActionsData = actions.Save();
+        PlayerPrefs.SetString("Bindings", saveActionsData);
+    }
+    #endregion InControl
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -107,15 +140,14 @@ public class Movement : MonoBehaviour
     
     void BasicMovement()
     {
-        dir.x = Input.GetAxisRaw("Horizontal");
-        dir.z = Input.GetAxisRaw("Vertical");
-
+        dir.x = actions.Move.X;
+        dir.z = actions.Move.Y;
         Vector3 camDirection = camera_transf.rotation * dir;
+
         // We can rotate if we're not flying (jump or glide), or if we're gliding
-        //if((glide == true && is_Jumping == false) || (glide == true && is_Jumping == true) || typeMovement != Terrain.flying)
         if(glide == true || typeMovement != Terrain.flying)
             direction = new Vector3(camDirection.x, 0f, camDirection.z).normalized * speed;
-        if (direction.magnitude >= 0.1f )
+        if (direction.magnitude >= 0.1f && (glide == true || typeMovement != Terrain.flying))
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -133,16 +165,12 @@ public class Movement : MonoBehaviour
         {
             typeMovement = Terrain.grounded;
             GroundAttributes();
-            if (characterController.velocity.magnitude != 0)
-                anim.SetInteger("Movement", 1);
+            if (characterController.velocity.magnitude != 0) anim.SetInteger("Movement", 1);
             else anim.SetInteger("Movement", 0);
-         //   if(is_Jumping)
-         //       StartCoroutine(Cooldown(jumpCD, canJump));  // CD para que no parezca una saltarina xd
 
             is_Jumping = false;
             platformJump = false;
             glide = false;
-            // canChangeGlide = true;
         }
         // Not Grounded
         else
@@ -151,7 +179,7 @@ public class Movement : MonoBehaviour
             // Glide action             
             if (glide == true)
             {
-                  Debug.Log("glide");
+                Debug.Log("glide");
                 GlideAttributes();
             }
             // We're not gliding
@@ -221,22 +249,22 @@ public class Movement : MonoBehaviour
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
     {
-        if (Input.GetButtonDown("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
+        if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbuttondown_glide = true;
         }
-        if (Input.GetButton("JumpGlide") && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
+        if (actions.JumpGlide.IsPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbutton_glide = true;
         }
-        if (Input.GetButtonUp("JumpGlide"))
+        if (actions.JumpGlide.WasReleased)
         {
             _getbuttonup_glide = true;
         }
     }
     void PlayerSkills()
     {
-        if (IsGrounded() && Input.GetButton("JumpGlide") && canMove && is_Jumping == false)
+        if (IsGrounded() && actions.JumpGlide.IsPressed && canMove && is_Jumping == false)
         {        
             Jump(jumpSpeed);            
         }
@@ -265,26 +293,25 @@ public class Movement : MonoBehaviour
             _spacePressedTime = 0;
             glide = false;
             _spaceHeld = false;
-            Debug.Log("nah");
             _getbuttonup_glide = false;
         }
         if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
             direction.y = 0;
-            if (Input.GetMouseButton(0) && typeMovement == Terrain.diving)
+            if (actions.DiveUp && typeMovement == Terrain.diving)
             {
                 direction.y = diving;
                 if (dir.x != 0 || dir.z != 0)
                     RotateWithLimits(model, 20, 360, 360 + minRotX);
             }
-            if (Input.GetMouseButton(1))
+            if (actions.DiveDown)
             {
                 direction.y = -diving;
                 if (dir.x != 0 || dir.z != 0)
                     RotateWithLimits(model, 20, 0, maxRotX);
             }
 
-            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            if (actions.DiveUp || actions.DiveDown)
                 is_diving = true;
             else
             {
