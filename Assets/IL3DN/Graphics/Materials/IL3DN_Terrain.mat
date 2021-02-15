@@ -121,7 +121,20 @@ Material:
     - _SpecularHighlights: 1
     - _SquashAmount: 1
     - _SrcBlend: 1
+    - _TessEdgeLength: 16
+    - _TessMax: 25
+    - _TessMaxDisp: 25
+    - _TessMin: 10
+    - _TessPhongStrength: 0.5
+    - _TessValue: 16
+    - _TransAmbient: 0.1
+    - _TransDirect: 0.9
+    - _TransNormal: 0.5
+    - _TransScattering: 2
+    - _TransShadow: 0.5
+    - _TransStrength: 1
     - _TranslucencyViewDependency: 0
+    - _TransmissionShadow: 0.5
     - _UVSec: 0
     - _WindQuality: 0
     - _ZWrite: 1
@@ -129,10 +142,9 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Color0: {r: 0.15524462, g: 0.41509432, b: 0.0763617, a: 1}
-    - _Color1: {r: 0.7264151, g: 0.58449227, b: 0.35978106, a: 0}
-    - _Color2: {r: 0.754717, g: 0.6722525, b: 0.252759, a: 0}
+    - _Color1: {r: 0.7254902, g: 0.42664218, b: 0.36078432, a: 0}
+    - _Color2: {r: 0.9245283, g: 0.86517805, b: 0.63234246, a: 0}
     - _Color3: {r: 0.28627452, g: 0.47058827, b: 0.121568635, a: 0}
-    - _Color4: {r: 0.8490566, g: 0.13216448, b: 0.13216448, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}

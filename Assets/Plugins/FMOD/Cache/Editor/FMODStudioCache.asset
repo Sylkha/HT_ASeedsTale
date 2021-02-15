@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODAssets/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637366440851072395
+  lastModified: 637365712212006267
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -126,16 +126,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -317363272899255442}
-  - {fileID: -6341797031879515281}
+  - {fileID: 3915787244705119880}
   EditorEvents: []
   EditorParameters: []
   MasterBanks:
-  - {fileID: -6341797031879515281}
+  - {fileID: 3915787244705119880}
   StringsBanks:
   - {fileID: -317363272899255442}
-  stringsBankWriteTime: 637366440851072395
+  stringsBankWriteTime: 637365712212006267
   cacheVersion: 3
 --- !u!114 &1728380682389645473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODAssets/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637365712211916513
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &3915787244705119880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
