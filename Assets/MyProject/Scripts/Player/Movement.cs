@@ -23,6 +23,12 @@ public class Movement : MonoBehaviour
     float turnSmoothVelocity;
     Vector3 direction;                                  // Movement direction
 
+    // For going down on slopes
+    public bool isOnSlope = false;
+    Vector3 hitNormal;
+    [SerializeField] float slideVelocity = 5;
+    [SerializeField] float slopeForceDown = 10;
+
     [Header("Glide")]
     [SerializeField] float speed_Glide = 10.0f;
     [SerializeField] float gravity_Glide = 150.0f;
@@ -212,6 +218,26 @@ public class Movement : MonoBehaviour
             fallVelocity -= gravity * Time.deltaTime;
         }
         direction.y = fallVelocity;
+
+        SlideDown();
+    }
+
+    // For going down on slopes
+    void SlideDown()
+    {
+        isOnSlope = Vector3.Angle(Vector3.up, hitNormal) >= characterController.slopeLimit;
+
+        if (isOnSlope == true)
+        {
+            direction.x += ((1f - hitNormal.y) * hitNormal.x) * slideVelocity;
+            direction.z += ((1f - hitNormal.y) * hitNormal.z) * slideVelocity;
+
+            direction.y -= slopeForceDown;
+        }
+    }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
     }
 
     bool is_Jumping = false;
@@ -223,9 +249,10 @@ public class Movement : MonoBehaviour
         if(is_Jumping)
             return false;
 
+        // Here we detect the slopes in the terrain so that the character was on flat terrain. 
+        // We make it close to the ground if it is between the ground and a short vertical distance 
         if (MyRaycast(slopeForceRayLength))
         {
-            Debug.Log("Slope");
             slopeForce = -hit.distance;
             characterController.Move(new Vector3(0, slopeForce, 0));
             return true;
