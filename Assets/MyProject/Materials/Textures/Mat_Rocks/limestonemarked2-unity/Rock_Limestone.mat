@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BotTexture0:
-        m_Texture: {fileID: 2800000, guid: 4929ce86f5500f54badc4fd33d4c1370, type: 3}
+        m_Texture: {fileID: 2800000, guid: 02ab013979bf5cc4cb1dc6a44804d508, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MidTexture0:
-        m_Texture: {fileID: 2800000, guid: 4929ce86f5500f54badc4fd33d4c1370, type: 3}
+        m_Texture: {fileID: 2800000, guid: ac1ded8076e967643b6821a681267b23, type: 3}
         m_Scale: {x: -0.09, y: 1.89}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

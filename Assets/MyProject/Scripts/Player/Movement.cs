@@ -159,8 +159,7 @@ public class Movement : MonoBehaviour
                 if (actions.Move.X != 0 || actions.Move.Y != 0) anim.SetInteger("Movement", 1);
                 else anim.SetInteger("Movement", 0);
 
-                is_Jumping = false;
-                platformJump = false;
+                
                 maxY = 0;
             }
             else
@@ -231,7 +230,8 @@ public class Movement : MonoBehaviour
         {
             typeMovement = Terrain.grounded;
             GroundAttributes();
-                        
+            is_Jumping = false;
+            platformJump = false;
             glide = false;
         }
         // Not Grounded
