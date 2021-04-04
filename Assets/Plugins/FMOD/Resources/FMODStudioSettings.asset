@@ -16,7 +16,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 1
   sourceProjectPath: 
-  sourceBankPath: Assets/FMODAssets
+  sourceBankPath: Assets/FMODAssets/ASTFMOD
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     Value: 0
   BankDirectorySettings:
   - Platform: 2
-    Value: Desktop
+    Value: 
   - Platform: 3
     Value: Desktop
   VirtualChannelSettings:
@@ -78,8 +78,7 @@ MonoBehaviour:
   - Platform: 20
     Value: 32
   Plugins: []
-  MasterBanks:
-  - Master
+  MasterBanks: []
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264

@@ -4,8 +4,11 @@ Shader "IL3DN/Terrain First-Pass"
 {
 	Properties
 	{
-		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
+		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
+		_TopTexture0("Top Texture 0", 2D) = "white" {}
+		_MidTexture0("Mid Texture 0", 2D) = "white" {}
+		_BotTexture0("Bot Texture 0", 2D) = "white" {}
 		[HideInInspector]_Control("Control", 2D) = "white" {}
 		[HideInInspector]_Splat3("Splat3", 2D) = "white" {}
 		[HideInInspector]_Splat2("Splat2", 2D) = "white" {}
@@ -16,6 +19,8 @@ Shader "IL3DN/Terrain First-Pass"
 		_Color2("Color 2", Color) = (0,0,0,0)
 		_Color3("Color 3", Color) = (0,0,0,0)
 		[Toggle(_SNOW_ON)] _Snow("Snow", Float) = 1
+		_Falloff("Falloff", Float) = 1
+		_Tiling("Tiling", Vector) = (1,1,0,0)
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 		[HideInInspector]_TransmissionShadow( "Transmission Shadow", Range( 0, 1 ) ) = 0.5
@@ -164,6 +169,8 @@ Shader "IL3DN/Terrain First-Pass"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define ASE_SRP_VERSION 999999
+			#define ASE_TEXTURE_PARAMS(textureName) textureName
+			
 
 			#pragma prefer_hlslcc gles
 			#pragma exclude_renderers d3d11_9x
@@ -193,6 +200,7 @@ Shader "IL3DN/Terrain First-Pass"
 			#define REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
 			#endif
 
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
 			#define ASE_NEEDS_FRAG_WORLD_NORMAL
 			#pragma shader_feature _SNOW_ON
 
@@ -236,6 +244,8 @@ Shader "IL3DN/Terrain First-Pass"
 			float4 _Splat2_ST;
 			float4 _Color3;
 			float4 _Splat3_ST;
+			float2 _Tiling;
+			float _Falloff;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
 			#endif
@@ -257,6 +267,9 @@ Shader "IL3DN/Terrain First-Pass"
 			#endif
 			CBUFFER_END
 			sampler2D _Control;
+			uniform sampler2D _TopTexture0;
+			uniform sampler2D _MidTexture0;
+			uniform sampler2D _BotTexture0;
 			float SnowTerrainFloat;
 			sampler2D _Splat0;
 			sampler2D _Splat1;
@@ -264,7 +277,22 @@ Shader "IL3DN/Terrain First-Pass"
 			sampler2D _Splat3;
 
 
+			inline float4 TriplanarSamplingCF( sampler2D topTexMap, sampler2D midTexMap, sampler2D botTexMap, float3 worldPos, float3 worldNormal, float falloff, float2 tiling, float3 normalScale, float3 index )
+			{
+				float3 projNormal = ( pow( abs( worldNormal ), falloff ) );
+				projNormal /= ( projNormal.x + projNormal.y + projNormal.z ) + 0.00001;
+				float3 nsign = sign( worldNormal );
+				float negProjNormalY = max( 0, projNormal.y * -nsign.y );
+				projNormal.y = max( 0, projNormal.y * nsign.y );
+				half4 xNorm; half4 yNorm; half4 yNormN; half4 zNorm;
+				xNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.zy * float2( nsign.x, 1.0 ) ) );
+				yNorm = ( tex2D( ASE_TEXTURE_PARAMS( topTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				yNormN = ( tex2D( ASE_TEXTURE_PARAMS( botTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				zNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.xy * float2( -nsign.z, 1.0 ) ) );
+				return xNorm * projNormal.x + yNorm * projNormal.y + yNormN * negProjNormalY + zNorm * projNormal.z;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -440,30 +468,30 @@ Shader "IL3DN/Terrain First-Pass"
 				#endif
 
 				float2 uv_Control = IN.ase_texcoord7.xy * _Control_ST.xy + _Control_ST.zw;
-				float4 tex2DNode5_g35 = tex2D( _Control, uv_Control );
-				float dotResult20_g35 = dot( tex2DNode5_g35 , float4(1,1,1,1) );
-				float SplatWeight22_g35 = dotResult20_g35;
-				float localSplatClip74_g35 = ( SplatWeight22_g35 );
-				float SplatWeight74_g35 = SplatWeight22_g35;
+				float4 tex2DNode5_g14 = tex2D( _Control, uv_Control );
+				float dotResult20_g14 = dot( tex2DNode5_g14 , float4(1,1,1,1) );
+				float SplatWeight22_g14 = dotResult20_g14;
+				float localSplatClip74_g14 = ( SplatWeight22_g14 );
+				float SplatWeight74_g14 = SplatWeight22_g14;
 				#if !defined(SHADER_API_MOBILE) && defined(TERRAIN_SPLAT_ADDPASS)
-				clip(SplatWeight74_g35 == 0.0f ? -1 : 1);
+				clip(SplatWeight74_g14 == 0.0f ? -1 : 1);
 				#endif
-				float4 SplatControl26_g35 = ( tex2DNode5_g35 / ( localSplatClip74_g35 + 0.001 ) );
-				float4 temp_cast_2 = (0.5).xxxx;
+				float4 SplatControl26_g14 = ( tex2DNode5_g14 / ( localSplatClip74_g14 + 0.001 ) );
+				float4 triplanar100_g14 = TriplanarSamplingCF( _TopTexture0, _MidTexture0, _BotTexture0, WorldPosition, WorldNormal, _Falloff, _Tiling, float3( 1,1,1 ), float3(0,0,0) );
 				#ifdef _SNOW_ON
-				float staticSwitch88_g35 = ( WorldNormal.y * SnowTerrainFloat );
+				float staticSwitch88_g14 = ( WorldNormal.y * SnowTerrainFloat );
 				#else
-				float staticSwitch88_g35 = 0.0;
+				float staticSwitch88_g14 = 0.0;
 				#endif
 				float2 uv_Splat0 = IN.ase_texcoord7.xy * _Splat0_ST.xy + _Splat0_ST.zw;
 				float2 uv_Splat1 = IN.ase_texcoord7.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 uv_Splat2 = IN.ase_texcoord7.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 uv_Splat3 = IN.ase_texcoord7.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float4 weightedBlendVar9_g35 = ( 1.0 - step( SplatControl26_g35 , temp_cast_2 ) );
-				float4 weightedBlend9_g35 = ( weightedBlendVar9_g35.x*saturate( ( staticSwitch88_g35 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g35.y*saturate( ( staticSwitch88_g35 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g35.z*saturate( ( staticSwitch88_g35 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g35.w*saturate( ( staticSwitch88_g35 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
-				float4 MixDiffuse28_g35 = weightedBlend9_g35;
+				float4 weightedBlendVar9_g14 = ( SplatControl26_g14 + triplanar100_g14 );
+				float4 weightedBlend9_g14 = ( weightedBlendVar9_g14.x*saturate( ( staticSwitch88_g14 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g14.y*saturate( ( staticSwitch88_g14 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g14.z*saturate( ( staticSwitch88_g14 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g14.w*saturate( ( staticSwitch88_g14 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
+				float4 MixDiffuse28_g14 = weightedBlend9_g14;
 				
-				float3 Albedo = MixDiffuse28_g35.xyz;
+				float3 Albedo = MixDiffuse28_g14.xyz;
 				float3 Normal = float3(0, 0, 1);
 				float3 Emission = 0;
 				float3 Specular = 0.5;
@@ -663,6 +691,8 @@ Shader "IL3DN/Terrain First-Pass"
 			float4 _Splat2_ST;
 			float4 _Color3;
 			float4 _Splat3_ST;
+			float2 _Tiling;
+			float _Falloff;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
 			#endif
@@ -911,6 +941,8 @@ Shader "IL3DN/Terrain First-Pass"
 			float4 _Splat2_ST;
 			float4 _Color3;
 			float4 _Splat3_ST;
+			float2 _Tiling;
+			float _Falloff;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
 			#endif
@@ -1100,6 +1132,8 @@ Shader "IL3DN/Terrain First-Pass"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define ASE_SRP_VERSION 999999
+			#define ASE_TEXTURE_PARAMS(textureName) textureName
+			
 
 			#pragma prefer_hlslcc gles
 			#pragma exclude_renderers d3d11_9x
@@ -1114,6 +1148,7 @@ Shader "IL3DN/Terrain First-Pass"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
 			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature _SNOW_ON
 
@@ -1155,6 +1190,8 @@ Shader "IL3DN/Terrain First-Pass"
 			float4 _Splat2_ST;
 			float4 _Color3;
 			float4 _Splat3_ST;
+			float2 _Tiling;
+			float _Falloff;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
 			#endif
@@ -1176,6 +1213,9 @@ Shader "IL3DN/Terrain First-Pass"
 			#endif
 			CBUFFER_END
 			sampler2D _Control;
+			uniform sampler2D _TopTexture0;
+			uniform sampler2D _MidTexture0;
+			uniform sampler2D _BotTexture0;
 			float SnowTerrainFloat;
 			sampler2D _Splat0;
 			sampler2D _Splat1;
@@ -1183,7 +1223,22 @@ Shader "IL3DN/Terrain First-Pass"
 			sampler2D _Splat3;
 
 
+			inline float4 TriplanarSamplingCF( sampler2D topTexMap, sampler2D midTexMap, sampler2D botTexMap, float3 worldPos, float3 worldNormal, float falloff, float2 tiling, float3 normalScale, float3 index )
+			{
+				float3 projNormal = ( pow( abs( worldNormal ), falloff ) );
+				projNormal /= ( projNormal.x + projNormal.y + projNormal.z ) + 0.00001;
+				float3 nsign = sign( worldNormal );
+				float negProjNormalY = max( 0, projNormal.y * -nsign.y );
+				projNormal.y = max( 0, projNormal.y * nsign.y );
+				half4 xNorm; half4 yNorm; half4 yNormN; half4 zNorm;
+				xNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.zy * float2( nsign.x, 1.0 ) ) );
+				yNorm = ( tex2D( ASE_TEXTURE_PARAMS( topTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				yNormN = ( tex2D( ASE_TEXTURE_PARAMS( botTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				zNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.xy * float2( -nsign.z, 1.0 ) ) );
+				return xNorm * projNormal.x + yNorm * projNormal.y + yNormN * negProjNormalY + zNorm * projNormal.z;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -1334,32 +1389,32 @@ Shader "IL3DN/Terrain First-Pass"
 				#endif
 
 				float2 uv_Control = IN.ase_texcoord2.xy * _Control_ST.xy + _Control_ST.zw;
-				float4 tex2DNode5_g35 = tex2D( _Control, uv_Control );
-				float dotResult20_g35 = dot( tex2DNode5_g35 , float4(1,1,1,1) );
-				float SplatWeight22_g35 = dotResult20_g35;
-				float localSplatClip74_g35 = ( SplatWeight22_g35 );
-				float SplatWeight74_g35 = SplatWeight22_g35;
+				float4 tex2DNode5_g14 = tex2D( _Control, uv_Control );
+				float dotResult20_g14 = dot( tex2DNode5_g14 , float4(1,1,1,1) );
+				float SplatWeight22_g14 = dotResult20_g14;
+				float localSplatClip74_g14 = ( SplatWeight22_g14 );
+				float SplatWeight74_g14 = SplatWeight22_g14;
 				#if !defined(SHADER_API_MOBILE) && defined(TERRAIN_SPLAT_ADDPASS)
-				clip(SplatWeight74_g35 == 0.0f ? -1 : 1);
+				clip(SplatWeight74_g14 == 0.0f ? -1 : 1);
 				#endif
-				float4 SplatControl26_g35 = ( tex2DNode5_g35 / ( localSplatClip74_g35 + 0.001 ) );
-				float4 temp_cast_2 = (0.5).xxxx;
+				float4 SplatControl26_g14 = ( tex2DNode5_g14 / ( localSplatClip74_g14 + 0.001 ) );
 				float3 ase_worldNormal = IN.ase_texcoord3.xyz;
+				float4 triplanar100_g14 = TriplanarSamplingCF( _TopTexture0, _MidTexture0, _BotTexture0, WorldPosition, ase_worldNormal, _Falloff, _Tiling, float3( 1,1,1 ), float3(0,0,0) );
 				#ifdef _SNOW_ON
-				float staticSwitch88_g35 = ( ase_worldNormal.y * SnowTerrainFloat );
+				float staticSwitch88_g14 = ( ase_worldNormal.y * SnowTerrainFloat );
 				#else
-				float staticSwitch88_g35 = 0.0;
+				float staticSwitch88_g14 = 0.0;
 				#endif
 				float2 uv_Splat0 = IN.ase_texcoord2.xy * _Splat0_ST.xy + _Splat0_ST.zw;
 				float2 uv_Splat1 = IN.ase_texcoord2.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 uv_Splat2 = IN.ase_texcoord2.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 uv_Splat3 = IN.ase_texcoord2.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float4 weightedBlendVar9_g35 = ( 1.0 - step( SplatControl26_g35 , temp_cast_2 ) );
-				float4 weightedBlend9_g35 = ( weightedBlendVar9_g35.x*saturate( ( staticSwitch88_g35 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g35.y*saturate( ( staticSwitch88_g35 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g35.z*saturate( ( staticSwitch88_g35 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g35.w*saturate( ( staticSwitch88_g35 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
-				float4 MixDiffuse28_g35 = weightedBlend9_g35;
+				float4 weightedBlendVar9_g14 = ( SplatControl26_g14 + triplanar100_g14 );
+				float4 weightedBlend9_g14 = ( weightedBlendVar9_g14.x*saturate( ( staticSwitch88_g14 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g14.y*saturate( ( staticSwitch88_g14 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g14.z*saturate( ( staticSwitch88_g14 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g14.w*saturate( ( staticSwitch88_g14 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
+				float4 MixDiffuse28_g14 = weightedBlend9_g14;
 				
 				
-				float3 Albedo = MixDiffuse28_g35.xyz;
+				float3 Albedo = MixDiffuse28_g14.xyz;
 				float3 Emission = 0;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
@@ -1396,6 +1451,8 @@ Shader "IL3DN/Terrain First-Pass"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define ASE_SRP_VERSION 999999
+			#define ASE_TEXTURE_PARAMS(textureName) textureName
+			
 
 			#pragma enable_d3d11_debug_symbols
 			#pragma prefer_hlslcc gles
@@ -1412,6 +1469,7 @@ Shader "IL3DN/Terrain First-Pass"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			
+			#define ASE_NEEDS_FRAG_WORLD_POSITION
 			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature _SNOW_ON
 
@@ -1451,6 +1509,8 @@ Shader "IL3DN/Terrain First-Pass"
 			float4 _Splat2_ST;
 			float4 _Color3;
 			float4 _Splat3_ST;
+			float2 _Tiling;
+			float _Falloff;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
 			#endif
@@ -1472,6 +1532,9 @@ Shader "IL3DN/Terrain First-Pass"
 			#endif
 			CBUFFER_END
 			sampler2D _Control;
+			uniform sampler2D _TopTexture0;
+			uniform sampler2D _MidTexture0;
+			uniform sampler2D _BotTexture0;
 			float SnowTerrainFloat;
 			sampler2D _Splat0;
 			sampler2D _Splat1;
@@ -1479,7 +1542,22 @@ Shader "IL3DN/Terrain First-Pass"
 			sampler2D _Splat3;
 
 
+			inline float4 TriplanarSamplingCF( sampler2D topTexMap, sampler2D midTexMap, sampler2D botTexMap, float3 worldPos, float3 worldNormal, float falloff, float2 tiling, float3 normalScale, float3 index )
+			{
+				float3 projNormal = ( pow( abs( worldNormal ), falloff ) );
+				projNormal /= ( projNormal.x + projNormal.y + projNormal.z ) + 0.00001;
+				float3 nsign = sign( worldNormal );
+				float negProjNormalY = max( 0, projNormal.y * -nsign.y );
+				projNormal.y = max( 0, projNormal.y * nsign.y );
+				half4 xNorm; half4 yNorm; half4 yNormN; half4 zNorm;
+				xNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.zy * float2( nsign.x, 1.0 ) ) );
+				yNorm = ( tex2D( ASE_TEXTURE_PARAMS( topTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				yNormN = ( tex2D( ASE_TEXTURE_PARAMS( botTexMap ), tiling * worldPos.xz * float2( nsign.y, 1.0 ) ) );
+				zNorm = ( tex2D( ASE_TEXTURE_PARAMS( midTexMap ), tiling * worldPos.xy * float2( -nsign.z, 1.0 ) ) );
+				return xNorm * projNormal.x + yNorm * projNormal.y + yNormN * negProjNormalY + zNorm * projNormal.z;
+			}
 			
+
 			VertexOutput VertexFunction( VertexInput v  )
 			{
 				VertexOutput o = (VertexOutput)0;
@@ -1627,32 +1705,32 @@ Shader "IL3DN/Terrain First-Pass"
 				#endif
 
 				float2 uv_Control = IN.ase_texcoord2.xy * _Control_ST.xy + _Control_ST.zw;
-				float4 tex2DNode5_g35 = tex2D( _Control, uv_Control );
-				float dotResult20_g35 = dot( tex2DNode5_g35 , float4(1,1,1,1) );
-				float SplatWeight22_g35 = dotResult20_g35;
-				float localSplatClip74_g35 = ( SplatWeight22_g35 );
-				float SplatWeight74_g35 = SplatWeight22_g35;
+				float4 tex2DNode5_g14 = tex2D( _Control, uv_Control );
+				float dotResult20_g14 = dot( tex2DNode5_g14 , float4(1,1,1,1) );
+				float SplatWeight22_g14 = dotResult20_g14;
+				float localSplatClip74_g14 = ( SplatWeight22_g14 );
+				float SplatWeight74_g14 = SplatWeight22_g14;
 				#if !defined(SHADER_API_MOBILE) && defined(TERRAIN_SPLAT_ADDPASS)
-				clip(SplatWeight74_g35 == 0.0f ? -1 : 1);
+				clip(SplatWeight74_g14 == 0.0f ? -1 : 1);
 				#endif
-				float4 SplatControl26_g35 = ( tex2DNode5_g35 / ( localSplatClip74_g35 + 0.001 ) );
-				float4 temp_cast_2 = (0.5).xxxx;
+				float4 SplatControl26_g14 = ( tex2DNode5_g14 / ( localSplatClip74_g14 + 0.001 ) );
 				float3 ase_worldNormal = IN.ase_texcoord3.xyz;
+				float4 triplanar100_g14 = TriplanarSamplingCF( _TopTexture0, _MidTexture0, _BotTexture0, WorldPosition, ase_worldNormal, _Falloff, _Tiling, float3( 1,1,1 ), float3(0,0,0) );
 				#ifdef _SNOW_ON
-				float staticSwitch88_g35 = ( ase_worldNormal.y * SnowTerrainFloat );
+				float staticSwitch88_g14 = ( ase_worldNormal.y * SnowTerrainFloat );
 				#else
-				float staticSwitch88_g35 = 0.0;
+				float staticSwitch88_g14 = 0.0;
 				#endif
 				float2 uv_Splat0 = IN.ase_texcoord2.xy * _Splat0_ST.xy + _Splat0_ST.zw;
 				float2 uv_Splat1 = IN.ase_texcoord2.xy * _Splat1_ST.xy + _Splat1_ST.zw;
 				float2 uv_Splat2 = IN.ase_texcoord2.xy * _Splat2_ST.xy + _Splat2_ST.zw;
 				float2 uv_Splat3 = IN.ase_texcoord2.xy * _Splat3_ST.xy + _Splat3_ST.zw;
-				float4 weightedBlendVar9_g35 = ( 1.0 - step( SplatControl26_g35 , temp_cast_2 ) );
-				float4 weightedBlend9_g35 = ( weightedBlendVar9_g35.x*saturate( ( staticSwitch88_g35 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g35.y*saturate( ( staticSwitch88_g35 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g35.z*saturate( ( staticSwitch88_g35 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g35.w*saturate( ( staticSwitch88_g35 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
-				float4 MixDiffuse28_g35 = weightedBlend9_g35;
+				float4 weightedBlendVar9_g14 = ( SplatControl26_g14 + triplanar100_g14 );
+				float4 weightedBlend9_g14 = ( weightedBlendVar9_g14.x*saturate( ( staticSwitch88_g14 + ( _Color0 * tex2D( _Splat0, uv_Splat0 ) ) ) ) + weightedBlendVar9_g14.y*saturate( ( staticSwitch88_g14 + ( _Color1 * tex2D( _Splat1, uv_Splat1 ) ) ) ) + weightedBlendVar9_g14.z*saturate( ( staticSwitch88_g14 + ( _Color2 * tex2D( _Splat2, uv_Splat2 ) ) ) ) + weightedBlendVar9_g14.w*saturate( ( staticSwitch88_g14 + ( _Color3 * tex2D( _Splat3, uv_Splat3 ) ) ) ) );
+				float4 MixDiffuse28_g14 = weightedBlend9_g14;
 				
 				
-				float3 Albedo = MixDiffuse28_g35.xyz;
+				float3 Albedo = MixDiffuse28_g14.xyz;
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 
@@ -1675,17 +1753,17 @@ Shader "IL3DN/Terrain First-Pass"
 }
 /*ASEBEGIN
 Version=18100
-0;219;1417;692;922.1345;427.087;1.140138;True;True
-Node;AmplifyShaderEditor.RangedFloatNode;16;-164.8546,46.49919;Float;False;Constant;_Float1;Float 1;1;0;Create;True;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;64;-483.678,-195.8597;Inherit;False;IL3DN - Four Splats First Pass Terrain;0;;35;c3e2b73ed8eb8c64681162a2abca2a89;0;3;59;FLOAT4;0,0,0,0;False;60;FLOAT4;0,0,0,0;False;62;FLOAT;0;False;2;FLOAT4;0;FLOAT;19
+-1313;504;892;585;1528.221;929.6758;3.271277;True;False
+Node;AmplifyShaderEditor.RangedFloatNode;16;-118.178,-71.85968;Float;False;Constant;_Float1;Float 1;1;0;Create;True;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;31;-483.678,-195.8597;Inherit;False;IL3DN - Four Splats First Pass Terrain;0;;14;c3e2b73ed8eb8c64681162a2abca2a89;0;3;59;FLOAT4;0,0,0,0;False;60;FLOAT4;0,0,0,0;False;62;FLOAT;0;False;2;FLOAT4;0;FLOAT;19
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;19;96,-195;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;20;96,-195;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;3;DepthOnly;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;False;False;False;False;True;False;False;False;False;0;False;-1;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;21;96,-195;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Meta;0;4;Meta;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;False;False;False;True;2;False;-1;False;False;False;False;False;True;1;LightMode=Meta;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;22;96,-195;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;Universal2D;0;5;Universal2D;0;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;True;1;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;False;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=Universal2D;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;24;98,-195;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;True;0;False;-1;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;0;False;0;Hidden/InternalErrorShader;0;0;Standard;0;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;18;120,-195;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;IL3DN/Terrain First-Pass;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;16;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;True;1;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;0;Hidden/InternalErrorShader;0;0;Standard;33;Workflow;1;Surface;0;  Refraction Model;0;  Blend;0;Two Sided;1;Transmission;0;  Transmission Shadow;5,False,-1;Translucency;0;  Translucency Strength;1,False,-1;  Normal Distortion;5,False,-1;  Scattering;2,False,-1;  Direct;9,False,-1;  Ambient;1,False,-1;  Shadow;5,False,-1;Cast Shadows;1;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;Meta Pass;1;Override Baked GI;0;Extra Pre Pass;0;DOTS Instancing;0;Tessellation;0;  Phong;0;  Strength;5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Vertex Position,InvertActionOnDeselection;1;0;6;False;True;True;True;True;True;False;;0
-WireConnection;18;0;64;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;18;120,-195;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;IL3DN/Terrain First-Pass;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;16;False;False;False;True;0;False;-1;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;0;True;1;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;True;True;True;True;True;0;False;-1;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;0;Hidden/InternalErrorShader;0;0;Standard;33;Workflow;1;Surface;0;  Refraction Model;0;  Blend;0;Two Sided;1;Transmission;0;  Transmission Shadow;0.5,False,-1;Translucency;0;  Translucency Strength;1,False,-1;  Normal Distortion;0.5,False,-1;  Scattering;2,False,-1;  Direct;0.9,False,-1;  Ambient;0.1,False,-1;  Shadow;0.5,False,-1;Cast Shadows;1;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;Meta Pass;1;Override Baked GI;0;Extra Pre Pass;0;DOTS Instancing;0;Tessellation;0;  Phong;0;  Strength;0.5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Vertex Position,InvertActionOnDeselection;1;0;6;False;True;True;True;True;True;False;;0
+WireConnection;18;0;31;0
 WireConnection;18;3;16;0
 WireConnection;18;4;16;0
 ASEEND*/
-//CHKSM=10D5A18C1BAE1D59694DE62261D2030D24AB399F
+//CHKSM=508962CB1C4ACCAB48243AB6AB9B2DAC7988F3B9
