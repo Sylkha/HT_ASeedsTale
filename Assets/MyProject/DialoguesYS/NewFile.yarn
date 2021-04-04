@@ -3,18 +3,17 @@ tags:
 colorID: 0
 position: 608,-113
 ---
-<<if $Note1 is false>> 
+<<if $Note1 is false>>
 <<canMove Player false>>
-Antheia: A note? And it has my writing?
-Diary: In today's dream I heard a beautiful sound, followed by a whisper:
-Diary: "With a golden body and sun beams as strings it lies upon a cliff".
-Antheia: Should I go for this one?
+Jorge: Hoa bebé!
+Silvia: Hoa bebito!
+Jorge: Vas a coger la nota??
  
-[[Antheia: Of course! What could it be?|Node1]] 
-[[Antheia: Do|Node2]]
+[[Silvia:Si, claro |Node1]] 
+[[Silvia:Hmmm no|Node2]]
 <<else>>
 <<canMove Player false>>
-Antheia: Already focused on this one!
+Jorge: Ya has cogido la carta!
 <<canMove Player true>>
 <<stop>>
 <<endif>>
@@ -27,15 +26,10 @@ colorID: 0
 position: 419,182
 ---
 <<set $Note1 to true>>
-<<<<<<< Updated upstream
 <<take MissionNotes Note1>>
 Jorge: y eso?? qué ha pasado??
 Silvia: buedooo, el yarn spinner
 Silvia: ya sigo otro dia
-=======
-<<take MissionsNotes Note1>>
-Antheia: To a godly adventure on a cliff!
->>>>>>> Stashed changes
 <<canMove Player true>>
 ===
 
@@ -44,7 +38,9 @@ tags:
 colorID: 0
 position: 790,176
 ---
-Antheia: I will look around for a bit
+Jorge: Bueno, descansa un poquito
+Silvia: Vale, pues vamos a jugar un ratito!
+Jorge: lesgooo
 <<canMove Player true>>
 ===
 
@@ -54,7 +50,8 @@ colorID: 0
 position: 790,176
 ---
 <<canMove Player false>>
-Antheia: Alright girl! Now what?!
+Jorge: BebEEEEEEEEEE
+Silvia: AAAAAAAAA
 <<canMove Player true>>
 ===
 
@@ -64,6 +61,6 @@ colorID: 0
 position: 790,176
 ---
 <<canMove Player false>>
-Antheia: Already focused on this one!
+Jorge: Vas a dejar de dar error?????
 <<canMove Player true>>
 ===

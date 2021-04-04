@@ -8,7 +8,7 @@ TerrainLayer:
   m_PrefabAsset: {fileID: 0}
   m_Name: Terrain_Sand
   m_DiffuseTexture: {fileID: 2800000, guid: 09e7e4fdec5db68438a1f07eba00b0fd, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: 51aa6d4490fe9a64f874a1faec20c928, type: 3}
+  m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 10, y: 10}
   m_TileOffset: {x: 1, y: 1}
