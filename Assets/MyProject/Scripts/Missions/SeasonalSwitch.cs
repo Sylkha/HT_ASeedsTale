@@ -30,7 +30,6 @@ public class SeasonalSwitch : MonoBehaviour
     {
         cmTex.SetMaterialColors(2);
         cmEff.SetMaterialColors(2);
-        Debug.Log("Season");
     }
 
     private void OnTriggerEnter(Collider other)

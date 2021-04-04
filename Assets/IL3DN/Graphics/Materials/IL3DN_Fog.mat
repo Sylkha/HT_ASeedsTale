@@ -113,9 +113,9 @@ Material:
     - _Color0: {r: 0.015686274, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EndColor: {r: 0, g: 1, b: 0, a: 0}
-    - _FarColor: {r: 0.21226346, g: 0.5812036, b: 1, a: 0.4}
-    - _GlowColor: {r: 0.24705842, g: 0.11763426, b: 0, a: 0}
-    - _NearColor: {r: 1, g: 0.67548764, b: 0.41981128, a: 0}
+    - _FarColor: {r: 0.3275179, g: 0.676996, b: 0.9205661, a: 0.3851412}
+    - _GlowColor: {r: 0.20659402, g: 0.06811026, b: 0.017594194, a: 0}
+    - _NearColor: {r: 1, g: 0.6173238, b: 0.3167458, a: 0.033019595}
     - _SF_NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SF_NoiseTiling: {r: 1, g: 1, b: 1, a: 1}
     - _StartColor: {r: 1, g: 0, b: 0, a: 0}
