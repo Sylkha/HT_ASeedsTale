@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BotTexture0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: -0.26, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -60,6 +64,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MidTexture:
+        m_Texture: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MidTexture0:
+        m_Texture: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -88,6 +100,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TopTexture0:
+        m_Texture: {fileID: 2800000, guid: 7a4d06820d904c34b9476ae19fe7cf1d, type: 3}
+        m_Scale: {x: 1.79, y: 1}
+        m_Offset: {x: 0.37, y: 0}
     - _TranslucencyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -99,10 +115,12 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _BumpScale: 1
+    - _ControlAdd: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Falloff: 8.85
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -141,12 +159,14 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Color0: {r: 0.15524462, g: 0.41509432, b: 0.0763617, a: 1}
-    - _Color1: {r: 0.7254902, g: 0.42664218, b: 0.36078432, a: 0}
-    - _Color2: {r: 0.9245283, g: 0.86517805, b: 0.63234246, a: 0}
-    - _Color3: {r: 0.28627452, g: 0.47058827, b: 0.121568635, a: 0}
+    - _Color0: {r: 0.2708807, g: 0.45828298, b: 0.14704534, a: 0}
+    - _Color1: {r: 0.54170746, g: 0.34298497, b: 0.18036875, a: 0}
+    - _Color2: {r: 0.77606606, g: 0.7337059, b: 0.39209896, a: 0}
+    - _Color3: {r: 0.25357655, g: 0.3160933, b: 0.2627469, a: 0}
+    - _Color4: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
+    - _Tiling: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
