@@ -37,12 +37,7 @@ public class CollectibleObject : MonoBehaviour
     // Esto lo llamamos cuando es un objeto de misión desde el MissionNotes, y desde el comando si es un coleccionable
     [Yarn.Unity.YarnCommand("takeCollectable")]
     public void SetCollected()
-
-      
-
     {
-        
-
         if (noteTaken || !missionObject)
         {
             SetNode(n_TakenMission);

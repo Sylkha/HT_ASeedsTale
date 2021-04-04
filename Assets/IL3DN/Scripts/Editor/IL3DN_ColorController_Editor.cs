@@ -65,14 +65,14 @@
             }
             if (GUILayout.Button("Set this slot active for all materials"))
             {
-               /* if (effectsScript != null)
+                if (effectsScript != null)
                 {
                     effectsScript.SetMaterialColors(targetScript.slot);
                 }
                 if (texturesScript != null)
                 {
                     texturesScript.SetMaterialColors(targetScript.slot);
-                } */
+                } 
             }
         }
     }
