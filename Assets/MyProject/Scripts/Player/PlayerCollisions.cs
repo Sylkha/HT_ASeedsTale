@@ -37,6 +37,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             if (Input.GetButton("Interaction"))
             {
+                Debug.Log("?");
                 collision.gameObject.GetComponent<CollectibleObject>().SetCollected();
 
             }

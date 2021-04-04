@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using IL3DN;
+
 // This script is contained by Altar
 [RequireComponent(typeof(Yarn.Unity.Example.NPC))]
 public class SeasonalSwitch : MonoBehaviour
@@ -14,11 +16,20 @@ public class SeasonalSwitch : MonoBehaviour
     Yarn.Unity.Example.NPC dialogue;
     bool canSwitch = false;
 
+    [SerializeField] IL3DN_ColorManagerTextures cmTex;
+    [SerializeField] IL3DN_ColorManagerEffects cmEff;
+
     // Start is called before the first frame update
     void Start()
     {
         dialogue = GetComponent<Yarn.Unity.Example.NPC>();
         dialogue.talkToNode = n_NotCompletedMission;
+    }
+
+    public void ChangeSeason()
+    {
+        cmTex.SetMaterialColors(2);
+        cmEff.SetMaterialColors(2);
     }
 
     private void OnTriggerEnter(Collider other)

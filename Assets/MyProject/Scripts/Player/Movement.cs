@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
+using Movements.Fly;
 
 //This script is contained by the player, father of the model.
 [RequireComponent(typeof(CharacterController))]
@@ -127,6 +128,11 @@ public class Movement : MonoBehaviour
     }
     #endregion InControl
 
+    private void Awake()
+    {
+        fly = base.GetComponent<FlyingMovement>();
+    }
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -135,13 +141,67 @@ public class Movement : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    {        
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
             GroundMovement();
 
         else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving) 
-            SwimmingMovement();
+            SwimmingMovement();        
+    }
+    float maxY;
+    void Animations()
+    {
+        if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying)
+        {
+            if (IsGrounded())
+            {
 
+                if (actions.Move.X != 0 || actions.Move.Y != 0) anim.SetInteger("Movement", 1);
+                else anim.SetInteger("Movement", 0);
+
+                is_Jumping = false;
+                platformJump = false;
+                maxY = 0;
+            }
+            else
+            {
+                maxY = Mathf.Max(maxY, transform.position.y);
+                if(glide == true)
+                {
+                    anim.SetInteger("Movement", 3);
+                }
+                else
+                {
+                    is_Jumping = true;
+                    if(maxY > transform.position.y)
+                    {
+                        anim.SetInteger("Movement", 4);
+                    }
+                    else
+                    {
+                        anim.SetInteger("Movement", 2);
+                    }
+
+                }
+
+            }
+
+            if (MyRaycast(1.5f))
+            {
+                if (is_Jumping)
+                {
+                    // We're landing
+                    anim.SetInteger("Movement", 5);
+                }
+            }
+
+        }
+
+        else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
+        {
+            if (actions.Move.X != 0 || actions.Move.Y != 0) anim.SetInteger("Movement", 6);
+            else anim.SetInteger("Movement", 7);
+        }
     }
     
     void BasicMovement()
@@ -160,7 +220,7 @@ public class Movement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }      
     }
-
+    FlyingMovement fly;
     #region Ground Movement
     void GroundMovement()
     {
@@ -171,11 +231,7 @@ public class Movement : MonoBehaviour
         {
             typeMovement = Terrain.grounded;
             GroundAttributes();
-            if (characterController.velocity.magnitude != 0) anim.SetInteger("Movement", 1);
-            else anim.SetInteger("Movement", 0);
-
-            is_Jumping = false;
-            platformJump = false;
+                        
             glide = false;
         }
         // Not Grounded
@@ -185,12 +241,20 @@ public class Movement : MonoBehaviour
             // Glide action             
             if (glide == true)
             {
-                Debug.Log("glide");
+                float rollInput = actions.Move.X;
+                //float pitchInput = actions.Move.Y;
+
+
+                //fly.Fly(rollInput, pitchInput, camera_transf);
                 GlideAttributes();
+
+                Roll(rollInput);
+                Yaw();
             }
             // We're not gliding
             else
             {
+                BasicMovement();
                 GroundAttributes();
             }          
             
@@ -201,7 +265,25 @@ public class Movement : MonoBehaviour
         PlayerSkills();
         //Debug.DrawRay(transform.position , transform.TransformDirection(Vector3.down)* heightToFly);
 
-        characterController.Move(direction * Time.deltaTime);
+        //if(!glide)
+            characterController.Move(direction * Time.deltaTime);
+    }
+    float roll_speed = 30;
+    float yaw_maxSpeed = 100;
+    // Giro hacia los lados con el cuerpo. Z
+    void Roll(float rollAxis)
+    {
+        //if (!canRoll()) return;
+
+        float roll = rollAxis * roll_speed * Time.deltaTime;
+        transform.Rotate(0, 0, roll);
+    }
+
+    // Giro hacia los lados. Y
+    void Yaw()
+    {
+        float yaw = transform.rotation.z * yaw_maxSpeed / 90 * Time.deltaTime;
+        transform.Rotate(0, yaw, 0);
     }
 
     // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
@@ -276,6 +358,7 @@ public class Movement : MonoBehaviour
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
     {
+        Animations();
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbuttondown_glide = true;
@@ -311,7 +394,6 @@ public class Movement : MonoBehaviour
                 // Player has held the Space key for .25 seconds. Consider it "held"
                 glide = true;
                 _spaceHeld = true;
-                Debug.Log("lesgo");
             }
             _getbutton_glide = false;
         }
@@ -370,12 +452,7 @@ public class Movement : MonoBehaviour
         WaterAttributes();
         BasicMovement();
         PlayerSkills();
-
-        if (characterController.velocity.magnitude != 0)
-            anim.SetInteger("Movement", 6);
-        else anim.SetInteger("Movement", 7);
-
-        
+       
         Impulse_swim();
         characterController.Move(impulse * Time.deltaTime);        
     }

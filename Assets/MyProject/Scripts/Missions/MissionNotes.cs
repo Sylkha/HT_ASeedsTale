@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using IL3DN;
 // This script is contained by MissionNotesManager
 public class MissionNotes : MonoBehaviour
 {
@@ -41,8 +42,9 @@ public class MissionNotes : MonoBehaviour
         for (int i = 0; i < notes.Length; i++)
         {
             notes[i].dialogue.talkToNode = notes[i].n_OTHERMissTaken;
-            if(notes[i].noteNumber == _note)
-            {
+            Debug.Log("WHAT");
+            if (notes[i].noteNumber == _note)
+            {               
                 notes[i].dialogue.talkToNode = notes[i].n_TakenMission;
                 notes[i].ourObject.SetNoteTaken();
             }

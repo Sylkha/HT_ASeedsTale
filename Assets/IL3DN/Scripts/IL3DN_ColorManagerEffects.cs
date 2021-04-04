@@ -1,6 +1,7 @@
 ﻿namespace IL3DN
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -57,6 +58,7 @@
         public Material meterial;
         public List<MaterialColors> properties;
         public int selectedProperty;
+        public int previousProperty;
 
         public MultipleColorProperties(Material material)
         {
@@ -76,16 +78,7 @@
 
         public void Refresh()
         {
-            for (int i = 0; i < materials.Count; i++)
-            {
-                for (int k = 0; k < materials[i].properties[materials[i].selectedProperty].colors.Count; k++)
-                {
-                    Color materialColor = materials[i].properties[materials[i].selectedProperty].colors[k].color;
-                    string propertyName = materials[i].properties[materials[i].selectedProperty].colors[k].name;
-
-                    materials[i].meterial.SetColor(propertyName, materialColor);
-                }
-            }
+            StartCoroutine(SetColorGradually());
         }
 
         public void SetMaterialColors(int slot)
@@ -94,10 +87,38 @@
             {
                 if (materials[i].properties.Count > slot - 1)
                 {
+                    materials[i].previousProperty = materials[i].selectedProperty;
                     materials[i].selectedProperty = slot - 1;
                 }
             }
             Refresh();
         }
+        private IEnumerator SetColorGradually()
+        {
+            Color[,] colors = new Color[materials.Count, 5];
+            for (int i = 0; i < materials.Count; i++)
+            {
+                for (int k = 0; k < materials[i].properties[materials[i].previousProperty].colors.Count; k++)
+                {
+                    colors[i, k] = (materials[i].properties[materials[i].previousProperty].colors[k].color);
+                }
+            }
+
+            for (float t = 0.01f; t < 10; t += 0.1f)
+            {
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    for (int k = 0; k < materials[i].properties[materials[i].selectedProperty].colors.Count; k++)
+                    {
+                        Color materialColor = Color.Lerp(colors[i, k], materials[i].properties[materials[i].selectedProperty].colors[k].color, t / 10);
+                        string propertyName = materials[i].properties[materials[i].selectedProperty].colors[k].name;
+
+                        materials[i].meterial.SetColor(propertyName, materialColor);
+                    }
+                }
+                yield return null;
+            }
+        }
+
     }
 }

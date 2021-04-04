@@ -26,6 +26,8 @@ public class CollectibleObject : MonoBehaviour
     bool collected = false;
     bool delivered = false;
 
+    [SerializeField] SeasonalSwitch ss;
+
     private void Start()
     {
         dialogue = GetComponent<Yarn.Unity.Example.NPC>();
@@ -35,22 +37,26 @@ public class CollectibleObject : MonoBehaviour
     // Esto lo llamamos cuando es un objeto de misión desde el MissionNotes, y desde el comando si es un coleccionable
     [Yarn.Unity.YarnCommand("takeCollectable")]
     public void SetCollected()
-    {
-        dl.StartDialogue(dialogue.talkToNode);
+    {       
         if (noteTaken || !missionObject)
         {
             SetNode(n_TakenMission);
             collected = true;
             this.gameObject.SetActive(false);
+            Debug.Log("cabrong");
             //Desde el dialogo le ponemos si cambian la conversación de la nota
             if (positionDelivered != null)
             {
                 this.gameObject.transform.position = positionDelivered.position;
 
-                if(missionObject)
+                if (missionObject)
+                {
                     SetDelivered();
+                    ss.ChangeSeason();
+                }
             }
         }
+        dl.StartDialogue(dialogue.talkToNode);
     }
 
     public void SetDelivered()
@@ -63,6 +69,7 @@ public class CollectibleObject : MonoBehaviour
     public void SetNoteTaken()
     {        
         noteTaken = true;
+        Debug.Log("Oye");
     }
 
     public void SetNode(string _node)

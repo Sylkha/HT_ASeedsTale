@@ -1,6 +1,7 @@
 ﻿namespace IL3DN
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -28,6 +29,7 @@
         public Material meterial;
         public List<ShaderProperties> properties;
         public int selectedProperty;
+        public int previousProperty;
 
         public MaterialProperties(Material material)
         {
@@ -46,11 +48,7 @@
 
         public void Refresh()
         {
-            for (int i = 0; i < materials.Count; i++)
-            {
-                materials[i].meterial.color = materials[i].properties[materials[i].selectedProperty].color;
-                materials[i].meterial.mainTexture = materials[i].properties[materials[i].selectedProperty].mainTex;
-            }
+            StartCoroutine(SetColorGradually());
         }
 
         public void SetMaterialColors(int slot)
@@ -59,10 +57,30 @@
             {
                 if (materials[i].properties.Count > slot - 1)
                 {
+                    materials[i].previousProperty = materials[i].selectedProperty;
                     materials[i].selectedProperty = slot - 1;
                 }
             }
             Refresh();
+        }
+
+        private IEnumerator SetColorGradually()
+        {
+            Color[] colors = new Color[materials.Count];
+            for (int i = 0; i < materials.Count; i++)
+            {
+                colors[i] = materials[i].properties[materials[i].previousProperty].color;
+            }
+
+            for (float t = 0.01f; t < 10; t += 0.1f)
+            {
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    materials[i].meterial.color = Color.Lerp(colors[i], materials[i].properties[materials[i].selectedProperty].color, t / 10);
+                    // materials[i].meterial.mainTexture = materials[i].properties[materials[i].selectedProperty].mainTex;
+                }
+                yield return null;
+            }
         }
     }
 }
