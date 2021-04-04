@@ -1,4 +1,4 @@
-title: Ahora
+title: Note1
 tags: 
 colorID: 0
 position: 608,-113
@@ -27,15 +27,8 @@ colorID: 0
 position: 419,182
 ---
 <<set $Note1 to true>>
-<<<<<<< Updated upstream
-<<take MissionNotes Note1>>
-Jorge: y eso?? qué ha pasado??
-Silvia: buedooo, el yarn spinner
-Silvia: ya sigo otro dia
-=======
 <<take MissionsNotes Note1>>
 Antheia: To a godly adventure on a cliff!
->>>>>>> Stashed changes
 <<canMove Player true>>
 ===
 

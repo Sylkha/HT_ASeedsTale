@@ -12,5 +12,6 @@ colorID: 0
 position: 827,439
 ---
 Antheia: Found it!
+<<takeCollectable WalnutLyre>>
 Lira: Hey!
 ===

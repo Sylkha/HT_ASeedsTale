@@ -35,12 +35,7 @@ public class PlayerCollisions : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
-            if (Input.GetButton("Interaction"))
-            {
-                Debug.Log("?");
-                collision.gameObject.GetComponent<CollectibleObject>().SetCollected();
-
-            }
+           
         }
         
     }
