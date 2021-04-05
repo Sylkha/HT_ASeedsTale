@@ -678,7 +678,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
     - name: IL3DN_Tree_Pine_03
       settings:
@@ -2173,8 +2173,8 @@ MonoBehaviour:
         randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 4
-        scaleUniformMax: 7
+        scaleUniformMin: 1
+        scaleUniformMax: 3
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         scaleAux: 1
@@ -2306,8 +2306,8 @@ MonoBehaviour:
         randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 4
-        scaleUniformMax: 7
+        scaleUniformMin: 1
+        scaleUniformMax: 2
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         scaleAux: 1
@@ -2806,7 +2806,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Tree_Birch_02_Dead
       settings:
@@ -4038,7 +4038,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMax: 2
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         scaleAux: 1
@@ -4171,7 +4171,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMax: 3
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         scaleAux: 1
@@ -6673,7 +6673,7 @@ MonoBehaviour:
       colorTag: 0
   - name: Rocks
     brushes: []
-  activeTab: 1
+  activeTab: 3
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2
@@ -6689,7 +6689,7 @@ MonoBehaviour:
   ppSnapScaleValue: 0.1
   ppSnapRotation: 1
   ppSnapScale: 1
-  eraseBrushRadius: 1.42
+  eraseBrushRadius: 1
   eraseByLayer: 0
   eraseLayers:
     serializedVersion: 2
