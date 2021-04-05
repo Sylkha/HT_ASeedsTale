@@ -678,7 +678,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Tree_Pine_03
       settings:
@@ -1482,7 +1482,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 0.54
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -1879,9 +1879,9 @@ MonoBehaviour:
       colorTag: 0
     - name: IL3DN_Tree_Beech_03
       settings:
-        brushRadius: 1
-        brushSpacing: 0.5
-        brushOverallScale: 1
+        brushRadius: 0.73
+        brushSpacing: 0.44
+        brushOverallScale: 0.29
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -2280,7 +2280,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 1.46
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -2546,7 +2546,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 1.25
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -2679,7 +2679,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 0.9
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -2945,7 +2945,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 1.78
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -3477,7 +3477,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 0.58
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -3604,7 +3604,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
   - name: Plants
     brushes:
@@ -3612,7 +3612,7 @@ MonoBehaviour:
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 1.7
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -3739,7 +3739,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
     - name: IL3DN_Plant_Flower_02
       settings:
@@ -4271,7 +4271,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Plant_Grass_03
       settings:
@@ -5738,7 +5738,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 1
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_01_Dead
       settings:
@@ -5871,7 +5871,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_01_OneMesh
       settings:
@@ -6137,7 +6137,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_02_Dead
       settings:
@@ -6270,13 +6270,13 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_03
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 0.37
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -6403,7 +6403,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_03_Dead
       settings:
@@ -6536,13 +6536,13 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_03_OneMesh
       settings:
         brushRadius: 1
         brushSpacing: 0.5
-        brushOverallScale: 1
+        brushOverallScale: 0.3
         brushOverlapCheck: 0
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -6669,11 +6669,11 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
   - name: Rocks
     brushes: []
-  activeTab: 3
+  activeTab: 1
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2
