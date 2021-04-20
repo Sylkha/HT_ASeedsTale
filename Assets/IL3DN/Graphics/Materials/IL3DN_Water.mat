@@ -176,19 +176,19 @@ Material:
     - _ZWrite: 0
     - __dirty: 0
     m_Colors:
-    - _BottomColor: {r: 0.48393556, g: 0.8207547, b: 0.7964607, a: 1}
+    - _BottomColor: {r: 0.3297208, g: 0.20069209, b: 0.15345302, a: 1}
     - _Color: {r: 0.09545212, g: 0.31258285, b: 0.3679245, a: 0.42745098}
     - _Color0: {r: 1, g: 1, b: 1, a: 1}
     - _DeepColor: {r: 0.02990388, g: 0.16228628, b: 0.30188626, a: 1}
     - _EdgeColor: {r: 0.4339623, g: 0.33974534, b: 0.16580635, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FoamColor: {r: 0, g: 0.62976694, b: 1, a: 1}
+    - _FoamColor: {r: 1, g: 0.88279843, b: 0.6587594, a: 1}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
-    - _MidColor: {r: 0.12322002, g: 0.57452315, b: 0.6698113, a: 1}
+    - _MidColor: {r: 0.41238204, g: 0.39553908, b: 0.11468498, a: 1}
     - _RimColor: {r: 0.40032038, g: 0.49056602, b: 0.45731762, a: 1}
     - _ShallowColor: {r: 0.16019884, g: 0.45282984, b: 0.35354424, a: 1}
     - _ShalowColor: {r: 0.06421317, g: 0.36792442, b: 0.33499187, a: 0.6156863}
-    - _TopColor: {r: 0.18823424, g: 0.8490566, b: 0.7888538, a: 1}
+    - _TopColor: {r: 0.5369347, g: 0.4447816, b: 0.13825136, a: 1}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}

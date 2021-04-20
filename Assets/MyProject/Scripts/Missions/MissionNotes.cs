@@ -42,18 +42,17 @@ public class MissionNotes : MonoBehaviour
         for (int i = 0; i < notes.Length; i++)
         {
             notes[i].dialogue.talkToNode = notes[i].n_OTHERMissTaken;
-            Debug.Log("WHAT");
             if (notes[i].noteNumber == _note)
-            {               
+            {
                 notes[i].dialogue.talkToNode = notes[i].n_TakenMission;
                 notes[i].ourObject.SetNoteTaken();
             }
         }
     }
 
-    // Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, 
-    [Yarn.Unity.YarnCommand("takeObject")]
-    public void TakeMissionObject(string _note)
+    // Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, se indica
+    [Yarn.Unity.YarnCommand("resetMissions")]
+    public void ResetMissions()
     {
         for (int i = 0; i < notes.Length; i++)
         {
@@ -61,7 +60,7 @@ public class MissionNotes : MonoBehaviour
             if (notes[i].ourObject.GetCollected())
             {
                 notes[i].dialogue.talkToNode = notes[i].n_FinishedMission;
-                notes[i].ourObject.SetCollected();
+                //notes[i].ourObject.SetCollected();
             }
         }
     }

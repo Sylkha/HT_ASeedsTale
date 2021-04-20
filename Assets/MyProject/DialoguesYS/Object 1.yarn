@@ -1,4 +1,4 @@
-title: Lira_NoMission
+title: Object_NoMission
 tags: 
 colorID: 0
 position: 721,130
@@ -6,13 +6,13 @@ position: 721,130
 Lira: ...
 ===
 
-title: Lira_Mission
+title: Object_Mission
 tags: 
 colorID: 0
 position: 827,439
 ---
 Antheia: Found it!
-<<takeCollectable WalnutLyre>>
+<<takeCollectable CollectibleObject(1)>>
 Lira: Hey!
 <<resetMissions MissionsNotes>>
 ===

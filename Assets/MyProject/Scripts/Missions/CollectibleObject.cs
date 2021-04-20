@@ -34,16 +34,19 @@ public class CollectibleObject : MonoBehaviour
         SetNode(n_NotTakenMission);
     }
 
+    public void chat()
+    {
+        dl.StartDialogue(dialogue.talkToNode);
+    }
+
     // Esto lo llamamos cuando es un objeto de misión desde el MissionNotes, y desde el comando si es un coleccionable
     [Yarn.Unity.YarnCommand("takeCollectable")]
     public void SetCollected()
     {
         if (noteTaken || !missionObject)
         {
-            SetNode(n_TakenMission);
             collected = true;
             this.gameObject.SetActive(false);
-            Debug.Log("cabrong");
             //Desde el dialogo le ponemos si cambian la conversación de la nota
             if (positionDelivered != null)
             {
@@ -55,21 +58,21 @@ public class CollectibleObject : MonoBehaviour
                     ss.ChangeSeason();
                 }
             }
-        }
-        dl.StartDialogue(dialogue.talkToNode);
+        }        
     }
 
     public void SetDelivered()
     {
         delivered = true;
         this.gameObject.SetActive(true);
+        SetNode(n_TakenMission);
         Debug.Log("HEMOS COGIDO EL OBJETO");
     }
    
     public void SetNoteTaken()
     {        
         noteTaken = true;
-        Debug.Log("Oye");
+        SetNode(n_TakenMission);
     }
 
     public void SetNode(string _node)

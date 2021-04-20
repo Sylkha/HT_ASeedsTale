@@ -141,7 +141,8 @@ public class Movement : MonoBehaviour
     }
 
     void FixedUpdate()
-    {        
+    {
+        if (!canMove) return;
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
             GroundMovement();
 
@@ -358,6 +359,7 @@ public class Movement : MonoBehaviour
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
     {
+        if (!canMove) return;
         Animations();
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
