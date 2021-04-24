@@ -3739,7 +3739,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Plant_Flower_02
       settings:
@@ -4537,7 +4537,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
     - name: IL3DN_Plant_WaterLily_01
       settings:
