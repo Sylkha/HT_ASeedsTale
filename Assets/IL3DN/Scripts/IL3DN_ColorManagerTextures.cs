@@ -44,15 +44,18 @@
     [RequireComponent(typeof(IL3DN_ColorController))]
     public class IL3DN_ColorManagerTextures : MonoBehaviour
     {
+        bool finished = false;
+        float secondsChange;
         public List<MaterialProperties> materials = new List<MaterialProperties>();
 
         public void Refresh()
         {
-            StartCoroutine(SetColorGradually());
+            StartCoroutine(SetColorGradually());                      
         }
 
         public void SetMaterialColors(int slot)
         {
+            finished = false;
             for (int i = 0; i < materials.Count; i++)
             {
                 if (materials[i].properties.Count > slot - 1)
@@ -72,15 +75,21 @@
                 colors[i] = materials[i].properties[materials[i].previousProperty].color;
             }
 
-            for (float t = 0.01f; t < 10; t += 0.1f)
+            for (float t = 0.00f; t < secondsChange / 10; t += Time.deltaTime)
             {
                 for (int i = 0; i < materials.Count; i++)
                 {
-                    materials[i].meterial.color = Color.Lerp(colors[i], materials[i].properties[materials[i].selectedProperty].color, t / 10);
+                    materials[i].meterial.color = Color.Lerp(colors[i], materials[i].properties[materials[i].selectedProperty].color, t);
                     // materials[i].meterial.mainTexture = materials[i].properties[materials[i].selectedProperty].mainTex;
                 }
                 yield return null;
             }
+            finished = true;
         }
+
+        public bool get_finished() { return finished; }
+
+        public void set_finished(bool b) { finished = b; }
+        public void set_seconds(float s) { secondsChange = s; }
     }
 }

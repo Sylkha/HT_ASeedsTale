@@ -74,6 +74,7 @@
     [RequireComponent(typeof(IL3DN_ColorController))]
     public class IL3DN_ColorManagerEffects : MonoBehaviour
     {
+        float secondsChange;
         public List<MultipleColorProperties> materials = new List<MultipleColorProperties>();
 
         public void Refresh()
@@ -104,7 +105,7 @@
                 }
             }
 
-            for (float t = 0.01f; t < 10; t += 0.1f)
+            for (float t = 0.00f; t < secondsChange / 10; t += Time.deltaTime)
             {
                 for (int i = 0; i < materials.Count; i++)
                 {
@@ -119,6 +120,8 @@
                 yield return null;
             }
         }
+
+        public void set_seconds(float s) { secondsChange = s; }
 
     }
 }
