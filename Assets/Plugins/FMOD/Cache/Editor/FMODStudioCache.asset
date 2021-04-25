@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637546877267920010
+  lastModified: 637548955239293328
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637546877268109737
+  lastModified: 637548955239303252
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637546877267949905
+  lastModified: 637548955239303252
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -85,7 +85,7 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637546877267949905
+  stringsBankWriteTime: 637548955239303252
   cacheVersion: 6
 --- !u!114 &496677672068085518
 MonoBehaviour:
@@ -125,7 +125,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637546877268019734
+  lastModified: 637548955239283320
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -144,7 +144,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637546877268049754
+  lastModified: 637548955239303252
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -163,7 +163,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637546877267979838
+  lastModified: 637548955239293328
   LoadResult: 0
   FileSizes: []
   Exists: 1

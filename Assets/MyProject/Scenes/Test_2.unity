@@ -4584,8 +4584,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4591646318673082655}
-  m_LocalRotation: {x: -0.0056625973, y: -0.9031443, z: -0.011917347, w: 0.4291343}
-  m_LocalPosition: {x: 2.4700541, y: 1.7661381, z: 14.0240345}
+  m_LocalRotation: {x: 0.26197538, y: 0.07115117, z: -0.019372486, w: 0.96225315}
+  m_LocalPosition: {x: -6.5478063, y: 7.099301, z: -0.8161286}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4765,10 +4765,18 @@ MonoBehaviour:
   isOnSlope: 0
   slideVelocity: 5
   slopeForceDown: 10
+  pitch_speed: 8
+  roll_speed: 70
+  yaw_speed: 60
+  pitch_maxAngle_UP: 10
+  pitch_maxAngle_DOWN: 60
+  roll_maxAngle: 20
+  yaw_maxAngle: 60
+  falling: 0
   speed_Glide: 10
   gravity_Glide: 15
   turnSmoothTime_Glide: 0.5
-  heightToFly: 2
+  heightToFly: 3
   _minimumHeldDuration: 0.5
   speed_Swim: 10
   min_speed_Swim: 2

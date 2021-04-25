@@ -31,6 +31,22 @@ public class Movement : MonoBehaviour
     [SerializeField] float slopeForceDown = 10;
 
     [Header("Glide")]
+    [SerializeField] float pitch_speed = 70;
+    [SerializeField] float roll_speed = 70;
+    [SerializeField] float yaw_speed = 60;
+
+    [SerializeField] float pitch_maxAngle_UP; // A parte del 0, que será nuestra vuelta al ángulo máximo, cuando se recupere de caer, este será su máximo
+    [SerializeField] float pitch_maxAngle_DOWN;
+    [SerializeField] float roll_maxAngle;
+    [SerializeField] float yaw_maxAngle;
+
+    public bool falling;
+
+    enum Direction { Left, Right, Back, Forward };
+    Direction actualDirection;
+    Direction lastDirection;
+
+
     [SerializeField] float speed_Glide = 10.0f;
     [SerializeField] float gravity_Glide = 150.0f;
     [SerializeField] float turnSmoothTime_Glide = 0.1f; // Rotate smooth while gliding
@@ -128,11 +144,6 @@ public class Movement : MonoBehaviour
     }
     #endregion InControl
 
-    private void Awake()
-    {
-        fly = base.GetComponent<FlyingMovement>();
-    }
-
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -213,18 +224,29 @@ public class Movement : MonoBehaviour
         // We can rotate if we're not flying (jump or glide), or if we're gliding
         if(glide == true || typeMovement != Terrain.flying)
             direction = new Vector3(camDirection.x, 0f, camDirection.z).normalized * speed;
-        if (direction.magnitude >= 0.1f && (glide == true || typeMovement != Terrain.flying))
+        if (direction.magnitude >= 0.1f && (glide != true || typeMovement != Terrain.flying))
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-        }      
+        }
+
+        else if (direction.magnitude >= 0.1f && glide == true)
+        {
+            Fly(dir.x);
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.localEulerAngles = new Vector3(targetRotation.x, angle, targetRotation.z);
+        }
     }
-    FlyingMovement fly;
+    
     #region Ground Movement
     void GroundMovement()
     {
+
         BasicMovement();
+
+        float rollAxis = actions.Move.X;
 
         // Grounded
         if (IsGrounded())
@@ -233,6 +255,11 @@ public class Movement : MonoBehaviour
             GroundAttributes();
             is_Jumping = false;
             platformJump = false;
+
+           /* if (is_Jumping == true)
+            {
+                StartCoroutine(Cooldown(2f, is_Jumping));
+            }*/
             glide = false;
         }
         // Not Grounded
@@ -242,15 +269,13 @@ public class Movement : MonoBehaviour
             // Glide action             
             if (glide == true)
             {
-                float rollInput = actions.Move.X;
-                //float pitchInput = actions.Move.Y;
-
-
                 //fly.Fly(rollInput, pitchInput, camera_transf);
                 GlideAttributes();
-
-                Roll(rollInput);
-                Yaw();
+                //Fly(dir.x);
+                if (MyRaycast(heightToFly / 4))
+                {
+                    glide = false;
+                }
             }
             // We're not gliding
             else
@@ -266,25 +291,58 @@ public class Movement : MonoBehaviour
         PlayerSkills();
         //Debug.DrawRay(transform.position , transform.TransformDirection(Vector3.down)* heightToFly);
 
-        //if(!glide)
-            characterController.Move(direction * Time.deltaTime);
+        characterController.Move(direction * Time.deltaTime);        
     }
-    float roll_speed = 30;
-    float yaw_maxSpeed = 100;
+
+    void Fly(float rollAxis)
+    {        
+        //Pitch();
+        Roll(rollAxis);
+        //Yaw(rollAxis);
+    }
+
+    // Giro arriba y abajo. X
+    void Pitch()
+    {
+        //Para girar hacia abajo
+        RotateWithLimits(transform, pitch_speed, 0, pitch_maxAngle_DOWN, -1);
+        // Para girar hacia arriba
+        RotateWithLimits(transform, pitch_speed, 0, 360 - pitch_maxAngle_UP, 1);
+    }
+
     // Giro hacia los lados con el cuerpo. Z
     void Roll(float rollAxis)
     {
-        //if (!canRoll()) return;
+        Vector3 actualRotation = transform.localEulerAngles;
 
-        float roll = rollAxis * roll_speed * Time.deltaTime;
-        transform.Rotate(0, 0, roll);
+        if (rollAxis != 0.0f)
+        {
+            Debug.Log("Entra?");
+            // z rotation
+            float toRotateZ = Time.deltaTime * roll_speed * -rollAxis;
+
+            targetRotation.z = actualRotation.z + toRotateZ;
+            targetRotation.z = ClampAngle(targetRotation.z, -roll_maxAngle, roll_maxAngle);
+
+        }
+        else
+        {
+            targetRotation.z = Mathf.LerpAngle(actualRotation.z, 0, roll_speed * Time.deltaTime);
+        }
     }
 
     // Giro hacia los lados. Y
-    void Yaw()
+    void Yaw(float rollAxis)
     {
-        float yaw = transform.rotation.z * yaw_maxSpeed / 90 * Time.deltaTime;
-        transform.Rotate(0, yaw, 0);
+        Vector3 actualRotation = transform.localEulerAngles;
+        if (rollAxis != 0.0f)
+        {
+            // z rotation
+            float yaw = yaw_speed * Time.deltaTime * rollAxis;
+
+            targetRotation.y = actualRotation.y + yaw;
+
+        }
     }
 
     // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
@@ -352,9 +410,9 @@ public class Movement : MonoBehaviour
 
     IEnumerator Cooldown(float time_cd, bool can)
     {
-        can = false;
-        yield return new WaitForSeconds(time_cd);
         can = true;
+        yield return new WaitForSeconds(time_cd);
+        can = false;
     }
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
@@ -493,6 +551,22 @@ public class Movement : MonoBehaviour
         if (other.tag == "Water")
         {
             typeMovement = Terrain.grounded;
+        }
+    }
+
+    void RotateWithLimits(Transform _objectToRotate, float _rotationSpeed, float _minRotation, float _maxRotation, float input = 1)
+    {
+        Vector3 actualRotation = _objectToRotate.localEulerAngles;
+
+        if (input != 0.0f)
+        {
+            // x rotation
+            float toRotateX = Time.deltaTime * _rotationSpeed * input;
+
+            targetRotation.x = actualRotation.x + toRotateX;
+            targetRotation.x = ClampAngle(targetRotation.x, _minRotation, _maxRotation);
+
+            _objectToRotate.localEulerAngles = targetRotation;
         }
     }
 

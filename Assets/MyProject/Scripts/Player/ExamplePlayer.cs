@@ -21,13 +21,14 @@ public class ExamplePlayer : MonoBehaviour
 
     float speed_final;
 
-    [SerializeField] float yaw_maxSpeed = 60;
-    [SerializeField] float roll_speed = 70;
     [SerializeField] float pitch_speed = 70;
+    [SerializeField] float roll_speed = 70;
+    [SerializeField] float yaw_speed = 60;
 
     [SerializeField] float pitch_maxAngle_UP; // A parte del 0, que será nuestra vuelta al ángulo máximo, cuando se recupere de caer, este será su máximo
     [SerializeField] float pitch_maxAngle_DOWN;
     [SerializeField] float roll_maxAngle;
+    [SerializeField] float yaw_maxAngle;
 
     public bool falling;
 
@@ -78,49 +79,81 @@ public class ExamplePlayer : MonoBehaviour
         float forwardAxis = actions.Move.Y;
         float rollAxis = actions.Move.X;
         //tr.Rotate(actions.Move.X * Time.deltaTime * rotationSpeed, 0, 0);
-        Pitch();
+        //Pitch();
+        Roll(rollAxis);
+        Yaw(rollAxis);
 
-        controller.Move(transform.forward * forwardAxis * Time.deltaTime * translationSpeed);
-        
+        tr.localEulerAngles = targetRotation;
+
+        controller.Move(transform.forward * forwardAxis * Time.deltaTime * translationSpeed);       
     }
 
     // Giro arriba y abajo. X
     void Pitch()
     {
-        float pitch = pitch_speed * Time.deltaTime;
-        //Debug.Log(canPitch(pitch));
-        //if (!canPitch()) return;
+        //Para girar hacia abajo
+        RotateWithLimits(tr, pitch_speed, 0, pitch_maxAngle_DOWN, -1);
+        // Para girar hacia arriba
+        RotateWithLimits(tr, pitch_speed, 0, 360 - pitch_maxAngle_UP, 1);
+        /*float pitch = pitch_speed * Time.deltaTime;
+        Debug.Log(canPitch(pitch));
+        if (!canPitch(pitch)) return;
 
-        tr.Rotate(pitch, 0, 0);
+
+        tr.Rotate(pitch, 0, 0);*/
     }
 
     // Giro hacia los lados con el cuerpo. Z
     void Roll(float rollAxis)
     {
-        //if (!canRoll()) return;
+        /*  float roll = rollAxis * roll_speed * Time.deltaTime;
+            Debug.Log(canRoll(tr.localEulerAngles.z));
+            if (canRoll(tr.localEulerAngles.z) == false) return;
 
-        float roll = rollAxis * roll_speed * Time.deltaTime;
-        tr.Rotate(0, 0, roll);
+            tr.Rotate(0, 0, roll);
+        */
+
+        //RotateWithLimits(tr, roll_speed, 360 - roll_maxAngle, roll_maxAngle, rollAxis);
+        Vector3 actualRotation = tr.localEulerAngles;
+
+        if (rollAxis != 0.0f)
+        {
+            // z rotation
+            float toRotateZ = Time.deltaTime * roll_speed * rollAxis;
+
+            targetRotation.z = actualRotation.z + toRotateZ;
+            targetRotation.z = ClampAngle(targetRotation.z, -roll_maxAngle, roll_maxAngle);           
+
+        }
     }
 
     // Giro hacia los lados. Y
-    void Yaw()
+    void Yaw(float rollAxis)
     {
-        float yaw = tr.rotation.z * yaw_maxSpeed / 90 * Time.deltaTime;
-        tr.Rotate(0, yaw, 0);
+        Vector3 actualRotation = tr.localEulerAngles;
+        if (rollAxis != 0.0f)
+        {
+            // z rotation
+            float yaw = yaw_speed * Time.deltaTime * rollAxis;
+
+            targetRotation.y = actualRotation.y + yaw;
+            targetRotation.y = ClampAngle(targetRotation.y, -yaw_maxAngle, yaw_maxAngle);
+
+        }
+        //tr.Rotate(0, yaw, 0);
     }
 
     bool canPitch(float pitch)
     {
         // bool que te diga si puedes seguir rotando o no
         // derecha || izquierda
-        return (pitch > 0 && transform.rotation.x < pitch_maxAngle_UP) || (pitch < 0 && transform.rotation.x > -pitch_maxAngle_DOWN);
+        return (pitch > 0 && transform.rotation.x < pitch_maxAngle_UP) || (pitch < 0 && transform.rotation.x > 360 - pitch_maxAngle_DOWN);
     }
 
     bool canRoll(float rollAxis)
     {
         // bool que te diga si puedes seguir rotando o no
-        return (rollAxis > 0 && transform.rotation.z < roll_maxAngle) || (rollAxis < 0 && transform.rotation.z > -roll_maxAngle);
+        return (rollAxis >= 0 && transform.rotation.z <= roll_maxAngle) || (rollAxis <= 0 && transform.rotation.z > -roll_maxAngle);
     }
 
 
@@ -192,6 +225,23 @@ public class ExamplePlayer : MonoBehaviour
             return false;
     }
 
+    private Vector3 targetRotation;
+    void RotateWithLimits(Transform _objectToRotate, float _rotationSpeed, float _minRotation, float _maxRotation, float input = 1)
+    {
+        Vector3 actualRotation = _objectToRotate.localEulerAngles;
+
+        if (input != 0.0f)
+        {
+            // x rotation
+            float toRotateX = Time.deltaTime * _rotationSpeed * input;
+
+            targetRotation.x = actualRotation.x + toRotateX;
+            targetRotation.x = ClampAngle(targetRotation.x, _minRotation, _maxRotation);
+
+            _objectToRotate.localEulerAngles = targetRotation;
+        }
+    }
+
     public static float ClampAngle(float angle, float min, float max)
     {
         if (angle < 0.0f)
@@ -200,4 +250,5 @@ public class ExamplePlayer : MonoBehaviour
             return Mathf.Max(angle, 360.0f + min);
         return Mathf.Min(angle, max);
     }
+
 }
