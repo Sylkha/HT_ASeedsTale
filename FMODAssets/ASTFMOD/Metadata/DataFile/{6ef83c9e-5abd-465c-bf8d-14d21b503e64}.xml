@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{6ef83c9e-5abd-465c-bf8d-14d21b503e64}">
+		<property name="assetPath">
+			<value>Animals/Sfx_Seagulls_01.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

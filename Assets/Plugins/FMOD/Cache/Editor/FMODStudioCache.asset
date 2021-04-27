@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637548955239293328
+  lastModified: 637549845912122054
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637548955239303252
+  lastModified: 637549845912201841
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -53,12 +53,35 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637548955239303252
+  lastModified: 637549845912142028
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
-    Value: 932
+    Value: 1094
   Exists: 1
+--- !u!114 &-1685364697163550349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_River
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_River
+  guid: 5681da6a2b217d40a9db20eab1a1533e
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,12 +103,15 @@ MonoBehaviour:
   - {fileID: -8203253188122200232}
   EditorEvents:
   - {fileID: 496677672068085518}
+  - {fileID: -1685364697163550349}
+  - {fileID: 5390282310604716546}
+  - {fileID: 2999886225576772446}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637548955239303252
+  stringsBankWriteTime: 637549845912142028
   cacheVersion: 6
 --- !u!114 &496677672068085518
 MonoBehaviour:
@@ -125,10 +151,55 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637548955239283320
+  lastModified: 637549845911753047
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &2999886225576772446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Ocean
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Ocean
+  guid: 094d15f95c532d4b8239fa7603c6553e
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 40000
+--- !u!114 &3489628123338257599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Ocean
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Ocean
+  guid: ca42c2e7d23d5942a056dd01b626ee74
+  Banks: []
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 39996
 --- !u!114 &4278916431862050501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +215,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637548955239303252
+  lastModified: 637549845912171925
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -163,7 +234,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637548955239293328
+  lastModified: 637549845912072203
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -189,3 +260,48 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &5390282310604716546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Forest_Spawn
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Forest_Spawn
+  guid: 6c93512dff6d724082d2380dd8e6f74d
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 39996
+--- !u!114 &9126719882257071552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Forest_Spawn
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Forest_Spawn
+  guid: 504720013e2a6b42901e5834e0d62a38
+  Banks: []
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 39996
