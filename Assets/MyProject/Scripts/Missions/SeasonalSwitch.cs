@@ -168,15 +168,15 @@ public class SeasonalSwitch : MonoBehaviour
     IEnumerator snowGrow()
     {
         Debug.Log("Nieve parribaa");
-        for (float t = 0.00f; t < secondsChange / 10; t += Time.deltaTime)
+        for (float t = 0.01f; t < 10; t += 0.1f)
         {
-            snow.SnowTerrain = Mathf.Lerp(0, SnowTerrain, t);
-            snow.SnowPines = Mathf.Lerp(0, SnowPines, t);
-            snow.SnowLeaves = Mathf.Lerp(0, SnowLeaves, t);
-            snow.SnowBranches = Mathf.Lerp(0, SnowBranches, t);
-            snow.SnowRocks = Mathf.Lerp(0, SnowRocks, t);
-            snow.SnowGrass = Mathf.Lerp(0, SnowGrass, t);
-            snow.CutoffLeaves = Mathf.Lerp(0, CutoffLeaves, t);
+            snow.SnowTerrain = Mathf.Lerp(0, SnowTerrain, t / 10);
+            snow.SnowPines = Mathf.Lerp(0, SnowPines, t / 10);
+            snow.SnowLeaves = Mathf.Lerp(0, SnowLeaves, t / 10);
+            snow.SnowBranches = Mathf.Lerp(0, SnowBranches, t / 10);
+            snow.SnowRocks = Mathf.Lerp(0, SnowRocks, t / 10);
+            snow.SnowGrass = Mathf.Lerp(0, SnowGrass, t / 10);
+            snow.CutoffLeaves = Mathf.Lerp(0, CutoffLeaves, t / 10);
 
             yield return null;
         }                  

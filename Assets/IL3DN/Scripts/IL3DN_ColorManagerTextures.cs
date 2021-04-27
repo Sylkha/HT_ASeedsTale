@@ -75,11 +75,11 @@
                 colors[i] = materials[i].properties[materials[i].previousProperty].color;
             }
 
-            for (float t = 0.00f; t < secondsChange / 10; t += Time.deltaTime)
+            for (float t = 0.01f; t < 10; t += 0.1f)
             {
                 for (int i = 0; i < materials.Count; i++)
                 {
-                    materials[i].meterial.color = Color.Lerp(colors[i], materials[i].properties[materials[i].selectedProperty].color, t);
+                    materials[i].meterial.color = Color.Lerp(colors[i], materials[i].properties[materials[i].selectedProperty].color, t / 10);
                     // materials[i].meterial.mainTexture = materials[i].properties[materials[i].selectedProperty].mainTex;
                 }
                 yield return null;

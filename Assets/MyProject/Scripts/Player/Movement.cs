@@ -417,6 +417,11 @@ public class Movement : MonoBehaviour
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         if (!canMove) return;
         Animations();
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
