@@ -2021,10 +2021,10 @@ namespace nTools.PrefabPainter
 
                             if (pickedObject != null && 
                                 pickedObject is GameObject && 
-                                PrefabUtility.GetPrefabAssetType(pickedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                                PrefabUtility.GetPrefabType(pickedObject as GameObject) != PrefabType.None &&
                                 AssetDatabase.Contains(pickedObject))
                             {
-								GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(pickedObject as GameObject);
+								GameObject prefabRoot = PrefabUtility.FindPrefabRoot(pickedObject as GameObject);
 								if(prefabRoot)
 								{
 	                                Undo.RegisterCompleteObjectUndo(settings, "PP: Add Prefab");
@@ -2071,10 +2071,10 @@ namespace nTools.PrefabPainter
                             foreach (UnityEngine.Object draggedObject in DragAndDrop.objectReferences)
                             {
                                 if (draggedObject is GameObject &&
-                                    PrefabUtility.GetPrefabAssetType(draggedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                                    PrefabUtility.GetPrefabType(draggedObject as GameObject) != PrefabType.None &&
                                     AssetDatabase.Contains(draggedObject))
                                 {
-									GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(draggedObject as GameObject);
+									GameObject prefabRoot = PrefabUtility.FindPrefabRoot(draggedObject as GameObject);
 									if(prefabRoot)
 									{
                                     	Undo.RegisterCompleteObjectUndo(settings, "PP: Relink Prefab");
@@ -2104,10 +2104,10 @@ namespace nTools.PrefabPainter
                             foreach (UnityEngine.Object draggedObject in DragAndDrop.objectReferences)
                             {
                                 if (draggedObject is GameObject && 
-                                    PrefabUtility.GetPrefabAssetType(draggedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                                    PrefabUtility.GetPrefabType(draggedObject as GameObject) != PrefabType.None &&
                                     AssetDatabase.Contains(draggedObject))
                                 {
-									GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(draggedObject as GameObject);
+									GameObject prefabRoot = PrefabUtility.FindPrefabRoot(draggedObject as GameObject);
 									if(prefabRoot)
 										draggedGameObjects.Add (prefabRoot);               
                                 }
@@ -2576,10 +2576,10 @@ namespace nTools.PrefabPainter
 
                         if (pickedObject != null && 
                             pickedObject is GameObject && 
-                            PrefabUtility.GetPrefabAssetType(pickedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                            PrefabUtility.GetPrefabType(pickedObject as GameObject) != PrefabType.None &&
                             AssetDatabase.Contains(pickedObject))
                         {
-							GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(pickedObject as GameObject);
+							GameObject prefabRoot = PrefabUtility.FindPrefabRoot(pickedObject as GameObject);
 							if(prefabRoot)
 							{
 								brush.AssignPrefab(prefabRoot, multibrushItemDoubleClicked);                                     
@@ -2609,10 +2609,10 @@ namespace nTools.PrefabPainter
                         foreach (UnityEngine.Object draggedObject in DragAndDrop.objectReferences)
                         {
                             if (draggedObject is GameObject &&
-                                PrefabUtility.GetPrefabAssetType(draggedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                                PrefabUtility.GetPrefabType(draggedObject as GameObject) != PrefabType.None &&
                                 AssetDatabase.Contains(draggedObject))
                             {
-								GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(draggedObject as GameObject);
+								GameObject prefabRoot = PrefabUtility.FindPrefabRoot(draggedObject as GameObject);
 								if(prefabRoot)
 								{
 									brush.AssignPrefabToEmptySlot(prefabRoot);
@@ -2636,10 +2636,10 @@ namespace nTools.PrefabPainter
                         foreach (UnityEngine.Object draggedObject in DragAndDrop.objectReferences)
                         {
                             if (draggedObject is GameObject &&
-                                PrefabUtility.GetPrefabAssetType(draggedObject as GameObject) != PrefabAssetType.NotAPrefab &&
+                                PrefabUtility.GetPrefabType(draggedObject as GameObject) != PrefabType.None &&
                                 AssetDatabase.Contains(draggedObject))
                             {
-								GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(draggedObject as GameObject);
+								GameObject prefabRoot = PrefabUtility.FindPrefabRoot(draggedObject as GameObject);
 								if(prefabRoot)
 								{
 									brush.AssignPrefab(prefabRoot, itemUnderCursor);

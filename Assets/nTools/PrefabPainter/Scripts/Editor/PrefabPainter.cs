@@ -1105,7 +1105,7 @@ namespace nTools.PrefabPainter
 
             // Setup callbacks
             if (SceneView.onSceneGUIDelegate != OnSceneGUI)
-                SceneView.duringSceneGui += OnSceneGUI;
+                SceneView.onSceneGUIDelegate += OnSceneGUI;
 
             if (EditorApplication.update != EditorApplicationUpdateCallback)
                 EditorApplication.update += EditorApplicationUpdateCallback;
@@ -1126,7 +1126,7 @@ namespace nTools.PrefabPainter
 
             OnCleanupGUI();
 
-            SceneView.duringSceneGui -= OnSceneGUI;
+            SceneView.onSceneGUIDelegate -= OnSceneGUI;
             EditorApplication.update -= EditorApplicationUpdateCallback;
             Undo.undoRedoPerformed -= UndoRedoPerformedCallback;
             EditorApplication.modifierKeysChanged -= ModifierKeysChangedCallback;
@@ -1626,7 +1626,7 @@ namespace nTools.PrefabPainter
                         {
                         case OverlapCheckObjects.SameObjects:
                             {
-                                GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                 if(prefabRoot == null)
                                     return true;
 
@@ -1668,7 +1668,7 @@ namespace nTools.PrefabPainter
                         {
                         case OverlapCheckObjects.SameObjects:
                             {
-                                GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                 if(prefabRoot == null)
                                     return true;
 
@@ -2884,7 +2884,7 @@ namespace nTools.PrefabPainter
                                     if(go == null)
                                         return true;
 
-                                    GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                    GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                     if(prefabRoot == null)
                                         return true;
 
@@ -2937,7 +2937,7 @@ namespace nTools.PrefabPainter
                                         if(go == null)
                                             return true;
                                         
-                                        GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                        GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                         if(prefabRoot == null)
                                             return true;
 
@@ -2982,7 +2982,7 @@ namespace nTools.PrefabPainter
                                         if(go == null)
                                             return true;
 
-                                        GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                        GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                         if(prefabRoot == null)
                                             return true;
                                         
@@ -3049,7 +3049,7 @@ namespace nTools.PrefabPainter
                                         if(go == null)
                                             return true;
 
-                                        GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(go);
+                                        GameObject prefabRoot = PrefabUtility.FindPrefabRoot(go);
                                         if(prefabRoot == null)
                                             return true;
                                         

@@ -287,7 +287,7 @@ namespace nTools.PrefabPainter
             multibrushSlots[slot].raiting     = 1.0f;
             multibrushSlots[slot].position    = new Vector3(0, 0, 0);
             multibrushSlots[slot].rotation    = new Vector3(0, 0, 0);
-            multibrushSlots[slot].scale       = new Vector3(5, 5, 5);
+            multibrushSlots[slot].scale       = new Vector3(1, 1, 1);
 			multibrushSlots[slot].pivotOffset = new Vector3(0, 0, 0);
         }
 

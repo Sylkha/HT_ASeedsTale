@@ -1,5 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8983804729507818083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Ocean
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Ocean
+  guid: 094d15f95c532d4b8239fa7603c6553e
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 40000
 --- !u!114 &-8590955644396046769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,7 +76,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637549845912142028
+  lastModified: 637551192687521560
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -111,8 +134,31 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637549845912142028
+  stringsBankWriteTime: 637551192687521560
   cacheVersion: 6
+--- !u!114 &152328160733653714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_River
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_River
+  guid: 5681da6a2b217d40a9db20eab1a1533e
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &496677672068085518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +280,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637549845912072203
+  lastModified: 637551192687451753
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -261,6 +307,29 @@ MonoBehaviour:
   MaxDistance: 0
   Length: 0
 --- !u!114 &5390282310604716546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviroment/Nature/Amb_Forest_Spawn
+  m_EditorClassIdentifier: 
+  Path: event:/Enviroment/Nature/Amb_Forest_Spawn
+  guid: 6c93512dff6d724082d2380dd8e6f74d
+  Banks:
+  - {fileID: 4702284645080144027}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 39996
+--- !u!114 &5626830672646893473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
