@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IL3DN_Terrain
-  m_Shader: {fileID: 4800000, guid: b6548a4b943a92b4982bbeef379b0f81, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4560b12a37e92e942857621970389728, type: 3}
   m_ShaderKeywords: EFFECT_HUE_VARIATION GEOM_TYPE_LEAF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
@@ -22,6 +22,10 @@ Material:
     - _BotTexture0:
         m_Texture: {fileID: 0}
         m_Scale: {x: -0.26, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BotTexture1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -72,6 +76,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MidTexture1:
+        m_Texture: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -104,6 +112,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 7a4d06820d904c34b9476ae19fe7cf1d, type: 3}
         m_Scale: {x: 1.79, y: 1}
         m_Offset: {x: 0.37, y: 0}
+    - _TopTexture1:
+        m_Texture: {fileID: 2800000, guid: 7a4d06820d904c34b9476ae19fe7cf1d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TranslucencyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -120,7 +132,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Falloff: 8.85
+    - _Falloff: 9.07
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -153,21 +165,25 @@ Material:
     - _TransStrength: 1
     - _TranslucencyViewDependency: 0
     - _TransmissionShadow: 0.5
+    - _TriplanarMaxSmooth: 1
+    - _TriplanarMinSmooth: 0.69
     - _UVSec: 0
     - _WindQuality: 0
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Color0: {r: 0.2288343, g: 0.5566037, b: 0.18115875, a: 0}
-    - _Color1: {r: 0.5471698, g: 0.23565018, b: 0.11098253, a: 0}
+    - _Color0: {r: 0.22883427, g: 0.5566037, b: 0.18115872, a: 0}
+    - _Color1: {r: 0.7169812, g: 0.40992558, b: 0.28746888, a: 0}
     - _Color2: {r: 0.7924528, g: 0.7521432, b: 0.5793876, a: 0}
-    - _Color3: {r: 0.29490027, g: 0.44339618, b: 0.31668255, a: 0}
-    - _Color4: {r: 0, g: 0, b: 0, a: 0}
+    - _Color3: {r: 0.04988429, g: 0.5566038, b: 0.20028281, a: 0}
+    - _Color4: {r: 0.9858276, g: 1, b: 0.9669811, a: 0}
+    - _ColorTop1: {r: 0, g: 0.16037738, b: 0.055129725, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+    - _TriplanarTiling: {r: 0.06, g: 0.06, b: 0, a: 0}
   m_BuildTextureStacks: []
