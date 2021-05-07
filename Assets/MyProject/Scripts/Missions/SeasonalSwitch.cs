@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using IL3DN;
 
+/// <summary>
+/// Creamos un delegado. Podemos hacer uno para el cambio de estación (más elegante)
+/// </summary>
+public delegate void Delegate(bool b);
+
 // This script is contained by Altar
 public enum Seasons { Summer = 1, Autumn, Winter, Spring };
 [RequireComponent(typeof(Yarn.Unity.Example.NPC))]
 public class SeasonalSwitch : MonoBehaviour
 {
+    public static SeasonalSwitch instance;
+
     [Header("Mission Part")]
     [SerializeField] MissionNotes mn;
     [SerializeField] string n_CompletedMission;
@@ -45,6 +52,7 @@ public class SeasonalSwitch : MonoBehaviour
     /// </summary>
     [SerializeField] LayerMask visibleMask;
     [SerializeField] LayerMask invisibleMask;
+    [SerializeField] LayerMask newInvisibleMask;
     [SerializeField] LayerMask newVisibleMask;
 
     [Header("Snow Variables")]
@@ -60,9 +68,15 @@ public class SeasonalSwitch : MonoBehaviour
 
     [SerializeField] float secondsChange = 4f;
 
+    Delegate delegado;
+
+    private void Awake()
+    {
+        SeasonalSwitch.instance = this;
+    }
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         Debug.Log(seasonNum - 1);
         cmTex.set_seconds(secondsChange);
         cmEff.set_seconds(secondsChange);
@@ -111,8 +125,10 @@ public class SeasonalSwitch : MonoBehaviour
                 Debug.Log("Spring");                               
                 break;
         }
-        
-        SeasonProcesses(seasonNum, newVisibleMask);       
+
+        SeasonStart();
+        SeasonProcesses((int)newSeason, newVisibleMask);
+        SeasonProcesses((int)season, newInvisibleMask);
     }
 
     public void FinishChange()
@@ -121,17 +137,20 @@ public class SeasonalSwitch : MonoBehaviour
         SeasonProcesses((int)season, invisibleMask);
         season = newSeason;
         SeasonProcesses((int)season, visibleMask);
+        delegado(false);
         Debug.Log("pasa?");
+    }
+    void SeasonStart()
+    {
+        delegado(true);
+        cmTex.SetMaterialColors((int)newSeason);
+        cmEff.SetMaterialColors((int)newSeason);
     }
 
     void SeasonProcesses(int sNum, LayerMask mask)
-    {
-        cmTex.SetMaterialColors(sNum);
-        cmEff.SetMaterialColors(sNum);
+    {        
         seasons[sNum - 1].mask = mask;
-        ChangeLayers(seasons[sNum - 1].objParent, mask);
-
-        
+        ChangeLayers(seasons[sNum - 1].objParent, mask);        
     }
 
     void ChangeLayers(GameObject seasonObjParent, LayerMask newLayer)
@@ -168,15 +187,15 @@ public class SeasonalSwitch : MonoBehaviour
     IEnumerator snowGrow()
     {
         Debug.Log("Nieve parribaa");
-        for (float t = 0.01f; t < 10; t += 0.1f)
+        for (float t = 0.0f; t < secondsChange / 10; t += Time.deltaTime)
         {
-            snow.SnowTerrain = Mathf.Lerp(0, SnowTerrain, t / 10);
-            snow.SnowPines = Mathf.Lerp(0, SnowPines, t / 10);
-            snow.SnowLeaves = Mathf.Lerp(0, SnowLeaves, t / 10);
-            snow.SnowBranches = Mathf.Lerp(0, SnowBranches, t / 10);
-            snow.SnowRocks = Mathf.Lerp(0, SnowRocks, t / 10);
-            snow.SnowGrass = Mathf.Lerp(0, SnowGrass, t / 10);
-            snow.CutoffLeaves = Mathf.Lerp(0, CutoffLeaves, t / 10);
+            snow.SnowTerrain = Mathf.Lerp(0, SnowTerrain, t);
+            snow.SnowPines = Mathf.Lerp(0, SnowPines, t);
+            snow.SnowLeaves = Mathf.Lerp(0, SnowLeaves, t);
+            snow.SnowBranches = Mathf.Lerp(0, SnowBranches, t);
+            snow.SnowRocks = Mathf.Lerp(0, SnowRocks, t);
+            snow.SnowGrass = Mathf.Lerp(0, SnowGrass, t);
+            snow.CutoffLeaves = Mathf.Lerp(0, CutoffLeaves, t);
 
             yield return null;
         }                  
@@ -217,6 +236,25 @@ public class SeasonalSwitch : MonoBehaviour
                 // Activamos el cambio de estación desde el dialogo
             }
         }
+    }
+
+    /// <summary>
+    /// Para suscribirse
+    /// </summary>
+    /// <param name="d"></param>
+    public void SubDelegate(Delegate d)
+    {
+        delegado += d;
+    }
+
+    /// <summary>
+    /// Desuscribirse
+    /// </summary>
+    /// <param name="d"></param>
+    public void DesubDelegate(Delegate d)
+    {
+        if (delegado == null) return;
+        delegado -= d;
     }
 
 }

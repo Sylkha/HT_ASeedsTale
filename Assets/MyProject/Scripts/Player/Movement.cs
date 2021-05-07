@@ -69,12 +69,13 @@ public class Movement : MonoBehaviour
     [SerializeField, Min(0.1f)] float submergenceOffset = 0.5f;
     [SerializeField] float turnSmoothTime_Swim = 0.1f;
     [SerializeField] float diving = 5f;
+    [SerializeField] float divRotSpeed = 5f;
     [SerializeField] float radioWaterDetect = 0.6f;
     Vector3 impulse;
     float WaterLevel;
     bool is_diving = false;
 
-    [Header("Rotation")]    // Min and Max Rotation while swimming
+    // Min and Max Rotation while swimming
     [SerializeField] float minRotX = -20;   
     [SerializeField] float maxRotX = 20;
     
@@ -163,6 +164,7 @@ public class Movement : MonoBehaviour
     float maxY;
     void Animations()
     {
+        if(canMove == false) anim.SetInteger("Movement", 0);
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying)
         {
             if (IsGrounded())
@@ -243,10 +245,7 @@ public class Movement : MonoBehaviour
     #region Ground Movement
     void GroundMovement()
     {
-
         BasicMovement();
-
-        float rollAxis = actions.Move.X;
 
         // Grounded
         if (IsGrounded())
@@ -269,10 +268,9 @@ public class Movement : MonoBehaviour
             // Glide action             
             if (glide == true)
             {
-                //fly.Fly(rollInput, pitchInput, camera_transf);
                 GlideAttributes();
-                //Fly(dir.x);
-                if (MyRaycast(heightToFly / 4))
+
+                if (MyRaycast(heightToFly / 3))
                 {
                     glide = false;
                 }
@@ -317,7 +315,6 @@ public class Movement : MonoBehaviour
 
         if (rollAxis != 0.0f)
         {
-            Debug.Log("Entra?");
             // z rotation
             float toRotateZ = Time.deltaTime * roll_speed * -rollAxis;
 
@@ -331,7 +328,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // Giro hacia los lados. Y
+    // Giro hacia los lados. Y. Ya lo hace en el movimiento básico
     void Yaw(float rollAxis)
     {
         Vector3 actualRotation = transform.localEulerAngles;
@@ -366,14 +363,25 @@ public class Movement : MonoBehaviour
     // For going down on slopes
     void SlideDown()
     {
+        if (typeMovement != Terrain.grounded) return;
+
         isOnSlope = Vector3.Angle(Vector3.up, hitNormal) >= characterController.slopeLimit;
 
         if (isOnSlope == true)
         {
+            is_Jumping = true;
+
+            speed = slideVelocity / 4;
+
             direction.x += ((1f - hitNormal.y) * hitNormal.x) * slideVelocity;
             direction.z += ((1f - hitNormal.y) * hitNormal.z) * slideVelocity;
 
             direction.y -= slopeForceDown;
+        }
+        else
+        {
+            GroundAttributes();
+            is_Jumping = false;
         }
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -422,8 +430,8 @@ public class Movement : MonoBehaviour
             Application.Quit();
         }
 
-        if (!canMove) return;
         Animations();
+        if (!canMove) return;
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbuttondown_glide = true;
@@ -471,18 +479,19 @@ public class Movement : MonoBehaviour
         }
         if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
+            Vector3 actualRotation = model.localEulerAngles;
             direction.y = 0;
             if (actions.DiveUp && typeMovement == Terrain.diving)
             {
                 direction.y = diving;
                 if (dir.x != 0 || dir.z != 0)
-                    RotateWithLimits(model, 20, 360, 360 + minRotX);
+                    RotateWithLimits(model, divRotSpeed, model.rotation.x, 360 - minRotX, -1);
             }
             if (actions.DiveDown)
             {
                 direction.y = -diving;
                 if (dir.x != 0 || dir.z != 0)
-                    RotateWithLimits(model, 20, 0, maxRotX);
+                    RotateWithLimits(model, divRotSpeed, model.rotation.x, maxRotX, 1);
             }
 
             if (actions.DiveUp || actions.DiveDown)
@@ -490,7 +499,8 @@ public class Movement : MonoBehaviour
             else
             {
                 is_diving = false;
-                RotateWithLimits(model, 1, 0, 0);
+                targetRotation.x = Mathf.LerpAngle(actualRotation.x, 0, divRotSpeed * Time.deltaTime);
+                model.localEulerAngles = targetRotation;
             }
         }
     }
@@ -514,6 +524,7 @@ public class Movement : MonoBehaviour
     bool imp = true;
     void SwimmingMovement()
     {
+        targetRotation.z = Mathf.LerpAngle(transform.localEulerAngles.z, 0, roll_speed * Time.deltaTime);
         WaterAttributes();
         BasicMovement();
         PlayerSkills();
@@ -558,7 +569,7 @@ public class Movement : MonoBehaviour
             typeMovement = Terrain.grounded;
         }
     }
-
+   
     void RotateWithLimits(Transform _objectToRotate, float _rotationSpeed, float _minRotation, float _maxRotation, float input = 1)
     {
         Vector3 actualRotation = _objectToRotate.localEulerAngles;
