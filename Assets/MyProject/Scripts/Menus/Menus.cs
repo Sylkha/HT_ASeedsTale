@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class Menus : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
-    [SerializeField] Image panelOptions;
+    [SerializeField] GameObject panelMain; 
+    [SerializeField] GameObject panelOptions;  
     [SerializeField] string sceneName;
 
     [SerializeField] bool needSave;
@@ -21,41 +22,48 @@ public class Menus : MonoBehaviour
     void Start()
     {
        /* if(canvas != null)
-            canvas.enabled = false; */
-
-        StartCoroutine(CUpdate());
+            canvas.enabled = false; */     
     }
 
-    IEnumerator CUpdate()
+    private void Update()
     {
-        while (true)
-        {
-            if (SceneManager.GetActiveScene().name == sceneName)
-            {
+        CUpdate();
+    }
 
-                if (Input.GetButton("Cancel")) // Esc
+    void CUpdate()
+    {        
+        if (SceneManager.GetActiveScene().name == sceneName)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) // Esc
+            {
+                if (show == false)
                 {
-                    if (show == false)
-                    {
-                        panelOptions.enabled = true;
-                        show = true;
-                    }
-                    else
-                    {
-                        ResumeButton();
-                    }
-                    Debug.Log("Menu");
-                    yield return new WaitForSeconds(0.5f);
+                    panelMain.SetActive(true);
+                    show = true;
                 }
-                yield return null;
+                else
+                {
+                    ResumeButton();
+                }
+                Debug.Log("Menu");
             }
+        }                  
+    }
+
+    public void ReturnButton()
+    {
+        if (SceneManager.GetActiveScene().name == sceneName)
+        {
+            panelMain.SetActive(true);
+            panelOptions.SetActive(false);
         }
     }
 
     public void ResumeButton()
     {
         // Ocultamos el menú
-        panelOptions.enabled = false;
+        panelMain.SetActive(false);
+        panelOptions.SetActive(false);
         show = false;
         Debug.Log("Resume");
     }
@@ -84,8 +92,8 @@ public class Menus : MonoBehaviour
     public void ChangeSceneButton()
     {
         // Ocultamos el menú
+        panelMain.SetActive(false);
         SceneManager.LoadScene(sceneName);
-        panelOptions.enabled = false;
     }
 
 
