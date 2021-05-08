@@ -480,6 +480,7 @@ MonoBehaviour:
   - Build/Desktop/Master
   Banks:
   - Build/Desktop/Character
+  - Build/Desktop/Effects
   - Build/Desktop/Enviroment
   - Build/Desktop/Music
   - Build/Desktop/UI

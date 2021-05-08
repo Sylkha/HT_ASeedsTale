@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
+using UnityEngine.UI;
 
 // This script is contained by MenuManager
 public class Menus : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
+    [SerializeField] Image panelOptions;
     [SerializeField] string sceneName;
 
     [SerializeField] bool needSave;
@@ -18,8 +20,8 @@ public class Menus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(canvas != null)
-            canvas.enabled = false;
+       /* if(canvas != null)
+            canvas.enabled = false; */
 
         StartCoroutine(CUpdate());
     }
@@ -28,29 +30,32 @@ public class Menus : MonoBehaviour
     {
         while (true)
         {
-            if (canvas == null) yield return null;
-            if (Input.GetButton("Cancel")) // Esc
+            if (SceneManager.GetActiveScene().name == sceneName)
             {
-                if (show == false)
+
+                if (Input.GetButton("Cancel")) // Esc
                 {
-                    canvas.enabled = true;
-                    show = true;
+                    if (show == false)
+                    {
+                        panelOptions.enabled = true;
+                        show = true;
+                    }
+                    else
+                    {
+                        ResumeButton();
+                    }
+                    Debug.Log("Menu");
+                    yield return new WaitForSeconds(0.5f);
                 }
-                else
-                {
-                    ResumeButton();
-                }
-                Debug.Log("Menu");
-                yield return new WaitForSeconds(0.5f);
+                yield return null;
             }
-            yield return null;
         }
     }
 
     public void ResumeButton()
     {
         // Ocultamos el menú
-        canvas.enabled = false;
+        panelOptions.enabled = false;
         show = false;
         Debug.Log("Resume");
     }
@@ -80,6 +85,9 @@ public class Menus : MonoBehaviour
     {
         // Ocultamos el menú
         SceneManager.LoadScene(sceneName);
+        panelOptions.enabled = false;
     }
+
+
 
 }
