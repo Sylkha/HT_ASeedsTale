@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MidTexture1:
-        m_Texture: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5e93a643ec454bc489460cff059e4a0d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -113,7 +113,7 @@ Material:
         m_Scale: {x: 1.79, y: 1}
         m_Offset: {x: 0.37, y: 0}
     - _TopTexture1:
-        m_Texture: {fileID: 2800000, guid: 7a4d06820d904c34b9476ae19fe7cf1d, type: 3}
+        m_Texture: {fileID: 2800000, guid: d34bce06f0b6c0240a6bbffac702414b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TranslucencyMap:
@@ -132,7 +132,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Falloff: 9.07
+    - _Falloff: 3.19
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -166,19 +166,19 @@ Material:
     - _TranslucencyViewDependency: 0
     - _TransmissionShadow: 0.5
     - _TriplanarMaxSmooth: 1
-    - _TriplanarMinSmooth: 0.69
+    - _TriplanarMinSmooth: 0.23
     - _UVSec: 0
     - _WindQuality: 0
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Color0: {r: 0.5454065, g: 0.6698113, b: 0.5276344, a: 0}
-    - _Color1: {r: 0.4784314, g: 0.54901963, b: 0.10980393, a: 0}
-    - _Color2: {r: 0.72156864, g: 0.7254902, b: 0.64705884, a: 0}
-    - _Color3: {r: 0.27450982, g: 0.43137258, b: 0.48235297, a: 0}
-    - _Color4: {r: 0.9858276, g: 1, b: 0.9669811, a: 0}
-    - _ColorTop1: {r: 0, g: 0.16037738, b: 0.055129725, a: 0}
+    - _Color0: {r: 0.2288343, g: 0.5566037, b: 0.18115875, a: 0}
+    - _Color1: {r: 0.5471698, g: 0.23565018, b: 0.11098253, a: 0}
+    - _Color2: {r: 0.7924528, g: 0.7521432, b: 0.5793876, a: 0}
+    - _Color3: {r: 0.29490027, g: 0.44339618, b: 0.31668255, a: 0}
+    - _Color4: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0}
+    - _ColorTop1: {r: 0.764151, g: 0.26312745, b: 0.26312745, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 0.05, g: 0.05, b: 0, a: 0}

@@ -45,12 +45,12 @@ Material:
     - _Direction: 1
     - _Float1: 0.023
     - _Float3: 0.05
-    - _Frequency: 14.3
+    - _Frequency: 100
     - _InvertDirection: 1
-    - _Range: 0.5
-    - _ScreenContribution: 1
+    - _Range: 0.624
+    - _ScreenContribution: 0.738
     - _ScreenMovementContribution: 0.2
-    - _SpakleSpeed: 0.0137
+    - _SpakleSpeed: 0.0094
     - _SparklesBrightness: 5
     - _TailHeadFalloff: 1
     - _TessEdgeLength: 16
@@ -59,7 +59,7 @@ Material:
     - _TessMin: 10
     - _TessPhongStrength: 0.5
     - _TessValue: 16
-    - _Threshold: 0.355
+    - _Threshold: 0.106
     - _Tiling: 0
     - _TransAmbient: 0.1
     - _TransDirect: 0.9
@@ -70,15 +70,15 @@ Material:
     - _TransmissionShadow: 0.5
     - __dirty: 0
     m_Colors:
-    - _Albedo: {r: 0.7647059, g: 0.5730754, b: 0.11245606, a: 0}
+    - _Albedo: {r: 0.8490566, g: 0.72207, b: 0.16420433, a: 0}
     - _BodyGlow: {r: 0.6323529, g: 0.4794762, b: 0, a: 0}
     - _Color0: {r: 0.63235295, g: 0.47947615, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlintColor: {r: 0.8679245, g: 0.8408241, b: 0.51174796, a: 0}
+    - _GlintColor: {r: 0.7169812, g: 0.5069585, b: 0, a: 0}
     - _GlintFresnel: {r: 1.75, g: 1.8, b: 3.39, a: 0}
     - _MainGlowFresnel: {r: 0.02, g: 1, b: 5, a: 0}
     - _SizeSpeedInterval: {r: 0.5, g: 2.33, b: 5, a: 0}
-    - _SparkleColor: {r: 1, g: 0.7779999, b: 0.29716685, a: 1}
+    - _SparkleColor: {r: 1, g: 0.6815642, b: 0, a: 1}
     - _SparkleFresnel: {r: 0.02, g: 0.8, b: 2, a: 0}
-    - _Tiling: {r: 0, g: 0, b: 0, a: 0}
+    - _Tiling: {r: 0.2, g: 0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
