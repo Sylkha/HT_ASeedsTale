@@ -77,7 +77,6 @@ public class SeasonalSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {       
-        Debug.Log(seasonNum - 1);
         cmTex.set_seconds(secondsChange);
         cmEff.set_seconds(secondsChange);
 
@@ -85,6 +84,7 @@ public class SeasonalSwitch : MonoBehaviour
         dialogue.talkToNode = n_NotCompletedMission;
 
         season = Seasons.Summer;
+        ChangeLayers(seasons[(int)season - 1].objParent, visibleMask);
     }
 
     private void Update()
@@ -149,15 +149,27 @@ public class SeasonalSwitch : MonoBehaviour
 
     void SeasonProcesses(int sNum, LayerMask mask)
     {        
-        seasons[sNum - 1].mask = mask;
+        //seasons[sNum - 1].mask = mask;
         ChangeLayers(seasons[sNum - 1].objParent, mask);        
     }
 
     void ChangeLayers(GameObject seasonObjParent, LayerMask newLayer)
     {
+        // Ya que las layers son códigos de bits, el primer valor sería 1, el siguiente 2, 4, 8, 16... y así,
+        // vamos a contar cuántas veces hay que dividir entre 2 para obtener el número de la layer 
+        int tempLayer = newLayer;
+        int layerNumber = 0;
+
+        do
+        {
+            layerNumber++;
+            tempLayer /= 2;
+        } while (tempLayer > 0);
+        layerNumber--; // las layers empiezan desde el 0
+
         for(int i = 0; i < seasonObjParent.transform.childCount; i++)
         {
-            seasonObjParent.transform.GetChild(i).gameObject.layer = newLayer;
+            seasonObjParent.transform.GetChild(i).gameObject.layer = layerNumber;
         }
     }
 

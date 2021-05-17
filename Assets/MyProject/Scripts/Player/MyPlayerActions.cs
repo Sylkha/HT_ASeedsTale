@@ -14,8 +14,7 @@
 		public readonly PlayerAction Down;
 		public readonly PlayerAction DiveUp;
 		public readonly PlayerAction DiveDown;
-		public readonly PlayerTwoAxisAction Move;
-
+		public readonly PlayerTwoAxisAction Move;		
 
 		public MyPlayerActions()
 		{

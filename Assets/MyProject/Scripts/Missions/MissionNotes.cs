@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-using IL3DN;
 // This script is contained by MissionNotesManager
 public class MissionNotes : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class MissionNotes : MonoBehaviour
         public string n_TakenMission;
         public string n_OTHERMissTaken;
         public string n_FinishedMission;
+        public TMP_Text textDiary;
     }
 
     [Header("Notes")]
@@ -25,7 +26,9 @@ public class MissionNotes : MonoBehaviour
     {
         for (int i = 0; i < notes.Length; i++)
         {
-            notes[i].dialogue.talkToNode = notes[i].n_NotTakenMission;            
+            notes[i].dialogue.talkToNode = notes[i].n_NotTakenMission;
+            if(notes[i].textDiary != null)
+                notes[i].textDiary.enabled = false;
         }
     }
 
@@ -46,6 +49,8 @@ public class MissionNotes : MonoBehaviour
             {
                 notes[i].dialogue.talkToNode = notes[i].n_TakenMission;
                 notes[i].ourObject.SetNoteTaken();
+                if (notes[i].textDiary != null)
+                    notes[i].textDiary.enabled = true;
             }
         }
     }
