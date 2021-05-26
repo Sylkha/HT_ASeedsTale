@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
+using Bindings;
 // This script is contained by MenuManager
 public class Menus : MonoBehaviour
 {
@@ -18,28 +20,49 @@ public class Menus : MonoBehaviour
     
     bool show = false;
 
+    [SerializeField] GameObject menuFirstButton;
+    [SerializeField] GameObject menuInGameFirstButton;
+    [SerializeField] GameObject optionsFirstButton;
+    [SerializeField] GameObject optionsCloseButton;
+    [SerializeField] GameObject optionsInGameCloseButton;
+
+    MyPlayerActions actions;
+
     // Start is called before the first frame update
     void Start()
     {
-       /* if(canvas != null)
-            canvas.enabled = false; */     
+        actions = Controls.instance.get_actions();
+
+        // clear the selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set new selected object
+        EventSystem.current.SetSelectedGameObject(menuFirstButton);
+
+        /* if(canvas != null)
+             canvas.enabled = false; */
     }
 
     private void Update()
     {
         CUpdate();
+        Debug.Log(EventSystem.current);
     }
 
     void CUpdate()
     {        
         if (SceneManager.GetActiveScene().name == sceneName)
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) // Esc
+            if (actions.Exit.WasPressed) // Esc
             {
                 if (show == false)
                 {
                     panelMain.SetActive(true);
                     show = true;
+
+                    // clear the selected object
+                    EventSystem.current.SetSelectedGameObject(null);
+                    // set new selected object
+                    EventSystem.current.SetSelectedGameObject(menuInGameFirstButton);                    
                 }
                 else
                 {
@@ -47,16 +70,30 @@ public class Menus : MonoBehaviour
                 }
                 Debug.Log("Menu");
             }
-        }                  
+        }
     }
 
     public void ReturnButton()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         if (SceneManager.GetActiveScene().name == sceneName)
         {
             panelMain.SetActive(true);
             panelOptions.SetActive(false);
+
+            // clear the selected object
+            EventSystem.current.SetSelectedGameObject(optionsInGameCloseButton);
         }
+        else
+            EventSystem.current.SetSelectedGameObject(optionsCloseButton);
+    }
+
+    public void OptionsButton()
+    {
+        // clear the selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // set new selected object
+        EventSystem.current.SetSelectedGameObject(optionsFirstButton);
     }
 
     public void ResumeButton()

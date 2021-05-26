@@ -2,39 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bindings;
 public class Diary : MonoBehaviour
 {
     [SerializeField] GameObject diaryMenu;
     bool diaryOpen = false;
 
+    MyPlayerActions actions;
+
     private void Start()
     {
+        actions = Controls.instance.get_actions();
         diaryMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (actions.Diary)
         {
             diaryOpen = !diaryOpen;
             diaryMenu.SetActive(diaryOpen);
         }
         
     }
-
-    /*
-    void OpenClose()
-    {
-        if(diaryOpen == true)
-        {
-            diaryMenu.SetActive(false);
-            diaryOpen = false;
-        }
-        else
-        {
-            diaryMenu.SetActive(true);
-            diaryOpen = true;
-        }
-    }*/
 }

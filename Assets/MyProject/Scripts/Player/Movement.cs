@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
-using Movements.Fly;
 
 //This script is contained by the player, father of the model.
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
     #region Variables
-    MyPlayerActions actions;
-    string saveActionsData;
 
     [Header("Movement")]
     [SerializeField] float speed_Ground = 7.5f;
@@ -115,41 +112,15 @@ public class Movement : MonoBehaviour
 
     #endregion Variables
 
-    #region InControl
-    void OnEnable()
-    {
-        // See PlayerActions.cs for this setup.
-        actions = MyPlayerActions.CreateWithDefaultBindings();
-        //playerActions.Move.OnLastInputTypeChanged += ( lastInputType ) => Debug.Log( lastInputType );
-
-        LoadBindings();
-    }
-    void OnDisable()
-    {
-        // This properly disposes of the action set and unsubscribes it from
-        // update events so that it doesn't do additional processing unnecessarily.
-        actions.Destroy();
-    }
-    void LoadBindings()
-    {
-        if (PlayerPrefs.HasKey("Bindings"))
-        {
-            saveActionsData = PlayerPrefs.GetString("Bindings");
-            actions.Load(saveActionsData);
-        }
-    }
-    void SaveBindings()
-    {
-        saveActionsData = actions.Save();
-        PlayerPrefs.SetString("Bindings", saveActionsData);
-    }
-    #endregion InControl
+    MyPlayerActions actions;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
 
         targetRotation = model.localEulerAngles;
+
+        actions = Controls.instance.get_actions();
     }
 
     void FixedUpdate()
@@ -447,7 +418,7 @@ public class Movement : MonoBehaviour
     }
     void PlayerSkills()
     {
-        if (IsGrounded() && actions.JumpGlide.IsPressed && canMove && is_Jumping == false)
+        if (IsGrounded() && actions.JumpGlide.WasPressed && canMove && is_Jumping == false)
         {        
             Jump(jumpSpeed);            
         }

@@ -21,7 +21,8 @@ public class ObjSeasonSwitch : MonoBehaviour
     {
         if(grow == true)
         {
-            mask.transform.localScale += new Vector3(growSpeed * Time.deltaTime, growSpeed * Time.deltaTime, growSpeed * Time.deltaTime);
+            mask.transform.localScale = new Vector3(mask.transform.localScale.x + growSpeed * Time.deltaTime,
+                mask.transform.localScale.y + growSpeed * Time.deltaTime, mask.transform.localScale.z + growSpeed * Time.deltaTime);
         }
         else
         {

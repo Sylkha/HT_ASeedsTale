@@ -72,8 +72,17 @@ public class SeasonalSwitch : MonoBehaviour
 
     private void Awake()
     {
-        SeasonalSwitch.instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
     }
+
     // Start is called before the first frame update
     void Start()
     {       

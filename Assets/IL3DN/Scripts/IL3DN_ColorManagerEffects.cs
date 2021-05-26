@@ -105,18 +105,14 @@
                 }
             }
 
-            for (float t = 0.00f; t < 10; t += 0.1f)
+            for (float t = 0.0f; t < secondsChange / 10; t += Time.deltaTime)
             {
                 for (int i = 0; i < materials.Count; i++)
                 {
                     for (int k = 0; k < materials[i].properties[materials[i].selectedProperty].colors.Count; k++)
                     {
-                        //Color materialColor = Color.Lerp(colors[i, k], materials[i].properties[materials[i].selectedProperty].colors[k].color, t / 10);
-
                         string propertyName = materials[i].properties[materials[i].selectedProperty].colors[k].name;
                         materials[i].meterial.SetColor(propertyName, Color.Lerp(colors[i, k], materials[i].properties[materials[i].selectedProperty].colors[k].color, t));
-
-                       // materials[i].meterial.SetColor(propertyName, materialColor);
                     }
                 }
                 yield return null;

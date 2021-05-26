@@ -958,6 +958,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 181736360}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &269399283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 964406271181156053, guid: f2c5722c85b046340867d94c9a7c3f82,
+    type: 3}
+  m_PrefabInstance: {fileID: 2117223926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &274153182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,6 +3618,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 964406271503455178, guid: f2c5722c85b046340867d94c9a7c3f82,
+        type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 269399283}
     - target: {fileID: 3273777652427012112, guid: f2c5722c85b046340867d94c9a7c3f82,
         type: 3}
       propertyPath: m_RootOrder
@@ -3666,6 +3677,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644249422645605217, guid: f2c5722c85b046340867d94c9a7c3f82,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.7089266
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644249422645605217, guid: f2c5722c85b046340867d94c9a7c3f82,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.7089266
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644249422645605217, guid: f2c5722c85b046340867d94c9a7c3f82,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.8396226
       objectReference: {fileID: 0}
     - target: {fileID: 7455645145685588854, guid: f2c5722c85b046340867d94c9a7c3f82,
         type: 3}
@@ -5096,6 +5122,7 @@ GameObject:
   - component: {fileID: 4591646318673082652}
   - component: {fileID: 4591646318673082657}
   - component: {fileID: 4591646318673082656}
+  - component: {fileID: 4591646318673082658}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5169,6 +5196,18 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &4591646318673082658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4591646318673082655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63f4d6497fd244a9900b67def0d745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4591646318797048520
 Transform:
   m_ObjectHideFlags: 0

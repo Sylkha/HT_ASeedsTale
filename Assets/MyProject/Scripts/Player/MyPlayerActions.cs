@@ -15,6 +15,13 @@
 		public readonly PlayerAction DiveUp;
 		public readonly PlayerAction DiveDown;
 		public readonly PlayerTwoAxisAction Move;		
+		public readonly PlayerAction Interacion;
+
+		// Menus
+		public readonly PlayerAction Exit;
+		public readonly PlayerAction Diary;
+
+
 
 		public MyPlayerActions()
 		{
@@ -27,6 +34,9 @@
 			DiveUp = CreatePlayerAction( "DiveUp" );
 			DiveDown = CreatePlayerAction( "DiveDown" );
 			Move = CreateTwoAxisPlayerAction( Left, Right, Down, Up );
+			Interacion = CreatePlayerAction("Interacion");
+			Exit = CreatePlayerAction("Exit");
+			Diary = CreatePlayerAction("Diary"); 
 		}
 
 
@@ -38,8 +48,8 @@
 			// playerActions.Back.AddDefaultBinding( Key.Shift, Key.Tab );
 			// playerActions.Next.AddDefaultBinding( KeyCombo.With( Key.Tab ).AndNot( Key.Shift ) );
 
-			playerActions.Fire.AddDefaultBinding( Key.E );
-			playerActions.Fire.AddDefaultBinding( InputControlType.Action1 );
+			playerActions.Interacion.AddDefaultBinding( Key.E );
+			playerActions.Interacion.AddDefaultBinding( InputControlType.Action1 );
 			// playerActions.Fire.AddDefaultBinding( Mouse.LeftButton );
 
 			playerActions.JumpGlide.AddDefaultBinding( Key.Space );
@@ -68,6 +78,12 @@
 
 			playerActions.DiveUp.AddDefaultBinding(Mouse.LeftButton);
 			playerActions.DiveDown.AddDefaultBinding(Mouse.RightButton);
+
+			playerActions.Exit.AddDefaultBinding(Key.Escape);
+			//playerActions.Exit.AddDefaultBinding(InputControlType.Action1);
+
+			playerActions.Diary.AddDefaultBinding(Key.Tab);
+			//playerActions.Diary.AddDefaultBinding(InputControlType.Action1);
 
 			// Esto pilla el ratón
 			/*playerActions.Up.AddDefaultBinding( Mouse.PositiveY );

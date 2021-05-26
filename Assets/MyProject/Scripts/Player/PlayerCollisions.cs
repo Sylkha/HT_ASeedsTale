@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bindings;
+
 // This script is contained by the model.
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCollisions : MonoBehaviour
 {
     [SerializeField] Yarn.Unity.DialogueRunner dl;
     bool chating = false;
+
+    MyPlayerActions actions;
+
+    private void Start()
+    {
+        actions = Controls.instance.get_actions();
+    }
 
     void OnTriggerEnter(Collider collision)
     {
@@ -29,7 +38,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>()) //&& !collision.gameObject.GetComponent<MissionNotes>())
         {
-            if (Input.GetButton("Interaction") && chating == false)
+            if (actions.Interacion && chating == false)
             {
                 chating = true;
                 dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
@@ -37,7 +46,7 @@ public class PlayerCollisions : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
-            if (Input.GetButton("Interaction") && chating == false)
+            if (actions.Interacion && chating == false)
             {
                 chating = true;
                 collision.gameObject.GetComponent<CollectibleObject>().chat();
