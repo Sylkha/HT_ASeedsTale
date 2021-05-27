@@ -56,6 +56,7 @@ public class Menus : MonoBehaviour
             {
                 if (show == false)
                 {
+                    Movement.instance.canMove = false;
                     panelMain.SetActive(true);
                     show = true;
 
@@ -65,7 +66,7 @@ public class Menus : MonoBehaviour
                     EventSystem.current.SetSelectedGameObject(menuInGameFirstButton);                    
                 }
                 else
-                {
+                {                   
                     ResumeButton();
                 }
                 Debug.Log("Menu");
@@ -102,6 +103,9 @@ public class Menus : MonoBehaviour
         panelMain.SetActive(false);
         panelOptions.SetActive(false);
         show = false;
+        if (SceneManager.GetActiveScene().name == sceneName)
+            Movement.instance.canMove = true;
+
         Debug.Log("Resume");
     }
 

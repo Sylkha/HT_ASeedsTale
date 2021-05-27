@@ -8,10 +8,25 @@ using Bindings;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCollisions : MonoBehaviour
 {
+    public static PlayerCollisions instance;
+
     [SerializeField] Yarn.Unity.DialogueRunner dl;
     bool chating = false;
 
     MyPlayerActions actions;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
@@ -75,4 +90,5 @@ public class PlayerCollisions : MonoBehaviour
         }
     }
 
+    public bool is_chating() { return chating; }
 }

@@ -8,6 +8,8 @@ using Bindings;
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
+    public static Movement instance;
+
     #region Variables
 
     [Header("Movement")]
@@ -113,6 +115,19 @@ public class Movement : MonoBehaviour
     #endregion Variables
 
     MyPlayerActions actions;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Debug.Log("Instance already exists, destroying object!");
+            Destroy(this);
+        }
+    }
 
     void Start()
     {
@@ -396,11 +411,6 @@ public class Movement : MonoBehaviour
     
     void Update() // We need inputs to be in Update instead of FixedUpdate
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         Animations();
         if (!canMove) return;
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))

@@ -59,21 +59,25 @@ public class InputModuleActionAdapter : MonoBehaviour
         actions.Submit.AddDefaultBinding(InputControlType.Action1);
         actions.Submit.AddDefaultBinding(Key.Space);
         actions.Submit.AddDefaultBinding(Key.Return);
+        actions.Submit.AddDefaultBinding(Key.E);
 
         actions.Cancel.AddDefaultBinding(InputControlType.Action2);
         actions.Cancel.AddDefaultBinding(Key.Escape);
 
         actions.Up.AddDefaultBinding(InputControlType.LeftStickUp);
         actions.Up.AddDefaultBinding(Key.UpArrow);
+        actions.Up.AddDefaultBinding(Key.W);
 
         actions.Down.AddDefaultBinding(InputControlType.LeftStickDown);
         actions.Down.AddDefaultBinding(Key.DownArrow);
+        actions.Down.AddDefaultBinding(Key.S);
 
         actions.Left.AddDefaultBinding(InputControlType.LeftStickLeft);
         actions.Left.AddDefaultBinding(Key.LeftArrow);
+        actions.Left.AddDefaultBinding(Key.A);
 
         actions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
-        actions.Right.AddDefaultBinding(Key.RightArrow);
+        actions.Right.AddDefaultBinding(Key.D);
     }
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Brightness : MonoBehaviour
+public class Brightness_control : MonoBehaviour
 {
     [SerializeField] Slider slider;
     [SerializeField] float sliderValue;
