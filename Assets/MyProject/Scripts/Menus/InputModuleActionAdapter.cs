@@ -57,7 +57,6 @@ public class InputModuleActionAdapter : MonoBehaviour
         actions = new InputModuleActions();
 
         actions.Submit.AddDefaultBinding(InputControlType.Action1);
-        actions.Submit.AddDefaultBinding(Key.Space);
         actions.Submit.AddDefaultBinding(Key.Return);
         actions.Submit.AddDefaultBinding(Key.E);
 
@@ -77,6 +76,7 @@ public class InputModuleActionAdapter : MonoBehaviour
         actions.Left.AddDefaultBinding(Key.A);
 
         actions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
+        actions.Left.AddDefaultBinding(Key.RightArrow);
         actions.Right.AddDefaultBinding(Key.D);
     }
 

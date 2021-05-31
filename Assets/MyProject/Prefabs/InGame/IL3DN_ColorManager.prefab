@@ -1,0 +1,446 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8324945099124127115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8324945099124127112}
+  - component: {fileID: 8324945099124127113}
+  - component: {fileID: 8324945099124127111}
+  - component: {fileID: 8324945099124127110}
+  m_Layer: 0
+  m_Name: IL3DN_ColorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8324945099124127112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324945099124127115}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -107.189995, y: 4.7213974, z: -68.41}
+  m_LocalScale: {x: 2.8815, y: 2.8815007, z: 2.8815007}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8324945099124127113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324945099124127115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ef2c28c3102d64891e6c203a6206db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: 1
+--- !u!114 &8324945099124127111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324945099124127115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108d10b2386140d48b82696f16f22f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - meterial: {fileID: 2100000, guid: af3d69dd3ab4777479ce92faa440698b, type: 2}
+    properties:
+    - color: {r: 0.010813437, g: 0.764151, b: 0.05613147, a: 1}
+      mainTex: {fileID: 2800000, guid: f0138d7c83fe3474287bec057e360c70, type: 3}
+    - color: {r: 0.8301887, g: 0.7851549, b: 0.763617, a: 1}
+      mainTex: {fileID: 2800000, guid: f0138d7c83fe3474287bec057e360c70, type: 3}
+    - color: {r: 0.496351, g: 0.6226415, b: 0.5260664, a: 1}
+      mainTex: {fileID: 2800000, guid: f0138d7c83fe3474287bec057e360c70, type: 3}
+    - color: {r: 0.33891058, g: 0.6037736, b: 0.4002442, a: 1}
+      mainTex: {fileID: 2800000, guid: f0138d7c83fe3474287bec057e360c70, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 51381b84eb87d3d4a8987d5206af840f, type: 2}
+    properties:
+    - color: {r: 1, g: 0, b: 0.57734966, a: 1}
+      mainTex: {fileID: 2800000, guid: 70b706d8f2de2dc42891234a863b5b62, type: 3}
+    - color: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
+      mainTex: {fileID: 2800000, guid: 70b706d8f2de2dc42891234a863b5b62, type: 3}
+    - color: {r: 0.67163086, g: 0.43253827, b: 0.6792453, a: 1}
+      mainTex: {fileID: 2800000, guid: 70b706d8f2de2dc42891234a863b5b62, type: 3}
+    - color: {r: 0.8868468, g: 0.26913467, b: 0.9056604, a: 1}
+      mainTex: {fileID: 2800000, guid: 70b706d8f2de2dc42891234a863b5b62, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 3be26af59ef83c14e916aa7874be867b, type: 2}
+    properties:
+    - color: {r: 0.31893063, g: 0.4716981, b: 0.07787458, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.624911, g: 0.8773585, b: 0.6512916, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.31502357, g: 0.3490566, b: 0.26179245, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.3189306, g: 0.4716981, b: 0.07787455, a: 1}
+      mainTex: {fileID: 0}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 67e642841af2acc4492399d0ff294789, type: 2}
+    properties:
+    - color: {r: 1, g: 0.7339817, b: 0.4481132, a: 1}
+      mainTex: {fileID: 2800000, guid: a73c218e0d8156240a793d22710686d1, type: 3}
+    - color: {r: 0.87805295, g: 0.8867924, b: 0.72365606, a: 1}
+      mainTex: {fileID: 2800000, guid: a73c218e0d8156240a793d22710686d1, type: 3}
+    - color: {r: 0.48069268, g: 0.5188679, b: 0.374466, a: 1}
+      mainTex: {fileID: 2800000, guid: a73c218e0d8156240a793d22710686d1, type: 3}
+    - color: {r: 0.50481075, g: 0.5943396, b: 0.2551174, a: 1}
+      mainTex: {fileID: 2800000, guid: a73c218e0d8156240a793d22710686d1, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 49205e5c7b68f364b92a10e9b3e76a83, type: 2}
+    properties:
+    - color: {r: 0.38255006, g: 0.5283019, b: 0.32645068, a: 1}
+      mainTex: {fileID: 2800000, guid: 60e1c0ade03583e409cd4d7e6b5995fa, type: 3}
+    - color: {r: 0.8301887, g: 0.78527987, b: 0.6383055, a: 1}
+      mainTex: {fileID: 2800000, guid: 60e1c0ade03583e409cd4d7e6b5995fa, type: 3}
+    - color: {r: 0.2972169, g: 0.38679248, b: 0.26090246, a: 1}
+      mainTex: {fileID: 2800000, guid: 60e1c0ade03583e409cd4d7e6b5995fa, type: 3}
+    - color: {r: 0.38255, g: 0.5283019, b: 0.32645062, a: 1}
+      mainTex: {fileID: 2800000, guid: 60e1c0ade03583e409cd4d7e6b5995fa, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: d196cda956361f54cb094f4acad1b233, type: 2}
+    properties:
+    - color: {r: 0.5943396, g: 0.3767291, b: 0.288759, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.764151, g: 0.6118371, b: 0.5514863, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.4528302, g: 0.3347482, b: 0.28835884, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.5943396, g: 0.37672907, b: 0.28875896, a: 1}
+      mainTex: {fileID: 0}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: a1caf223de02ae34384ec42b6f035826, type: 2}
+    properties:
+    - color: {r: 0.6509434, g: 0.4200489, b: 0.26713225, a: 1}
+      mainTex: {fileID: 2800000, guid: 3ab525614e685014da4ff51a15e353f9, type: 3}
+    - color: {r: 0.8584906, g: 0.76038265, b: 0.6924617, a: 1}
+      mainTex: {fileID: 2800000, guid: 3ab525614e685014da4ff51a15e353f9, type: 3}
+    - color: {r: 0.5943396, g: 0.52176356, b: 0.4737896, a: 1}
+      mainTex: {fileID: 2800000, guid: 3ab525614e685014da4ff51a15e353f9, type: 3}
+    - color: {r: 0.6509434, g: 0.42004886, b: 0.26713222, a: 1}
+      mainTex: {fileID: 2800000, guid: 3ab525614e685014da4ff51a15e353f9, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: e3ac01954a8b90b418546e44fa6011b2, type: 2}
+    properties:
+    - color: {r: 0.99056596, g: 0.8732876, b: 0.31305602, a: 1}
+      mainTex: {fileID: 2800000, guid: 2da6fe53f02e06843b63af00699b6e0a, type: 3}
+    - color: {r: 0.8301887, g: 0.8029246, b: 0.6696333, a: 1}
+      mainTex: {fileID: 2800000, guid: 2da6fe53f02e06843b63af00699b6e0a, type: 3}
+    - color: {r: 0.8490566, g: 0.8011357, b: 0.5727127, a: 1}
+      mainTex: {fileID: 2800000, guid: 2da6fe53f02e06843b63af00699b6e0a, type: 3}
+    - color: {r: 0.99056596, g: 0.8732876, b: 0.313056, a: 1}
+      mainTex: {fileID: 2800000, guid: 2da6fe53f02e06843b63af00699b6e0a, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 856a2ac8937804e4e99a804faa0a61d5, type: 2}
+    properties:
+    - color: {r: 0.9056604, g: 0.20078298, b: 0.28405765, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.6580189, g: 0.8773585, b: 0.68772113, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.65882355, g: 0.87843144, b: 0.6862745, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.9056604, g: 0.20078295, b: 0.28405762, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 49a047f6fab4c994cb92aa690ba93401, type: 2}
+    properties:
+    - color: {r: 0.094117604, g: 0.44313723, b: 0.360245, a: 1}
+      mainTex: {fileID: 2800000, guid: f6ca14d1b28767248b6da146831632a1, type: 3}
+    - color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+      mainTex: {fileID: 2800000, guid: f6ca14d1b28767248b6da146831632a1, type: 3}
+    - color: {r: 0.4174528, g: 0.5, b: 0.48052257, a: 1}
+      mainTex: {fileID: 2800000, guid: f6ca14d1b28767248b6da146831632a1, type: 3}
+    - color: {r: 0.094117574, g: 0.4431372, b: 0.36024496, a: 1}
+      mainTex: {fileID: 2800000, guid: f6ca14d1b28767248b6da146831632a1, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 1d97d3e66d3177240ae59310c2388d2b, type: 2}
+    properties:
+    - color: {r: 0.62264144, g: 0.35537523, b: 0.29663578, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.62264144, g: 0.3553752, b: 0.29663575, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.4811321, g: 0.2970572, b: 0.25645247, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.62264144, g: 0.3553752, b: 0.29663575, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: b599d9a28d2afd24ab0a53fd5a5ce3ea, type: 2}
+    properties:
+    - color: {r: 0.5331311, g: 0.81960785, b: 0.30588233, a: 1}
+      mainTex: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
+    - color: {r: 0.82124865, g: 0.8584906, b: 0.7248576, a: 1}
+      mainTex: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
+    - color: {r: 0.8196079, g: 0.8588236, b: 0.7254902, a: 1}
+      mainTex: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
+    - color: {r: 0.5159047, g: 0.5849056, b: 0.34487352, a: 1}
+      mainTex: {fileID: 2800000, guid: 2038a37a87e1eff4fa5efd69c9d1312e, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 4ea518f471fd6ab469a44aef2fe80780, type: 2}
+    properties:
+    - color: {r: 0.41788146, g: 0.57547164, b: 0.301308, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.83208555, g: 0.8867924, b: 0.7905838, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.8313726, g: 0.8862746, b: 0.79215693, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.41788143, g: 0.57547164, b: 0.30130798, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 2bfd4dd55d933b248ac7013ae3db1bff, type: 2}
+    properties:
+    - color: {r: 0.5943396, g: 0.40733653, b: 0.30558014, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.5943396, g: 0.4073365, b: 0.3055801, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.4339623, g: 0.34234557, b: 0.29271984, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    - color: {r: 0.5943396, g: 0.4073365, b: 0.3055801, a: 1}
+      mainTex: {fileID: 2800000, guid: e632c8e2a28f7e445a58672b91bfd65e, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 098fefc7ca6dc3048baacf21ed822e3d, type: 2}
+    properties:
+    - color: {r: 0.5660378, g: 0.42964253, b: 0.3177286, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.5660378, g: 0.4296425, b: 0.31772858, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.49056602, g: 0.36693278, b: 0.26148093, a: 1}
+      mainTex: {fileID: 0}
+    - color: {r: 0.5660378, g: 0.4296425, b: 0.31772858, a: 1}
+      mainTex: {fileID: 0}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 253f3ec48ed0f8142aa3ee67cbe347eb, type: 2}
+    properties:
+    - color: {r: 0.7058823, g: 0.5882353, b: 0.1843136, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.8867924, g: 0.8632042, b: 0.78221786, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.6698113, g: 0.62063736, b: 0.4518067, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    - color: {r: 0.7058823, g: 0.5882353, b: 0.18431357, a: 1}
+      mainTex: {fileID: 2800000, guid: 6ab0f5f5ed2482e43a5ace7eeced19e6, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 0cd13747ec1c06b49bea7c9c495a9483, type: 2}
+    properties:
+    - color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+      mainTex: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+    - color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+      mainTex: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+    - color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+      mainTex: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+    - color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+      mainTex: {fileID: 2800000, guid: 6d8421fc6c3908f4a9ec1921a0872572, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 40a5534813ec1694eb348d8ddbe4ca23, type: 2}
+    properties:
+    - color: {r: 0.6981132, g: 0.6590781, b: 0.49724102, a: 1}
+      mainTex: {fileID: 2800000, guid: 73f9ff498af5bfb48bb4614c1957e6a8, type: 3}
+    - color: {r: 0.8301887, g: 0.80792135, b: 0.71662515, a: 1}
+      mainTex: {fileID: 2800000, guid: 73f9ff498af5bfb48bb4614c1957e6a8, type: 3}
+    - color: {r: 0.6981132, g: 0.6590781, b: 0.49724102, a: 1}
+      mainTex: {fileID: 2800000, guid: 73f9ff498af5bfb48bb4614c1957e6a8, type: 3}
+    - color: {r: 0.6981132, g: 0.6590781, b: 0.49724102, a: 1}
+      mainTex: {fileID: 2800000, guid: 73f9ff498af5bfb48bb4614c1957e6a8, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 93a924b510ed64a488d5faffeefcf7cb, type: 2}
+    properties:
+    - color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+      mainTex: {fileID: 2800000, guid: 1adc77130775a854aa241d2531c4c867, type: 3}
+    - color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+      mainTex: {fileID: 2800000, guid: 1adc77130775a854aa241d2531c4c867, type: 3}
+    - color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+      mainTex: {fileID: 2800000, guid: 1adc77130775a854aa241d2531c4c867, type: 3}
+    - color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+      mainTex: {fileID: 2800000, guid: 1adc77130775a854aa241d2531c4c867, type: 3}
+    selectedProperty: 0
+    previousProperty: 1
+--- !u!114 &8324945099124127110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324945099124127115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd1cf9394fcd3e4bb04dc519c424459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - meterial: {fileID: 2100000, guid: 9dffff67a35fe044da801331236ae2ef, type: 2}
+    properties:
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 0}
+        name: _EmissionColor
+      - color: {r: 0.2288343, g: 0.5566037, b: 0.18115875, a: 0}
+        name: _Color0
+      - color: {r: 0.5471698, g: 0.23565018, b: 0.11098253, a: 0}
+        name: _Color1
+      - color: {r: 0.7924528, g: 0.7521432, b: 0.5793876, a: 0}
+        name: _Color2
+      - color: {r: 0.29490027, g: 0.44339618, b: 0.31668255, a: 0}
+        name: _Color3
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 0}
+        name: _EmissionColor
+      - color: {r: 0.2990388, g: 0.6037736, b: 0.5466358, a: 0}
+        name: _Color0
+      - color: {r: 0.47840276, g: 0.54901963, b: 0.10980392, a: 0}
+        name: _Color1
+      - color: {r: 0.72079396, g: 0.7264151, b: 0.6476059, a: 0}
+        name: _Color2
+      - color: {r: 0.2746084, g: 0.43000862, b: 0.4811321, a: 0}
+        name: _Color3
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 0}
+        name: _EmissionColor
+      - color: {r: 0.5454065, g: 0.6698113, b: 0.5276344, a: 0}
+        name: _Color0
+      - color: {r: 0.4784314, g: 0.54901963, b: 0.10980393, a: 0}
+        name: _Color1
+      - color: {r: 0.72156864, g: 0.7254902, b: 0.64705884, a: 0}
+        name: _Color2
+      - color: {r: 0.27450982, g: 0.43137258, b: 0.48235297, a: 0}
+        name: _Color3
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 0}
+        name: _EmissionColor
+      - color: {r: 0.18039212, g: 0.5568628, b: 0.4870327, a: 0}
+        name: _Color0
+      - color: {r: 0.47840267, g: 0.5490196, b: 0.10980389, a: 0}
+        name: _Color1
+      - color: {r: 0.7276378, g: 0.5803921, b: 0.7921569, a: 0}
+        name: _Color2
+      - color: {r: 0.44313723, g: 0.30214882, b: 0.29411763, a: 0}
+        name: _Color3
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 9e333e6586d544a4fbada3e1183f93c4, type: 2}
+    properties:
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.54404557, g: 0.7830189, b: 0, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.227451, g: 0.5568628, b: 0.18039216, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.57254905, g: 1, b: 0.48584896, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.57254905, g: 1, b: 0.48584896, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: da1aa555146fcae4db7106a99e01a313, type: 2}
+    properties:
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.44855547, g: 0.7169812, b: 0.037201855, a: 1}
+        name: _ColorTop
+      - color: {r: 1, g: 0.89829326, b: 0.5613208, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.57254905, g: 1, b: 0.48627454, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.57254905, g: 1, b: 0.48627454, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.57254905, g: 1, b: 0.48627454, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 1, b: 1, a: 1}
+        name: _Color
+    selectedProperty: 0
+    previousProperty: 1
+  - meterial: {fileID: 2100000, guid: 635afa8b492d12449bcae65bf5678f60, type: 2}
+    properties:
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 0.7254902, g: 0.7294118, b: 0.31764707, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 0.9634386, b: 0.6273585, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 1, g: 0.98807865, b: 0, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 0.9634386, b: 0.6273585, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 1, g: 0.98807865, b: 0, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 0.9634386, b: 0.6273585, a: 1}
+        name: _Color
+    - colors:
+      - color: {r: 0, g: 0, b: 0, a: 1}
+        name: _EmissionColor
+      - color: {r: 1, g: 0.98807865, b: 0, a: 0}
+        name: _ColorTop
+      - color: {r: 1, g: 0.9634386, b: 0.6273585, a: 1}
+        name: _Color
+    selectedProperty: 0
+    previousProperty: 1

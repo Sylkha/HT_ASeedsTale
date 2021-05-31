@@ -1,1 +1,0 @@
-{"x_position":-12.909618377685547,"y_position":5.970235347747803,"z_position":9.897388458251954,"x_rotation":0.0,"y_rotation":165.73316955566407,"z_rotation":0.0,"ship":false}

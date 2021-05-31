@@ -15,8 +15,8 @@ public class Menus : MonoBehaviour
     [SerializeField] GameObject panelOptions;  
     [SerializeField] string sceneName;
 
-    [SerializeField] bool needSave;
-    [ShowIf("needSave")] [SerializeField] DataManager dm;
+//    [SerializeField] bool needSave;
+//    [ShowIf("needSave")] [SerializeField] DataManager dm;
     
     bool show = false;
 
@@ -45,7 +45,6 @@ public class Menus : MonoBehaviour
     private void Update()
     {
         CUpdate();
-        Debug.Log(EventSystem.current);
     }
 
     void CUpdate()
@@ -112,7 +111,7 @@ public class Menus : MonoBehaviour
     public void SaveButton()
     {
         // Guardamos
-        dm.Save();
+        //dm.Save();
         Debug.Log("Save");
     }
 
@@ -120,7 +119,7 @@ public class Menus : MonoBehaviour
     {
         // Guardamos
         Debug.Log("Save and Exit");
-        dm.Save();
+        //dm.Save();
         Application.Quit();
     }
 

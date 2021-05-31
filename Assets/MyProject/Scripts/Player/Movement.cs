@@ -413,6 +413,11 @@ public class Movement : MonoBehaviour
     {
         Animations();
         if (!canMove) return;
+      /*  if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
+            GroundMovement();
+
+        else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
+            SwimmingMovement();*/
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbuttondown_glide = true;
@@ -428,7 +433,7 @@ public class Movement : MonoBehaviour
     }
     void PlayerSkills()
     {
-        if (IsGrounded() && actions.JumpGlide.WasPressed && canMove && is_Jumping == false)
+        if (IsGrounded() && actions.JumpGlide.IsPressed && canMove && is_Jumping == false)
         {        
             Jump(jumpSpeed);            
         }
