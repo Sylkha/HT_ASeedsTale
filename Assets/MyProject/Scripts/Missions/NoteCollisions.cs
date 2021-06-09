@@ -15,7 +15,7 @@ public class NoteCollisions : MonoBehaviour
     }
     private void Update()
     {
-        imageDialogue.transform.LookAt(Camera.main.transform.position, -Vector3.up);
+        //imageDialogue.transform.LookAt(Camera.main.transform.position, -Vector3.up);
     }
     private void OnTriggerEnter(Collider other)
     {
