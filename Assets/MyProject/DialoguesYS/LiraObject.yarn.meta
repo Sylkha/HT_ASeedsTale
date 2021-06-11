@@ -1,0 +1,49 @@
+fileFormatVersion: 2
+<<<<<<< Updated upstream
+guid: 887fcb97c39a8b640bb4b8033472e839
+=======
+guid: 56dfc4d06ccae164cbeadbe3b8cbeeb3
+>>>>>>> Stashed changes
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 94073015eacc34c1d8fc6786e43d60ca, type: 3}
+<<<<<<< Updated upstream
+  baseLanguageID: en-US
+  stringIDs:
+  - Object-Ahora-0
+  - Object-Ahora-1
+  - Object-Ahora-2
+  - Object-Ahora-3
+  - Object-Ahora-4
+  - Object-Ahora-5
+  - Object-Node1-6
+  - Object-Node1-7
+  - Object-Node1-8
+  - Object-Node2-9
+  - Object-Node2-10
+  - Object-Node2-11
+  - Object-NodeFinal-12
+  - Object-NodeFinal-13
+  - Object-NodeStart-14
+  compilationStatus: 1
+  isSuccesfullyCompiled: 1
+  compilationErrorMessage: 
+  baseLanguage: {fileID: 7128917941130120860, guid: 887fcb97c39a8b640bb4b8033472e839,
+    type: 3}
+=======
+  baseLanguageID: 
+  stringIDs:
+  - Object-Lira_NoMission-0
+  - Object-Lira_Mission-1
+  - Object-Lira_Mission-2
+  compilationStatus: 1
+  isSuccesfullyCompiled: 1
+  compilationErrorMessage: 
+  baseLanguage: {instanceID: 0}
+>>>>>>> Stashed changes
+  localizations: []

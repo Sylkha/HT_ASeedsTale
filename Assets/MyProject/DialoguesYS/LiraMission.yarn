@@ -1,0 +1,72 @@
+title: Note1
+tags: 
+colorID: 0
+position: 608,-113
+---
+<<if $Note1 is false>> 
+<<canMove Player false>>
+Antheia: A note? And it has my writing?
+Diary: In today's dream I heard a beautiful sound, followed by a whisper:
+Diary: "With a golden body and sun beams as strings it lies upon a cliff".
+Antheia: Should I go for this one?
+ 
+[[Antheia: Of course! What could it be?|Node1]] 
+[[Antheia: No|Node2]]
+<<else>>
+<<canMove Player false>>
+Antheia: Already focused on this one!
+<<canMove Player true>>
+<<stop>>
+<<endif>>
+===
+
+
+title: Node1
+tags: 
+colorID: 0
+position: 419,182
+---
+<<set $Note1 to true>>
+<<take MissionsNotes Note1>>
+Antheia: To a godly adventure on a cliff!
+<<canMove Player true>>
+===
+
+title: Node2
+tags: 
+colorID: 0
+position: 790,176
+---
+Antheia: I will look around for a bit
+<<canMove Player true>>
+===
+
+title: NodeFinal
+tags: 
+colorID: 0
+position: 790,176
+---
+<<canMove Player false>>
+Antheia: Alright girl! Now what?!
+<<canMove Player true>>
+===
+
+title: NodeTaken
+tags: 
+colorID: 0
+position: 790,176
+---
+<<canMove Player false>>
+Antheia: Already focused on this one!
+<<canMove Player true>>
+===
+
+title: NodeAnTaken
+tags: 
+colorID: 0
+position: 790,176
+---
+<<canMove Player false>>
+Antheia: Already focused on other mission!
+<<canMove Player true>>
+===

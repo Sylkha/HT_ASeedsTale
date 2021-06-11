@@ -26,8 +26,6 @@ public class CollectibleObject : MonoBehaviour
     bool collected = false;
     bool delivered = false;
 
-    [SerializeField] SeasonalSwitch ss;
-
     private void Start()
     {
         dialogue = GetComponent<Yarn.Unity.Example.NPC>();
@@ -55,7 +53,6 @@ public class CollectibleObject : MonoBehaviour
                 if (missionObject)
                 {
                     SetDelivered();
-                    ss.ChangeSeason();
                 }
             }
         }        

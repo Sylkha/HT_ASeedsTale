@@ -55,18 +55,25 @@ public class MissionNotes : MonoBehaviour
         }
     }
 
-    // Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, se indica
+    // Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, se indica. Antes que este, va el comando "takeCollectable" que llama a SetCollected
     [Yarn.Unity.YarnCommand("resetMissions")]
     public void ResetMissions()
     {
+        int counter = 0;
         for (int i = 0; i < notes.Length; i++)
         {
             notes[i].dialogue.talkToNode = notes[i].n_NotTakenMission;
             if (notes[i].ourObject.GetCollected())
             {
                 notes[i].dialogue.talkToNode = notes[i].n_FinishedMission;
-                //notes[i].ourObject.SetCollected();
+                counter++;
             }
+        }
+        if(counter >= notes.Length)
+        {
+            Debug.Log("Cambio de estación!");
+            Debug.Log(notes.Length + " cantidad de misiones completadas");
+            SeasonalSwitch.instance.ChangeSeason();
         }
     }
 }

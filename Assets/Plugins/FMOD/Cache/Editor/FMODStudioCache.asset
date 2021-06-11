@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637585188736070734
+  lastModified: 637590075070229927
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637585188736320060
+  lastModified: 637590075070259867
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637585188736359953
+  lastModified: 637590075070259867
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637585188736100658
+  lastModified: 637590075070249895
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -208,7 +208,7 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637585188736100658
+  stringsBankWriteTime: 637590075070249895
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -295,7 +295,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637585188734664484
+  lastModified: 637548955239283320
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -424,7 +424,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637585188735442436
+  lastModified: 637590075069771483
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -557,7 +557,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637585188735073389
+  lastModified: 637590075069731561
   LoadResult: 0
   FileSizes: []
   Exists: 1
