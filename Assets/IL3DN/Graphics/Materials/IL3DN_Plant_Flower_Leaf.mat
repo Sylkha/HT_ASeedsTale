@@ -108,7 +108,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.20126544, g: 0.7086439, b: 0.24046335, a: 1}
+    - _Color: {r: 0.010813437, g: 0.764151, b: 0.05613147, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HueVariation: {r: 0.9495296, g: 1, b: 0.7028302, a: 1}
     - _TranslucencyColor: {r: 0.72321427, g: 1, b: 0, a: 1}

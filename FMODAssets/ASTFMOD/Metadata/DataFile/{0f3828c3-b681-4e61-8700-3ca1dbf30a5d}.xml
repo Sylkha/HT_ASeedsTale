@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{0f3828c3-b681-4e61-8700-3ca1dbf30a5d}">
+		<property name="assetPath">
+			<value>Music/Track 01 - Mod 2- A Seed's Tale.ogg.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

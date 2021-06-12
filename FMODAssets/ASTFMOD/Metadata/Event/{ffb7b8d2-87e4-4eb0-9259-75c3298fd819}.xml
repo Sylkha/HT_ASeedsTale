@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{ffb7b8d2-87e4-4eb0-9259-75c3298fd819}">
 		<property name="name">
-			<value>UI_Navigate</value>
+			<value>UI_OnSelect</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -123,7 +123,7 @@
 	<object class="MixerBusPanner" id="{6d616ce2-e012-4fdf-8c5c-7b3e8cc45b22}" />
 	<object class="SingleSound" id="{af01f742-589f-4d8b-8af3-699fc7d86277}">
 		<relationship name="audioFile">
-			<destination>{30fb5d57-f5f1-4c71-9491-3318f7ce7aa0}</destination>
+			<destination>{3ad51b9c-10f3-426c-9125-e17ff6e8cffe}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{79ede5c0-afc5-4d81-94a3-5736876e9005}" />
