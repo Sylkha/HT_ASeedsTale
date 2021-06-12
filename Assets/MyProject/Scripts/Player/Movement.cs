@@ -150,7 +150,11 @@ public class Movement : MonoBehaviour
     float maxY;
     void Animations()
     {
-        if(canMove == false) anim.SetInteger("Movement", 0);
+        if (canMove == false)
+        {
+            anim.SetInteger("Movement", 0);
+            return;
+        }
         if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying)
         {
             if (IsGrounded())

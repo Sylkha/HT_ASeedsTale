@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637591184860223237
+  lastModified: 637591191807093306
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637591184860701948
+  lastModified: 637591191807661779
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -99,7 +99,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637591184860672021
+  lastModified: 637591191807641851
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637591184860273102
+  lastModified: 637591191807123236
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -257,7 +257,7 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637591184860273102
+  stringsBankWriteTime: 637591191807123236
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -343,7 +343,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637591184858976567
+  lastModified: 637548955239283320
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -472,7 +472,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637591184859385472
+  lastModified: 637591191805976271
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -604,7 +604,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637591184859345588
+  lastModified: 637591191805966314
   LoadResult: 0
   FileSizes: []
   Exists: 1
