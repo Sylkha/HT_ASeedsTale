@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637591039699322340
+  lastModified: 637591184860223237
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637591039699402133
+  lastModified: 637591184860701948
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -99,7 +99,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637591039699382191
+  lastModified: 637591184860672021
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637591039699352263
+  lastModified: 637591184860273102
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -162,7 +162,7 @@ MonoBehaviour:
   Path: event:/Enviroment/Nature/Amb_River
   guid: 5681da6a2b217d40a9db20eab1a1533e
   Banks:
-  - {fileID: 4702284645080144027}
+  - {fileID: -8590955644396046769}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   Path: event:/Enviroment/Nature/Amd_Breeze
   guid: 0100868ad19ea34b874701fdbcc1a781
   Banks:
-  - {fileID: 4702284645080144027}
+  - {fileID: -8590955644396046769}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637591039699352263
+  stringsBankWriteTime: 637591184860273102
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -298,13 +298,13 @@ MonoBehaviour:
   guid: 7b5cbb6c039b9d44a7bebb45d1346dff
   Banks:
   - {fileID: -8590955644396046769}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 22996
+  Length: 0
 --- !u!114 &496677672068085518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637591039691091981
+  lastModified: 637591184858976567
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -385,7 +385,7 @@ MonoBehaviour:
   Path: event:/Enviroment/Nature/Amb_Ocean
   guid: 094d15f95c532d4b8239fa7603c6553e
   Banks:
-  - {fileID: 4702284645080144027}
+  - {fileID: -8590955644396046769}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -450,13 +450,13 @@ MonoBehaviour:
   guid: 03efb7a4bcb5bf47b4ce5785034d47d2
   Banks:
   - {fileID: -7018266481104983953}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
+  MinDistance: 1
+  MaxDistance: 900
+  Length: 299000
 --- !u!114 &4702284645080144027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637591039692279208
+  lastModified: 637591184859385472
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
   Path: event:/Enviroment/Nature/Amb_Forest_Spawn
   guid: 6c93512dff6d724082d2380dd8e6f74d
   Banks:
-  - {fileID: 4702284645080144027}
+  - {fileID: -8590955644396046769}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -604,7 +604,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637591039691481047
+  lastModified: 637591184859345588
   LoadResult: 0
   FileSizes: []
   Exists: 1
