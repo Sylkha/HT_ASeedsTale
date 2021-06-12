@@ -19,7 +19,7 @@ public class Diary : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (actions.Diary)
+        if (actions.Diary.WasPressed)
         {
             if(diaryOpen == false) //SFX SE ABRE 
             {

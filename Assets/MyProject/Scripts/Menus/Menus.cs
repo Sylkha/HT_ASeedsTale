@@ -13,6 +13,7 @@ public class Menus : MonoBehaviour
     [SerializeField] Canvas canvas;
     [SerializeField] GameObject panelMain; 
     [SerializeField] GameObject panelOptions;  
+    [SerializeField] GameObject panelQuit;  
     [SerializeField] string sceneName;
 
 //    [SerializeField] bool needSave;
@@ -25,6 +26,12 @@ public class Menus : MonoBehaviour
     [SerializeField] GameObject optionsFirstButton;
     [SerializeField] GameObject optionsCloseButton;
     [SerializeField] GameObject optionsInGameCloseButton;
+
+    bool check = false;
+    [SerializeField] GameObject buttonCheckQuit;
+    [SerializeField] GameObject buttonCheckQuit_Menu;
+    [SerializeField] GameObject buttonQuit;
+    [SerializeField] GameObject buttonQuit_Menu;
 
     MyPlayerActions actions;
 
@@ -82,6 +89,7 @@ public class Menus : MonoBehaviour
         {
             panelMain.SetActive(true);
             panelOptions.SetActive(false);
+            panelQuit.SetActive(false);
 
             // clear the selected object
             EventSystem.current.SetSelectedGameObject(optionsInGameCloseButton);
@@ -136,6 +144,38 @@ public class Menus : MonoBehaviour
         // Ocultamos el menú
         panelMain.SetActive(false);
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void Quit_Check()
+    {
+        if(check == false)
+        {
+            check = true;
+
+            // clear the selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            // set new selected object
+            if (SceneManager.GetActiveScene().name == sceneName)
+                EventSystem.current.SetSelectedGameObject(buttonCheckQuit);
+            else
+                EventSystem.current.SetSelectedGameObject(buttonCheckQuit_Menu);
+            Debug.Log(buttonCheckQuit);
+        }
+
+        else
+        {
+            check = false;
+
+            // clear the selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            // set new selected object
+            if (SceneManager.GetActiveScene().name == sceneName)
+                EventSystem.current.SetSelectedGameObject(buttonQuit);
+            else
+                EventSystem.current.SetSelectedGameObject(buttonQuit_Menu);
+
+            Debug.Log("vuelve?");
+        }
     }
 
 

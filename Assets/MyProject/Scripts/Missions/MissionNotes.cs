@@ -16,7 +16,7 @@ public class MissionNotes : MonoBehaviour
         public string n_TakenMission;
         public string n_OTHERMissTaken;
         public string n_FinishedMission;
-        public TMP_Text textDiary;
+        public GameObject textDiary;
     }
 
     [Header("Notes")]
@@ -28,7 +28,7 @@ public class MissionNotes : MonoBehaviour
         {
             notes[i].dialogue.talkToNode = notes[i].n_NotTakenMission;
             if(notes[i].textDiary != null)
-                notes[i].textDiary.enabled = false;
+                notes[i].textDiary.SetActive(false);
         }
     }
 
@@ -50,7 +50,7 @@ public class MissionNotes : MonoBehaviour
                 notes[i].dialogue.talkToNode = notes[i].n_TakenMission;
                 notes[i].ourObject.SetNoteTaken();
                 if (notes[i].textDiary != null)
-                    notes[i].textDiary.enabled = true;
+                    notes[i].textDiary.SetActive(true);
             }
         }
     }
