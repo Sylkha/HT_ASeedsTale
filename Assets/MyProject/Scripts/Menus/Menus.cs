@@ -55,6 +55,7 @@ public class Menus : MonoBehaviour
             {
                 if (show == false)
                 {
+                    //SFX ABRIR MENU
                     Movement.instance.canMove = false;
                     panelMain.SetActive(true);
                     show = true;
@@ -65,7 +66,8 @@ public class Menus : MonoBehaviour
                     EventSystem.current.SetSelectedGameObject(menuInGameFirstButton);                    
                 }
                 else
-                {                   
+                {       
+                    //SFX SE CIERRA MENÚ
                     ResumeButton();
                 }
                 Debug.Log("Menu");

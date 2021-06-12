@@ -17,6 +17,8 @@ public class CollectibleObject : MonoBehaviour
     [ShowIf("missionObject")] [SerializeField] string n_NotTakenMission;
     [ShowIf("missionObject")] [SerializeField] string n_TakenMission;
     [ShowIf("missionObject")] [SerializeField] string nodeFinal;
+    [FMODUnity.EventRef]
+    public string objectSFX;
 
     [Header("Only if the object have to reappear somewhere else.")]
     [SerializeField] bool needPositionDelivered;
@@ -44,6 +46,7 @@ public class CollectibleObject : MonoBehaviour
         if (noteTaken || !missionObject)
         {
             collected = true;
+            //SFX Collect/Pick Object
             this.gameObject.SetActive(false);
             //Desde el dialogo le ponemos si cambian la conversación de la nota
             if (positionDelivered != null)
@@ -67,7 +70,9 @@ public class CollectibleObject : MonoBehaviour
     }
    
     public void SetNoteTaken()
-    {        
+    {
+        //SFX Collect/Pick Note
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
         noteTaken = true;
         SetNode(n_TakenMission);
     }

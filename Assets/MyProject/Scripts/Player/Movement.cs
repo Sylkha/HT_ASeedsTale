@@ -160,7 +160,11 @@ public class Movement : MonoBehaviour
             if (IsGrounded())
             {
 
-                if (actions.Move.X != 0 || actions.Move.Y != 0) anim.SetInteger("Movement", 1);
+                if (actions.Move.X != 0 || actions.Move.Y != 0)
+                {
+                    anim.SetInteger("Movement", 1);
+                    //SFX Andar
+                }
                 else anim.SetInteger("Movement", 0);
 
                 
@@ -172,6 +176,7 @@ public class Movement : MonoBehaviour
                 if(glide == true)
                 {
                     anim.SetInteger("Movement", 3);
+                    //Glide SFX
                 }
                 else
                 {
@@ -179,9 +184,11 @@ public class Movement : MonoBehaviour
                     if(maxY > transform.position.y)
                     {
                         anim.SetInteger("Movement", 4);
+                        //SFX Falling
                     }
                     else
                     {
+                        //SFX Jump
                         anim.SetInteger("Movement", 2);
                     }
 
@@ -194,6 +201,7 @@ public class Movement : MonoBehaviour
                 if (is_Jumping)
                 {
                     // We're landing
+                    //SFX Landing
                     anim.SetInteger("Movement", 5);
                 }
             }
@@ -202,8 +210,17 @@ public class Movement : MonoBehaviour
 
         else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
         {
-            if (actions.Move.X != 0 || actions.Move.Y != 0) anim.SetInteger("Movement", 6);
-            else anim.SetInteger("Movement", 7);
+            if (actions.Move.X != 0 || actions.Move.Y != 0)
+            {
+                //SFX Swimming
+                anim.SetInteger("Movement", 6);
+            }
+            else
+            {
+                //SFX Swimming Idle
+                anim.SetInteger("Movement", 7);
+            }
+
         }
     }
     

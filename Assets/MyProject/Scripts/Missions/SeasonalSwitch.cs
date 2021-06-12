@@ -107,6 +107,8 @@ public class SeasonalSwitch : MonoBehaviour
 
     public void ChangeSeason()
     {
+        //SFX CAMBIO DE ESTACIÓN
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Seasons/Winter/SS_Winter");
         seasonNum += 2;
         if (seasonNum > 4)
             seasonNum = 1;

@@ -38,10 +38,33 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637591184860223237
+  lastModified: 637591288599081642
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-8382757431206197704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Objects/Divine Obj/Div-Obj_Shell
+  m_EditorClassIdentifier: 
+  Path: event:/Objects/Divine Obj/Div-Obj_Shell
+  guid: e664f134f3cf964cbb49a93d2a8aacc4
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-8203253188122200232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,7 +80,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637591184860701948
+  lastModified: 637591288599575452
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -99,7 +122,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637591184860672021
+  lastModified: 637591288599535558
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -118,11 +141,11 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637591184860273102
+  lastModified: 637591288599121532
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
-    Value: 1786
+    Value: 1938
   Exists: 1
 --- !u!114 &-4769868188268574802
 MonoBehaviour:
@@ -138,6 +161,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/UI/UI_Pause
   guid: 17af0798aee576429fa17e8696918f6c
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-3653580138626179766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Objects/Divine Obj/Div-Obj_Apollo
+  m_EditorClassIdentifier: 
+  Path: event:/Objects/Divine Obj/Div-Obj_Apollo
+  guid: e25f55bc003dbd4aad877551cb1efea9
   Banks:
   - {fileID: 6235104912808813185}
   IsStream: 0
@@ -244,7 +290,6 @@ MonoBehaviour:
   - {fileID: -4769868188268574802}
   - {fileID: 5132587699290110518}
   - {fileID: 1475596298372335967}
-  - {fileID: 8399739043786321715}
   - {fileID: -20375735384085381}
   - {fileID: 4332799301448100204}
   - {fileID: 294031105483320427}
@@ -252,12 +297,16 @@ MonoBehaviour:
   - {fileID: -1047504516930638967}
   - {fileID: -7433480961804184597}
   - {fileID: 9059937695959392502}
+  - {fileID: 5173433516557403665}
+  - {fileID: 8519294271164986983}
+  - {fileID: -3653580138626179766}
+  - {fileID: -8382757431206197704}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637591184860273102
+  stringsBankWriteTime: 637591288599121532
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -343,7 +392,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637591184858976567
+  lastModified: 637591288597620452
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -361,6 +410,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Diary-Notes/Notes_Close
   guid: 3ebbdde98bfdbf41a07d5811d73c6867
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &2812625683602952608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Objetcs/Divine Obj/Div-Obj_Trident
+  m_EditorClassIdentifier: 
+  Path: event:/Objetcs/Divine Obj/Div-Obj_Trident
+  guid: 8d25c40367366948a2150cc8dc7fd55e
   Banks:
   - {fileID: 6235104912808813185}
   IsStream: 0
@@ -472,7 +544,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637591184859385472
+  lastModified: 637591288598168989
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -543,6 +615,52 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &5173433516557403665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Objects/Divine Obj/Div-Obj_Trident
+  m_EditorClassIdentifier: 
+  Path: event:/Objects/Divine Obj/Div-Obj_Trident
+  guid: 8d25c40367366948a2150cc8dc7fd55e
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &5381378927498503928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Objetcs/Divine Obj/Div-Obj_Shell
+  m_EditorClassIdentifier: 
+  Path: event:/Objetcs/Divine Obj/Div-Obj_Shell
+  guid: e664f134f3cf964cbb49a93d2a8aacc4
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &5390282310604716546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +722,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637591184859345588
+  lastModified: 637591288598129093
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -622,6 +740,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Objetcs/Divine Obj/Div-Obj_Apollo
   guid: e25f55bc003dbd4aad877551cb1efea9
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &8519294271164986983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Seasons/Winter/SS_Winter
+  m_EditorClassIdentifier: 
+  Path: event:/Seasons/Winter/SS_Winter
+  guid: c033ae9dd394374185553aae55dabe16
   Banks:
   - {fileID: 6235104912808813185}
   IsStream: 0

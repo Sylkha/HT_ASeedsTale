@@ -45,6 +45,7 @@ public class PlayerCollisions : MonoBehaviour
         }
         if (collision.gameObject.GetComponent<MissionNotes>() && collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>()) // lo cambiaremos a layers
         {
+            
             //dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
             //Le aparecerá al personaje la tecla que pulsar
         }
@@ -59,13 +60,21 @@ public class PlayerCollisions : MonoBehaviour
                 dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
             }
         }
+        if (actions.Interacion && collision.gameObject.GetComponent<NoteCollisions>())
+        {
+            //SFX Interact Note
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
+        }
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
             if (actions.Interacion && chating == false)
             {
+                //SFX Interact with Object
+                FMODUnity.RuntimeManager.PlayOneShot(collision.gameObject.GetComponent<CollectibleObject>().objectSFX);
                 chating = true;
                 collision.gameObject.GetComponent<CollectibleObject>().chat();
             }
+
         }
         
     }

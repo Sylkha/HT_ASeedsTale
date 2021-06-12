@@ -21,9 +21,19 @@ public class Diary : MonoBehaviour
     {
         if (actions.Diary)
         {
+            if(diaryOpen == false) //SFX SE ABRE 
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
+
+            }
+            else
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Close");
+                //SFE SE CIERRA 
+            }
+
             diaryOpen = !diaryOpen;
             diaryMenu.SetActive(diaryOpen);
         }
-        
     }
 }
