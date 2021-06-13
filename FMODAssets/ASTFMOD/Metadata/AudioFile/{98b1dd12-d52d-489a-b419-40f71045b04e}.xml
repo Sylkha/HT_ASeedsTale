@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{98b1dd12-d52d-489a-b419-40f71045b04e}">
+		<property name="assetPath">
+			<value>Ambience/AMB_EXT_Windchimes_on_Breezy_Summer_Day_01.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>300.34120833333333</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

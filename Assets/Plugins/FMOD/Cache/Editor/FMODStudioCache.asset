@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637591191807093306
+  lastModified: 637591877471987646
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637591191807661779
+  lastModified: 637591877472481432
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637591191807641851
+  lastModified: 637591877472451509
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -141,11 +141,11 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637591310090102000
+  lastModified: 637591877472013065
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
-    Value: 1938
+    Value: 1986
   Exists: 1
 --- !u!114 &-4769868188268574802
 MonoBehaviour:
@@ -291,7 +291,6 @@ MonoBehaviour:
   - {fileID: 5132587699290110518}
   - {fileID: 1475596298372335967}
   - {fileID: -20375735384085381}
-  - {fileID: 4332799301448100204}
   - {fileID: 294031105483320427}
   - {fileID: 8715927505547470619}
   - {fileID: -1047504516930638967}
@@ -301,12 +300,14 @@ MonoBehaviour:
   - {fileID: 8519294271164986983}
   - {fileID: -3653580138626179766}
   - {fileID: -8382757431206197704}
+  - {fileID: 6815409839823650308}
+  - {fileID: 7880072098850010711}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637591310090102000
+  stringsBankWriteTime: 637591877472013065
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -392,7 +393,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637548955239283320
+  lastModified: 637591877470671194
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -544,7 +545,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637591191805976271
+  lastModified: 637591877471180013
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -722,10 +723,56 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637591310090092026
+  lastModified: 637591877471130126
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &6815409839823650308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/INTRO
+  m_EditorClassIdentifier: 
+  Path: event:/UI/INTRO
+  guid: 12479f9697933b4b84d03eaf873d31ac
+  Banks:
+  - {fileID: 6235104912808813185}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 45422
+--- !u!114 &7880072098850010711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Mus_MainTheme
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Mus_MainTheme
+  guid: 03efb7a4bcb5bf47b4ce5785034d47d2
+  Banks:
+  - {fileID: -7018266481104983953}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 900
+  Length: 299000
 --- !u!114 &8399739043786321715
 MonoBehaviour:
   m_ObjectHideFlags: 0

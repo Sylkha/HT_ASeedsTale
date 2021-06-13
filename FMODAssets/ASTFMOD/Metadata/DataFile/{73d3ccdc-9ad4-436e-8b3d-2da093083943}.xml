@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{73d3ccdc-9ad4-436e-8b3d-2da093083943}">
+		<property name="assetPath">
+			<value>SFX/Aud_Fx_Recoger-Catalejo.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

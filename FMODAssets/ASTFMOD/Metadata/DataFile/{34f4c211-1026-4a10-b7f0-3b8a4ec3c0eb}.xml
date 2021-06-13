@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{34f4c211-1026-4a10-b7f0-3b8a4ec3c0eb}">
+		<property name="assetPath">
+			<value>SFX/Aud_Fx_OpenNote.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

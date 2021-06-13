@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{987025fa-2f1b-4167-91a0-2589fd83bfda}">
+		<property name="assetPath">
+			<value>Ambience/Aud_Amb_Wind_Forest-Coast.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{5b34a05e-35c8-47b5-99d5-cd774732c969}">
+		<property name="assetPath">
+			<value>Ambience/Aud_Amb_Water_Jungle_River.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>

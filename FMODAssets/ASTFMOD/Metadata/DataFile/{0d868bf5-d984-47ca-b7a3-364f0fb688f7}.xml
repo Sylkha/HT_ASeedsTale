@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{0d868bf5-d984-47ca-b7a3-364f0fb688f7}">
+		<property name="assetPath">
+			<value>Ambience/AMB_EXT_Windchimes_on_Breezy_Summer_Day_01.ogg.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>
