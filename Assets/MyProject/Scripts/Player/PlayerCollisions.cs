@@ -60,10 +60,11 @@ public class PlayerCollisions : MonoBehaviour
                 dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
             }
         }
-        if (actions.Interacion && collision.gameObject.GetComponent<NoteCollisions>())
+        if (actions.Interacion && collision.gameObject.GetComponent<NoteCollisions>() && chating == false)
         {
             //SFX Interact Note
             FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
+            chating = true;
         }
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
@@ -85,6 +86,7 @@ public class PlayerCollisions : MonoBehaviour
         {
             chating = false;
         }
+        chating = false;
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
             chating = false;
