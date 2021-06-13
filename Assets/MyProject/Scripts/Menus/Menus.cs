@@ -11,9 +11,11 @@ using Bindings;
 public class Menus : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
+    [SerializeField] GameObject panelInicio; 
     [SerializeField] GameObject panelMain; 
     [SerializeField] GameObject panelOptions;  
     [SerializeField] GameObject panelQuit;  
+    [SerializeField] string sceneNameToChange;
     [SerializeField] string sceneName;
 
 //    [SerializeField] bool needSave;
@@ -95,7 +97,11 @@ public class Menus : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(optionsInGameCloseButton);
         }
         else
+        {
             EventSystem.current.SetSelectedGameObject(optionsCloseButton);
+            panelInicio.SetActive(true);
+
+        }
     }
 
     public void OptionsButton()
@@ -143,7 +149,7 @@ public class Menus : MonoBehaviour
     {
         // Ocultamos el menú
         panelMain.SetActive(false);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneNameToChange);
     }
 
     public void Quit_Check()
