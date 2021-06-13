@@ -93,6 +93,8 @@ public class Movement : MonoBehaviour
     // Axis container vector (for the movement)
     Vector3 dir;
 
+
+
     public enum Terrain
     {
         grounded,
@@ -116,6 +118,12 @@ public class Movement : MonoBehaviour
 
     MyPlayerActions actions;
 
+    //Audio
+    private Vector3 prevPos;
+    private float distanceTravelled;
+    [SerializeField] private float stepDistance = 2.0f;
+    private float stepRandom;
+
     private void Awake()
     {
         if (instance == null)
@@ -136,6 +144,10 @@ public class Movement : MonoBehaviour
         targetRotation = model.localEulerAngles;
 
         actions = Controls.instance.get_actions();
+
+        prevPos = transform.position;
+
+        stepRandom = Random.Range(0f, 0.5f);
     }
 
     void FixedUpdate()
@@ -163,7 +175,16 @@ public class Movement : MonoBehaviour
                 if (actions.Move.X != 0 || actions.Move.Y != 0)
                 {
                     anim.SetInteger("Movement", 1);
-                    //SFX Andar
+                    //SFX Walk https://scottgamesounds.com/c-scripts/
+                    distanceTravelled += (transform.position - prevPos).magnitude;
+                    if (distanceTravelled >= stepDistance + stepRandom)                  // If the distance the player has travlled is greater than or equal to the StepDistance plus the StepRandom, then we can perform our methods.
+                    {
+                      
+                        PlayFootstep();                                                  // The PlayFootstep method is performed and a footstep audio file from FMOD is played!
+                        stepRandom = Random.Range(0f, 0.5f);                             // Now that our footstep has been played, this will reset 'StepRandom' and give it a new random value between 0 and 0.5, in order to make the distance the player has to travel to hear a footstep different from what it previously was.
+                        distanceTravelled = 0f;                                          // Since the player has just taken a step, we need to set the 'DistanceTravelled' float back to 0.
+                    }
+                    prevPos = transform.position;
                 }
                 else anim.SetInteger("Movement", 0);
 
@@ -644,6 +665,17 @@ public class Movement : MonoBehaviour
         turnSmoothTime = turnSmoothTime_Swim;
     }
     #endregion Attributes
+
+    void PlayFootstep() // When this method is performed, our footsteps event in FMOD will be told to play.
+    {
+        
+            FMOD.Studio.EventInstance Footstep = FMODUnity.RuntimeManager.CreateInstance("event:/Antheia/Antheia_Footsteps");        // If they are, we create an FMOD event instance. We use the event path inside the 'FootstepsEventPath' variable to find the event we want to play.
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(Footstep, transform, GetComponent<Rigidbody>());     // Next that event instance is told to play at the location that our player is currently at.
+                                                  // We also set the Speed Parameter to match the value of the 'F_PlayerRunning' variable.
+            Footstep.start();                                                                                        // We then play a footstep!.
+            Footstep.release();                                                                                      // We also set our event instance to release straight after we tell it to play, so that the instance is released once the event had finished playing.
+        
+    }
 
     #region Dialogue Commands
 

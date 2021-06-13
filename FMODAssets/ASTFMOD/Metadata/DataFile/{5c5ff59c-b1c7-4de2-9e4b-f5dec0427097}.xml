@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="DataFile" id="{5c5ff59c-b1c7-4de2-9e4b-f5dec0427097}">
+		<property name="assetPath">
+			<value>Footsteps/Sfx_Footsteps_Generic_Leaves_03.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5d599a0a-b3eb-4193-86c8-542a1f979a0a}</destination>
+		</relationship>
+	</object>
+</objects>
