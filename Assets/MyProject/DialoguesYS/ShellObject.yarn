@@ -13,6 +13,6 @@ position: 827,439
 ---
 Antheia: Found it!
 <<takeCollectable Trident>>
-Trident: Hey!
+Trident: Hello, little one!
 <<resetMissions MissionsNotes>>
 ===

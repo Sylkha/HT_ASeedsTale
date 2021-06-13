@@ -2406,7 +2406,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
     - name: IL3DN_Shrub_Round_02_Dead
       settings:
@@ -2539,7 +2539,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
     - name: IL3DN_Shrub_Round_03_Dead
       settings:
@@ -5339,7 +5339,7 @@ MonoBehaviour:
       selectedSlot: 0
       selected: 0
       colorTag: 0
-  activeTab: 0
+  activeTab: 1
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2

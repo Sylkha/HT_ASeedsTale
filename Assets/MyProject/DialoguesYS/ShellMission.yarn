@@ -6,8 +6,8 @@ position: 608,-113
 <<if $Note3 is false>> 
 <<canMove Player false>>
 Antheia: A note? And it has my writing?
-Diary: LO DE LA CCONXA:
-Diary: el textito de la pista.
+Diary: Close to the Sea she was bornt... 
+Diary: Emerge yourself and look for her home.
 Antheia: Should I go for this one?
  
 [[Antheia: Of course! What could it be?|Node1_3]] 
@@ -28,7 +28,7 @@ position: 419,182
 ---
 <<set $Note3 to true>>
 <<take MissionsNotes Note3>>
-Antheia: To a godly adventure on a DONDE SEA LA CONXA!
+Antheia: To a godly adventure near the Sea!
 <<canMove Player true>>
 ===
 
@@ -47,7 +47,7 @@ colorID: 0
 position: 790,176
 ---
 <<canMove Player false>>
-Antheia: Alright girl! Now what?!
+Antheia: Alright girl! Now what?
 <<canMove Player true>>
 ===
 

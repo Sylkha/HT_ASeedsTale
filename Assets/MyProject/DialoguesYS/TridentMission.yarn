@@ -5,13 +5,13 @@ position: 608,-113
 ---
 <<if $Note2 is false>> 
 <<canMove Player false>>
-Antheia: A note? And it has my writing?
-Diary: texto de pista del tridente:
-Diary: aquí el textito de la pista.
+Antheia: A note? It sounds so familiar
+Diary: It can move oceans, tame waves...
+Diary: And between two mountains it waits.
 Antheia: Should I go for this one?
  
-[[Antheia: Of course! What could it be?|Node1_2]] 
-[[Antheia: Do|Node2_2]]
+[[Antheia: What an amazing use! I think I know what it is...|Node1_2]] 
+[[Antheia: Not this time!|Node2_2]]
 <<else>>
 <<canMove Player false>>
 Antheia: Already focused on this one!
@@ -28,7 +28,7 @@ position: 419,182
 ---
 <<set $Note2 to true>>
 <<take MissionsNotes Note2>>
-Antheia: To a godly adventure on a DONDE SEA EL TRIDENTE!
+Antheia: To a godly adventure between two mountains!
 <<canMove Player true>>
 ===
 
@@ -47,7 +47,7 @@ colorID: 0
 position: 790,176
 ---
 <<canMove Player false>>
-Antheia: Alright girl! Now what?!
+Antheia: Alright girl! Where has it gone?!
 <<canMove Player true>>
 ===
 

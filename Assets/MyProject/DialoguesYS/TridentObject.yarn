@@ -13,6 +13,6 @@ position: 827,439
 ---
 Antheia: Found it!
 <<takeCollectable Shell>>
-Shell: Hey!
+Shell: Beautiful shiny shell!
 <<resetMissions MissionsNotes>>
 ===
