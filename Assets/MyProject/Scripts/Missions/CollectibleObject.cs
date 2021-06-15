@@ -51,7 +51,7 @@ public class CollectibleObject : MonoBehaviour
             //Desde el dialogo le ponemos si cambian la conversación de la nota
             if (positionDelivered != null)
             {
-                this.gameObject.transform.position = positionDelivered.position;
+                this.gameObject.transform.localPosition = positionDelivered.localPosition;
 
                 if (missionObject)
                 {

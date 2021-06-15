@@ -1,18 +1,18 @@
-title: Shell_NoMission
+title: Trident_NoMission
 tags: 
 colorID: 0
 position: 721,130
 ---
-Shell: ...
+Trident: ...
 ===
 
-title: Shell_Mission
+title: Trident_Mission
 tags: 
 colorID: 0
 position: 827,439
 ---
 Antheia: Found it!
-<<takeCollectable Shell>>
-Shell: Beautiful shiny shell!
+<<takeCollectable Trident>>
+Trident: Hello, little one!
 <<resetMissions MissionsNotes>>
 ===

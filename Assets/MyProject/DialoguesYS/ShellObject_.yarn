@@ -1,0 +1,18 @@
+title: Shell_NoMission
+tags: 
+colorID: 0
+position: 721,130
+---
+Shell: ...
+===
+
+title: Shell_Mission
+tags: 
+colorID: 0
+position: 827,439
+---
+Antheia: Found it!
+<<takeCollectable Shell>>
+Shell: Beautiful shiny shell!
+<<resetMissions MissionsNotes>>
+===
