@@ -1,8 +1,14 @@
+// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
+/// <summary>
+/// Esta clase nos permite acceder al mapeado de acciones desde cualquier script.
+/// </summary>
 public class Controls : MonoBehaviour
 {
     public static Controls instance;

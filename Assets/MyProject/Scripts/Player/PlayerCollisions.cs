@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
 
-// This script is contained by the model.
+/// <summary>
+/// Este script lo contiene el modelo del Player. Nos sirve para los eventos que se produzcan en trigger con el personaje.
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCollisions : MonoBehaviour
 {
@@ -33,25 +38,9 @@ public class PlayerCollisions : MonoBehaviour
         actions = Controls.instance.get_actions();
     }
 
-    void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>())
-        {
-            //Le aparecerá al personaje la tecla que pulsar
-        }
-        if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
-        {
-            //Le aparecerá al personaje la tecla que pulsar
-        }
-        if (collision.gameObject.GetComponent<MissionNotes>() && collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>()) // lo cambiaremos a layers
-        {
-            
-            //dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
-            //Le aparecerá al personaje la tecla que pulsar
-        }
-    }
     void OnTriggerStay(Collider collision)
     {
+        // Si interactuamos con un NPC para dialogar
         if (collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>()) //&& !collision.gameObject.GetComponent<MissionNotes>())
         {
             if (actions.Interacion && chating == false)
@@ -60,12 +49,14 @@ public class PlayerCollisions : MonoBehaviour
                 dl.StartDialogue(collision.gameObject.GetComponent<Yarn.Unity.Example.NPC>().talkToNode);
             }
         }
+        // Si interactuamos con una nota
         if (actions.Interacion && collision.gameObject.GetComponent<NoteCollisions>() && chating == false)
         {
             //SFX Interact Note
             FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
             chating = true;
         }
+        // Si interactuamos con un objeto
         if (collision.gameObject.GetComponent<CollectibleObject>()) // lo cambiaremos a layers
         {
             if (actions.Interacion && chating == false)

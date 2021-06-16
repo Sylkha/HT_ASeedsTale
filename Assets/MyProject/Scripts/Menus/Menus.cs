@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +10,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 using Bindings;
-// This script is contained by MenuManager
+
+/// <summary>
+/// Este script lo contiene el MenuManager
+/// </summary>
 public class Menus : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
@@ -37,18 +43,14 @@ public class Menus : MonoBehaviour
 
     MyPlayerActions actions;
 
-    // Start is called before the first frame update
     void Start()
     {
         actions = Controls.instance.get_actions();
 
-        // clear the selected object
+        // hay que limpiarlo primero
         EventSystem.current.SetSelectedGameObject(null);
-        // set new selected object
+        
         EventSystem.current.SetSelectedGameObject(menuFirstButton);
-
-        /* if(canvas != null)
-             canvas.enabled = false; */
     }
 
     private void Update()
@@ -56,6 +58,9 @@ public class Menus : MonoBehaviour
         CUpdate();
     }
 
+    /// <summary>
+    /// Esta función se encarga de que, desde la escena Game, mostremos y ocultemos el menú.
+    /// </summary>
     void CUpdate()
     {        
         if (SceneManager.GetActiveScene().name == sceneName)
@@ -69,9 +74,9 @@ public class Menus : MonoBehaviour
                     panelMain.SetActive(true);
                     show = true;
 
-                    // clear the selected object
+             
                     EventSystem.current.SetSelectedGameObject(null);
-                    // set new selected object
+                  
                     EventSystem.current.SetSelectedGameObject(menuInGameFirstButton);                    
                 }
                 else
@@ -84,6 +89,9 @@ public class Menus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Esta función cierra el menú de opciones y vuelve al inicio del menú
+    /// </summary>
     public void ReturnButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -93,7 +101,7 @@ public class Menus : MonoBehaviour
             panelOptions.SetActive(false);
             panelQuit.SetActive(false);
 
-            // clear the selected object
+
             EventSystem.current.SetSelectedGameObject(optionsInGameCloseButton);
         }
         else
@@ -104,17 +112,21 @@ public class Menus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Función que, al abrir el botón de opciones, selecciona cierto botón.
+    /// </summary>
     public void OptionsButton()
     {
-        // clear the selected object
         EventSystem.current.SetSelectedGameObject(null);
-        // set new selected object
+
         EventSystem.current.SetSelectedGameObject(optionsFirstButton);
     }
 
+    /// <summary>
+    /// Esta función oculta el menú
+    /// </summary>
     public void ResumeButton()
     {
-        // Ocultamos el menú
         panelMain.SetActive(false);
         panelOptions.SetActive(false);
         show = false;
@@ -124,6 +136,9 @@ public class Menus : MonoBehaviour
         Debug.Log("Resume");
     }
 
+    /// <summary>
+    /// Función para cuando se pueda guardar el juego.
+    /// </summary>
     public void SaveButton()
     {
         // Guardamos
@@ -131,6 +146,9 @@ public class Menus : MonoBehaviour
         Debug.Log("Save");
     }
 
+    /// <summary>
+    /// Función para cuando se pueda guardar el juego.
+    /// </summary>
     public void SaveNExitButton()
     {
         // Guardamos
@@ -139,12 +157,18 @@ public class Menus : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Función para salir del juego.
+    /// </summary>
     public void ExitGameButton()
     {
         Debug.Log("Exit");
         Application.Quit();
     }
 
+    /// <summary>
+    /// Función para cambiar de escena.
+    /// </summary>
     public void ChangeSceneButton()
     {
         // Ocultamos el menú
@@ -152,8 +176,12 @@ public class Menus : MonoBehaviour
         SceneManager.LoadScene(sceneNameToChange);
     }
 
+    /// <summary>
+    /// Función para cuando el jugador quiere salir del juego: hacemos otra comprobación, y seleccionamos primero el botón "no".
+    /// </summary>
     public void Quit_Check()
     {
+        // Cuando se abre el panel que vuelve a preguntar al jugador.
         if(check == false)
         {
             check = true;
@@ -167,7 +195,7 @@ public class Menus : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(buttonCheckQuit_Menu);
             Debug.Log(buttonCheckQuit);
         }
-
+        // Cuando se cierra el panel
         else
         {
             check = false;
@@ -180,7 +208,6 @@ public class Menus : MonoBehaviour
             else
                 EventSystem.current.SetSelectedGameObject(buttonQuit_Menu);
 
-            Debug.Log("vuelve?");
         }
     }
 

@@ -1,7 +1,13 @@
+// Autor: Jorge Aranda
+// jaranlopz@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Esta clase activa el audio en el inicio.
+/// </summary>
 public class TriggerAudio : MonoBehaviour
 {
     [FMODUnity.EventRef]

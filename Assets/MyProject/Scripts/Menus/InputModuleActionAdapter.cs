@@ -1,7 +1,13 @@
+// Modificaciones por: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using UnityEngine;
 using InControl;
 
-
+/// <summary>
+/// Esta clase será nuestro mapeado para la UI. Preferimos separarla siguiendo el ejemplo de InControl 
+/// http://www.gallantgames.com/pages/incontrol-new-unity-gui
+/// </summary>
 [RequireComponent(typeof(InControlInputModule))]
 public class InputModuleActionAdapter : MonoBehaviour
 {

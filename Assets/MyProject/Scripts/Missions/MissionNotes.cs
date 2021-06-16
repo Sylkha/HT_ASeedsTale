@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-// This script is contained by MissionNotesManager
+/// <summary>
+/// Este script lo tiene MissionNotes
+/// </summary>
 public class MissionNotes : MonoBehaviour
 {
+    /// <summary>
+    /// Struct de los datos necesarios por cada nota:
+    /// </summary>
     [System.Serializable]
     public struct Notes
     {
@@ -22,6 +30,9 @@ public class MissionNotes : MonoBehaviour
     [Header("Notes")]
     [SerializeField] Notes[] notes = default;
 
+    /// <summary>
+    /// Dejamos las notas a "0" (como tendrían que estar al inicio de la partida (no guardada))
+    /// </summary>
     private void Start()
     {
         for (int i = 0; i < notes.Length; i++)
@@ -37,8 +48,12 @@ public class MissionNotes : MonoBehaviour
         return notes;
     }
 
-    // We call this in the PlayerCollision. Only if we didnt take a note yet. (Esto se controla desde ese script). Cuando reiniciemos el nivel, todo irá a false.
-    // Comando para poner en el dialogo: <<take NombreObjeto noteNumber>>
+
+    /// <summary>
+    /// Esta clase indica que hemos cogido la nota acompañado de el número de nota.
+    /// Comando para poner en el dialogo: <</ take NombreObjeto noteNumber>>
+    /// </summary>
+    /// <param name="_note"></param>
     [Yarn.Unity.YarnCommand("take")]
     public void TakeNote(string _note)
     {
@@ -55,7 +70,11 @@ public class MissionNotes : MonoBehaviour
         }
     }
 
-    // Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, se indica. Antes que este, va el comando "takeCollectable" que llama a SetCollected
+    /// <summary>
+    /// Esta función se hace cada vez que se termina una misión:
+    /// Todos vuelven a sus respectivos diálogos, pero si ya han sido finalizados, se indica. Si están todas completas, se cambia de estación
+    /// Antes que este, va el comando "takeCollectable" que llama a SetCollected
+    /// </summary>
     [Yarn.Unity.YarnCommand("resetMissions")]
     public void ResetMissions()
     {

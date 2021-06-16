@@ -1,31 +1,30 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// This script is contained by the Impulse Platform
+/// <summary>
+/// Este script sería contenido por una plataforma de impulso/seta
+/// </summary>
 public class JumpImpulse : MonoBehaviour
 {
+    /// <summary>
+    /// Cantidad de impulso aplicado
+    /// </summary>
     [SerializeField] private float impulse = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Accedemos al componente Movement del player para aplicarle ese impulso y que haga un salto sin necesidad de que el player toque ninguna tecla.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Movement>())
         {
             other.GetComponent<Movement>().Jump(impulse);
             other.GetComponent<Movement>().platformJump = true;
-            Debug.Log("oye");
         }
     }
 

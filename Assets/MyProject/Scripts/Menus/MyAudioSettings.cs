@@ -1,8 +1,14 @@
+// Modificaciones por: Jorge Aranda
+// jaranlopz@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// https://scottgamesounds.com/wp-content/uploads/2018/12/C.AudioSettings.txt
+/// <summary>
+/// Esta clase se encarga del volumen de los grupos: Música, SFX y Master.
+/// https://scottgamesounds.com/wp-content/uploads/2018/12/C.AudioSettings.txt
+/// </summary>
 public class MyAudioSettings : MonoBehaviour
 {
     FMOD.Studio.EventInstance SFXVolumeTestEvent;

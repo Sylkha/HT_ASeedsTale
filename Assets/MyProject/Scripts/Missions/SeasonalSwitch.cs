@@ -1,20 +1,29 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using IL3DN;
 
 /// <summary>
-/// Creamos un delegado. Podemos hacer uno para el cambio de estación (más elegante)
+/// Creamos un delegado. 
 /// </summary>
 public delegate void Delegate(bool b);
 
-// This script is contained by Altar
+/// <summary>
+/// Este scrip lo tiene el Altar.
+/// Controla el cambio de estación
+/// </summary>
 public enum Seasons { Summer = 1, Autumn, Winter, Spring };
 [RequireComponent(typeof(Yarn.Unity.Example.NPC))]
 public class SeasonalSwitch : MonoBehaviour
 {
     public static SeasonalSwitch instance;
 
+    /// <summary>
+    /// Cuando tengamos realmente un altar físico, activaremos el cambio de estación mediante un diálogo.
+    /// </summary>
     [Header("Mission Part")]
     [SerializeField] MissionNotes mn;
     [SerializeField] string n_CompletedMission;
@@ -23,6 +32,9 @@ public class SeasonalSwitch : MonoBehaviour
     Yarn.Unity.Example.NPC dialogue;
     bool canSwitch = false;
 
+    /// <summary>
+    /// La información necesaria de cada estación en un struct
+    /// </summary>
     [System.Serializable]
     public struct SeasonStruct
     {
@@ -34,6 +46,9 @@ public class SeasonalSwitch : MonoBehaviour
     [Header("Seasons")]
     [SerializeField] SeasonStruct [] seasons;
 
+    /// <summary>
+    /// Referencias a la herramienta de IL3DN para cambiar los objetos de color y la nieve.
+    /// </summary>
     [SerializeField] IL3DN_ColorManagerTextures cmTex;
     [SerializeField] IL3DN_ColorManagerEffects cmEff;
     [SerializeField] IL3DN_Snow snow;
@@ -48,13 +63,15 @@ public class SeasonalSwitch : MonoBehaviour
     /// VisibleMask es la máscara actual, se verá durante toda la estación.
     /// InvisibleMask es la máscara en la cual estarán el resto de objetos de las demás estaciones que no sean la actual.
     /// NewVisibleMask es la máscara en la cual mientras se esté haciendo el cambio, la visible se irá haciendo invisible por el stencil y la newVisible será la que se está haciendo visible.
-    /// Cuando se retiren los stencils es cuando cambiamos los objetos de la visible a la invisible, y los de newVisible a la visible.
     /// </summary>
     [SerializeField] LayerMask visibleMask;
     [SerializeField] LayerMask invisibleMask;
     [SerializeField] LayerMask newInvisibleMask;
     [SerializeField] LayerMask newVisibleMask;
 
+    /// <summary>
+    /// Variables para cambiar la nieve de la herramienta IL3DN.
+    /// </summary>
     [Header("Snow Variables")]
     [SerializeField] [Range(0, 1)] float SnowTerrain;
     [SerializeField] [Range(0, 20)] float SnowPines;
@@ -64,8 +81,10 @@ public class SeasonalSwitch : MonoBehaviour
     [SerializeField] [Range(0, 20)] float SnowGrass;
     [SerializeField] [Range(0, 2.1f)] float CutoffLeaves;
 
+    /// <summary>
+    /// Velocidad de los cambios:
+    /// </summary>
     [SerializeField] float snowAppSpeed = 2;
-
     [SerializeField] float secondsChange = 4f;
 
     Delegate delegado;
@@ -83,7 +102,10 @@ public class SeasonalSwitch : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Indicamos a los scripts de la herramienta IL3DN que el cambio se hará en los segundos marcados.
+    /// El blending entre los colores de la anterior estación a la nueva la realizó la autora de este script en base a la herramienta.
+    /// </summary>
     void Start()
     {       
         cmTex.set_seconds(secondsChange);
@@ -96,6 +118,9 @@ public class SeasonalSwitch : MonoBehaviour
         ChangeLayers(seasons[(int)season - 1].objParent, visibleMask);
     }
 
+    /// <summary>
+    /// Cuando haya terminado de cambiar los colores, indicamos que hemos terminado
+    /// </summary>
     private void Update()
     {
         if(cmTex.get_finished() == true)
@@ -105,6 +130,9 @@ public class SeasonalSwitch : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Cambio de estación.
+    /// </summary>
     public void ChangeSeason()
     {
         //SFX CAMBIO DE ESTACIÓN
@@ -142,15 +170,18 @@ public class SeasonalSwitch : MonoBehaviour
         SeasonProcesses((int)season, newInvisibleMask);
     }
 
+    /// <summary>
+    /// Cuando terminamos el cambio de estación, cambiamos de layer la new a la visible, la visible a la invisible y desactivamos las bolitas que recubren nuestros objetos.
+    /// </summary>
     public void FinishChange()
     {
-        // Cuando terminamos el cambio de estación, cambiamos de layer la new a la visible, la visible a la invisible y desactivamos las bolitas que recubren nuestros objetos.
         SeasonProcesses((int)season, invisibleMask);
         season = newSeason;
         SeasonProcesses((int)season, visibleMask);
         delegado(false);
         Debug.Log("pasa?");
     }
+
     void SeasonStart()
     {
         delegado(true);
@@ -164,10 +195,14 @@ public class SeasonalSwitch : MonoBehaviour
         ChangeLayers(seasons[sNum - 1].objParent, mask);        
     }
 
+    /// <summary>
+    /// Ya que las layers son códigos de bits, el primer valor sería 1, el siguiente 2, 4, 8, 16... y así,
+    /// vamos a contar cuántas veces hay que dividir entre 2 para obtener el número de la layer 
+    /// </summary>
+    /// <param name="seasonObjParent"></param>
+    /// <param name="newLayer"></param>
     void ChangeLayers(GameObject seasonObjParent, LayerMask newLayer)
     {
-        // Ya que las layers son códigos de bits, el primer valor sería 1, el siguiente 2, 4, 8, 16... y así,
-        // vamos a contar cuántas veces hay que dividir entre 2 para obtener el número de la layer 
         int tempLayer = newLayer;
         int layerNumber = 0;
 
@@ -184,6 +219,10 @@ public class SeasonalSwitch : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Cambios en la nieve:
+    /// </summary>
+    /// <param name="grow"></param>
     void Snow(bool grow)
     {
         // Crece la nieve
@@ -241,7 +280,10 @@ public class SeasonalSwitch : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Cuando cambiemos el cambio de estación a diálogo:
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerCollisions>())

@@ -1,13 +1,22 @@
+// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
+/// <summary>
+/// Esta clase se encarga de abrir y cerrar el diario.
+/// </summary>
 public class Diary : MonoBehaviour
 {
     [SerializeField] GameObject diaryMenu;
     bool diaryOpen = false;
 
+    /// <summary>
+    /// Referencia a nuestro mapeado de acciones.
+    /// </summary>
     MyPlayerActions actions;
 
     private void Start()
@@ -16,20 +25,22 @@ public class Diary : MonoBehaviour
         diaryMenu.SetActive(false);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Abrimos y cerramos el diario.
+    /// </summary>
     void Update()
     {
         if (actions.Diary.WasPressed)
         {
-            if(diaryOpen == false) //SFX SE ABRE 
+            if(diaryOpen == false) 
             {
+                //SFX SE ABRE 
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Open");
-
             }
             else
             {
+                //SFX SE CIERRA 
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Diary-Notes/Notes_Close");
-                //SFE SE CIERRA 
             }
 
             diaryOpen = !diaryOpen;

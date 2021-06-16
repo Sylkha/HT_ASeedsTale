@@ -1,7 +1,13 @@
+// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Clase para mostrar el trail del vuelo (aún no implementado)
+/// </summary>
 namespace Movements.Fly
 {
     public class FlyingTrail : MonoBehaviour

@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using Bindings;
 
-//This script is contained by the player, father of the model.
+/// <summary>
+/// Este script lo contiene el player (padre del modelo)
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
@@ -12,23 +17,37 @@ public class Movement : MonoBehaviour
 
     #region Variables
 
+    /// <summary>
+    /// Variables del movimiento por tierra
+    /// </summary>
     [Header("Movement")]
     [SerializeField] float speed_Ground = 7.5f;
     [SerializeField] float jumpSpeed_Ground = 10.0f;
     [SerializeField] float gravity_Ground = 20.0f;
     [SerializeField] float turnSmoothTime_Ground = 0.1f;
+    /// <summary>
+    /// Variables para que no rebote en las inclinaciones
+    /// </summary>
     float slopeForce;
     [SerializeField] float slopeForceRayLength = 0.5f;
     float fallVelocity = 0;
     float turnSmoothVelocity;
-    Vector3 direction;                                  // Movement direction
+    /// <summary>
+    /// Dirección del movimiento
+    /// </summary>
+    Vector3 direction;                                  
 
-    // For going down on slopes
+    /// <summary>
+    /// Para que el personaje se vaya cayendo de las inclinaciones
+    /// </summary>
     public bool isOnSlope = false;
     Vector3 hitNormal;
     [SerializeField] float slideVelocity = 5;
     [SerializeField] float slopeForceDown = 10;
 
+    /// <summary>
+    /// Variables para el movimiento de vuelo. (aún no está en su fase final)
+    /// </summary>
     [Header("Glide")]
     [SerializeField] float pitch_speed = 70;
     [SerializeField] float roll_speed = 70;
@@ -48,11 +67,9 @@ public class Movement : MonoBehaviour
 
     [SerializeField] float speed_Glide = 10.0f;
     [SerializeField] float gravity_Glide = 150.0f;
-    [SerializeField] float turnSmoothTime_Glide = 0.1f; // Rotate smooth while gliding
-    [SerializeField] float heightToFly = 3;             // Height we need for the player from the floor to can glide
-    // [SerializeField] float glideChangeCD = 0.5f;     // Some Cooldown
-    [SerializeField] float _minimumHeldDuration = 0.5f; // How much time we need to held buttom in order to get the player gliding
-    // bool canChangeGlide = false;
+    [SerializeField] float turnSmoothTime_Glide = 0.1f; 
+    [SerializeField] float heightToFly = 3;             
+    [SerializeField] float _minimumHeldDuration = 0.5f; 
        
     private float _spacePressedTime = 0;
     private bool _spaceHeld = false;
@@ -60,6 +77,9 @@ public class Movement : MonoBehaviour
     private bool _getbutton_glide = false;
     private bool _getbuttonup_glide = false;
 
+    /// <summary>
+    /// Movimiento al nadar y bucear
+    /// </summary>
     [Header("Swimming")]
     [SerializeField] float speed_Swim = 10.0f;
     [SerializeField] float min_speed_Swim = 5.0f;
@@ -74,7 +94,6 @@ public class Movement : MonoBehaviour
     float WaterLevel;
     bool is_diving = false;
 
-    // Min and Max Rotation while swimming
     [SerializeField] float minRotX = -20;   
     [SerializeField] float maxRotX = 20;
     
@@ -92,8 +111,6 @@ public class Movement : MonoBehaviour
 
     // Axis container vector (for the movement)
     Vector3 dir;
-
-
 
     public enum Terrain
     {
@@ -118,7 +135,9 @@ public class Movement : MonoBehaviour
 
     MyPlayerActions actions;
 
-    //Audio
+    /// <summary>
+    /// Para el audio de pasos.
+    /// </summary>  
     private Vector3 prevPos;
     private float distanceTravelled;
     [SerializeField] private float stepDistance = 2.0f;
@@ -160,6 +179,9 @@ public class Movement : MonoBehaviour
             SwimmingMovement();        
     }
     float maxY;
+    /// <summary>
+    /// Función de control de las animaciones y audio
+    /// </summary>
     void Animations()
     {
         if (canMove == false)
@@ -178,8 +200,7 @@ public class Movement : MonoBehaviour
                     //SFX Walk https://scottgamesounds.com/c-scripts/
                     distanceTravelled += (transform.position - prevPos).magnitude;
                     if (distanceTravelled >= stepDistance + stepRandom)                  // If the distance the player has travlled is greater than or equal to the StepDistance plus the StepRandom, then we can perform our methods.
-                    {
-                      
+                    {                    
                         PlayFootstep();                                                  // The PlayFootstep method is performed and a footstep audio file from FMOD is played!
                         stepRandom = Random.Range(0f, 0.5f);                             // Now that our footstep has been played, this will reset 'StepRandom' and give it a new random value between 0 and 0.5, in order to make the distance the player has to travel to hear a footstep different from what it previously was.
                         distanceTravelled = 0f;                                          // Since the player has just taken a step, we need to set the 'DistanceTravelled' float back to 0.
@@ -245,6 +266,9 @@ public class Movement : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Movimiento del personaje. Siempre mantenemos los ejes de derecha, izquierda, delante y atrás respecto a la cámara.
+    /// </summary>
     void BasicMovement()
     {
         dir.x = actions.Move.X;
@@ -271,6 +295,9 @@ public class Movement : MonoBehaviour
     }
     
     #region Ground Movement
+    /// <summary>
+    /// Movimiento por tierra teniendo en cuenta el salto y el cambio a vuelo.
+    /// </summary>
     void GroundMovement()
     {
         BasicMovement();
@@ -282,11 +309,6 @@ public class Movement : MonoBehaviour
             GroundAttributes();
             is_Jumping = false;
             platformJump = false;
-
-           /* if (is_Jumping == true)
-            {
-                StartCoroutine(Cooldown(2f, is_Jumping));
-            }*/
             glide = false;
         }
         // Not Grounded
@@ -319,7 +341,7 @@ public class Movement : MonoBehaviour
 
         characterController.Move(direction * Time.deltaTime);        
     }
-
+    #region VueloNoImplementado
     void Fly(float rollAxis)
     {        
         //Pitch();
@@ -369,10 +391,13 @@ public class Movement : MonoBehaviour
 
         }
     }
+    #endregion VueloNoImplementado
 
-    // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
-    // when the direction is multiplied by deltaTime). This is because gravity should be applied
-    // as an acceleration (ms^-2)
+    /// <summary>
+    /// Aplicamos la gravedad. La multiplicamos dos veces por el deltaTime(una aquí y otra cuando se multiplica la dirección por deltaTine).
+    /// La gravedad tiene que ser aplicada como una aceleración (ms^-2).
+    /// Cuando está en el suelo o volando, le aplicamos gravedad continua.
+    /// </summary>
     void Gravity()
     {
         if (characterController.isGrounded || glide == true)
@@ -388,7 +413,9 @@ public class Movement : MonoBehaviour
         SlideDown();
     }
 
-    // For going down on slopes
+    /// <summary>
+    /// Para que caigamos en las inclinaciones y no podamos escalarlas saltando:
+    /// </summary>
     void SlideDown()
     {
         if (typeMovement != Terrain.grounded) return;
@@ -418,6 +445,10 @@ public class Movement : MonoBehaviour
     }
 
     bool is_Jumping = false;
+    /// <summary>
+    /// Para determinar si estamos en el suelo y combatir los pequeños salientes que hay por el terreno, y así evitar dar saltos.
+    /// </summary>
+    /// <returns></returns>
     bool IsGrounded()
     {
         if (characterController.isGrounded)
@@ -426,8 +457,7 @@ public class Movement : MonoBehaviour
         if(is_Jumping)
             return false;
 
-        // Here we detect the slopes in the terrain so that the character was on flat terrain. 
-        // We make it close to the ground if it is between the ground and a short vertical distance 
+        // Detectamos los salientes del terreno. Le hacemos estar cerca del suelo.
         if (MyRaycast(slopeForceRayLength))
         {
             slopeForce = -hit.distance;
@@ -451,15 +481,14 @@ public class Movement : MonoBehaviour
         can = false;
     }
     
-    void Update() // We need inputs to be in Update instead of FixedUpdate
+    /// <summary>
+    /// Necesitamos que los inputs estén en el Update.
+    /// </summary>
+    void Update() 
     {
         Animations();
         if (!canMove) return;
-      /*  if (typeMovement == Terrain.grounded || typeMovement == Terrain.flying) // Separamos grounded de flying para tener un orden
-            GroundMovement();
 
-        else if (typeMovement == Terrain.swimming || typeMovement == Terrain.diving)
-            SwimmingMovement();*/
         if (actions.JumpGlide.WasPressed && typeMovement == Terrain.flying && (!MyRaycast(heightToFly)))
         {
             _getbuttondown_glide = true;
@@ -473,6 +502,10 @@ public class Movement : MonoBehaviour
             _getbuttonup_glide = true;
         }
     }
+
+    /// <summary>
+    /// Función que ejecuta las distintas habilidades: saltar, volar y bucear.
+    /// </summary>
     void PlayerSkills()
     {
         if (IsGrounded() && actions.JumpGlide.IsPressed && canMove && is_Jumping == false)
@@ -550,6 +583,9 @@ public class Movement : MonoBehaviour
     #region Swimming Movement
     float speed_aux = 5;
     bool imp = true;
+    /// <summary>
+    /// Movimiento del nado. Nos vamos impulsando.
+    /// </summary>
     void SwimmingMovement()
     {
         targetRotation.z = Mathf.LerpAngle(transform.localEulerAngles.z, 0, roll_speed * Time.deltaTime);
@@ -561,6 +597,9 @@ public class Movement : MonoBehaviour
         characterController.Move(impulse * Time.deltaTime);        
     }
 
+    /// <summary>
+    /// Impulso del nado.
+    /// </summary>
     void Impulse_swim()
     {
         if (speed_aux >= speed)
@@ -576,8 +615,12 @@ public class Movement : MonoBehaviour
         impulse = direction.normalized * speed_aux;
     }
 
+    /// <summary>
+    /// Si está en el agua a X distancia sumergido pues a nadar.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
-    {   // Si está en el agua a X distancia sumergido pues a nadar        
+    {            
         WaterLevel = other.bounds.max.y;
         if (other.tag == "Water")
         {
@@ -666,6 +709,9 @@ public class Movement : MonoBehaviour
     }
     #endregion Attributes
 
+    /// <summary>
+    /// Función para los pasos. Implementada por Jorge Aranda
+    /// </summary>
     void PlayFootstep() // When this method is performed, our footsteps event in FMOD will be told to play.
     {
         

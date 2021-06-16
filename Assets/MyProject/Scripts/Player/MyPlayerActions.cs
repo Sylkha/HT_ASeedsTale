@@ -1,9 +1,15 @@
-﻿namespace Bindings
+﻿// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
+namespace Bindings
 {
 	using InControl;
 	using UnityEngine;
 
 
+/// <summary>
+/// Mapeado de las acciones
+/// </summary>
 	public class MyPlayerActions : PlayerActionSet
 	{
 		public readonly PlayerAction Fire;

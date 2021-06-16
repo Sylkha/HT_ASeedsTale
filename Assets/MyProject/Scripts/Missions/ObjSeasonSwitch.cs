@@ -1,7 +1,13 @@
+// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Esta clase se encarga de recibir cuándo comienza el cambio de estación para hacer crecer la mascara que le ocultará o hará aparecer.
+/// </summary>
 public class ObjSeasonSwitch : MonoBehaviour
 {
     [SerializeField] GameObject prefabMask;
@@ -9,14 +15,18 @@ public class ObjSeasonSwitch : MonoBehaviour
     GameObject mask;
     bool grow = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Creamos la máscara y nos suscribimos pasa que nos indiquen desde el controlador del cambio de estación cuándo tiene que crecer nuestra máscara.
+    /// </summary>
     void Start()
     {
         mask = Instantiate(prefabMask, transform);
         SeasonalSwitch.instance.SubDelegate(set_growTrue);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Haremos crecer el objeto en el cambio de estación. El resto del tiempo lo mantendremos a escala 0.
+    /// </summary>
     void Update()
     {
         if(grow == true)

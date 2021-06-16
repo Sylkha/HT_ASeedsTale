@@ -1,3 +1,6 @@
+// Autor: Silvia Osoro
+// silwia.o.g@gmail.com
+
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -5,6 +8,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Desde esta clase, apretando el Toggle del menú, activamos o desactivamos la opción de pantalla completa.
+/// También guardaremos esta decisión.
+/// </summary>
 public class FullScreen : MonoBehaviour
 {
     [SerializeField] Toggle toggle;
