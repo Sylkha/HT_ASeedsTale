@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.bank
   Name: Build/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637593955692203149
+  lastModified: 637597399900354808
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/UI.bank
   Name: Build/Desktop/UI
   StudioPath: bank:/UI
-  lastModified: 637591845803403410
+  lastModified: 637597399901627854
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Music.bank
   Name: Build/Desktop/Music
   StudioPath: bank:/Music
-  lastModified: 637593955693213879
+  lastModified: 637597399901598098
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -141,7 +141,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Master.strings.bank
   Name: Build/Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637593955692223101
+  lastModified: 637597399900514391
   LoadResult: 0
   FileSizes:
   - Name: ASTFMOD
@@ -332,7 +332,7 @@ MonoBehaviour:
   - {fileID: -8590955644396046769}
   StringsBanks:
   - {fileID: -6737208229002477599}
-  stringsBankWriteTime: 637593955692223101
+  stringsBankWriteTime: 637597399900514391
   cacheVersion: 6
 --- !u!114 &152328160733653714
 MonoBehaviour:
@@ -418,7 +418,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Character.bank
   Name: Build/Desktop/Character
   StudioPath: bank:/Character
-  lastModified: 637548955239283320
+  lastModified: 637597399898001106
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -593,7 +593,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Enviroment.bank
   Name: Build/Desktop/Enviroment
   StudioPath: bank:/Enviroment
-  lastModified: 637591845801842862
+  lastModified: 637597399899088213
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -771,7 +771,7 @@ MonoBehaviour:
   Path: FMODAssets/ASTFMOD/Build/Desktop/Effects.bank
   Name: Build/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637593955691250615
+  lastModified: 637597399899048314
   LoadResult: 0
   FileSizes: []
   Exists: 1

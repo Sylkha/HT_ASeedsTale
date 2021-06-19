@@ -62,7 +62,7 @@ public class InputModuleActionAdapter : MonoBehaviour
     {
         actions = new InputModuleActions();
 
-        actions.Submit.AddDefaultBinding(InputControlType.Action1);
+        actions.Submit.AddDefaultBinding(InputControlType.Action3);
         actions.Submit.AddDefaultBinding(Key.Return);
         actions.Submit.AddDefaultBinding(Key.E);
 

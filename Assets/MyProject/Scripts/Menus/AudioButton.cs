@@ -30,7 +30,7 @@ public class AudioButton : MonoBehaviour, ISelectHandler, IPointerEnterHandler
     {
         Debug.Log("ButtonHover");
         
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Enviroment/Nature/Amb_Ocean", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/UI/UI_OnSelect", GetComponent<Transform>().position);
     }
 
     /// <summary>

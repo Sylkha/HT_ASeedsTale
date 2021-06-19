@@ -55,19 +55,20 @@ namespace Bindings
 			// playerActions.Next.AddDefaultBinding( KeyCombo.With( Key.Tab ).AndNot( Key.Shift ) );
 
 			playerActions.Interacion.AddDefaultBinding( Key.E );
-			playerActions.Interacion.AddDefaultBinding( InputControlType.Action1 );
+			playerActions.Interacion.AddDefaultBinding( InputControlType.Action3 );
 			// playerActions.Fire.AddDefaultBinding( Mouse.LeftButton );
 
 			playerActions.JumpGlide.AddDefaultBinding( Key.Space );
-			playerActions.JumpGlide.AddDefaultBinding( InputControlType.Action3 );
+			playerActions.JumpGlide.AddDefaultBinding( InputControlType.Action1);
 			playerActions.JumpGlide.AddDefaultBinding( InputControlType.Back );
 
-			playerActions.Up.AddDefaultBinding(Key.W);
-			playerActions.Down.AddDefaultBinding(Key.S);
-			playerActions.Left.AddDefaultBinding(Key.A);
-			playerActions.Right.AddDefaultBinding(Key.D);
+			playerActions.Up.AddDefaultBinding(Key.W);            
+            playerActions.Down.AddDefaultBinding(Key.S);        
+            playerActions.Left.AddDefaultBinding(Key.A);           
+            playerActions.Right.AddDefaultBinding(Key.D);
+            
 
-			playerActions.Up.AddDefaultBinding( Key.UpArrow );
+            playerActions.Up.AddDefaultBinding( Key.UpArrow );
 			playerActions.Down.AddDefaultBinding( Key.DownArrow );
 			playerActions.Left.AddDefaultBinding( Key.LeftArrow );
 			playerActions.Right.AddDefaultBinding( Key.RightArrow );
@@ -83,13 +84,16 @@ namespace Bindings
 			playerActions.Down.AddDefaultBinding( InputControlType.DPadDown );
 
 			playerActions.DiveUp.AddDefaultBinding(Mouse.LeftButton);
+			playerActions.DiveUp.AddDefaultBinding(InputControlType.LeftTrigger);
 			playerActions.DiveDown.AddDefaultBinding(Mouse.RightButton);
+			playerActions.DiveDown.AddDefaultBinding(InputControlType.RightTrigger);
+			
 
 			playerActions.Exit.AddDefaultBinding(Key.Escape);
-			//playerActions.Exit.AddDefaultBinding(InputControlType.Action1);
+			playerActions.Exit.AddDefaultBinding(InputControlType.RightBumper);
 
 			playerActions.Diary.AddDefaultBinding(Key.Tab);
-			//playerActions.Diary.AddDefaultBinding(InputControlType.Action1);
+			playerActions.Diary.AddDefaultBinding(InputControlType.LeftBumper);
 
 			// Esto pilla el ratón
 			/*playerActions.Up.AddDefaultBinding( Mouse.PositiveY );
